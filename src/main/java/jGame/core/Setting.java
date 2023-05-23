@@ -4,12 +4,16 @@
 
 package jGame.core;
 
+import jGame.loop.Render;
+import jGame.loop.Update;
 import jGame.output.Output;
 
 public interface Setting {
-    public Size frameSize();
+    public Output getOutput();
 
-    public Output output();
+    public Render getRender();
+
+    public Update getUpdate();
 
 
     //TODO other settings

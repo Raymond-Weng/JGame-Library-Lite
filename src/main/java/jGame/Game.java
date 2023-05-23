@@ -22,7 +22,7 @@ public class Game {
      * build the game, like loading output, reading file, etc.
      */
     public void build(){
-        //TODO building
+
     }
 
     /**

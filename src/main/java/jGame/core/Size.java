@@ -35,4 +35,23 @@ public class Size {
     public double getHeight() {
         return height;
     }
+
+    /**
+     * gets the width in int
+     *
+     * @return width of the object in int
+     */
+    public int getIntWidth() {
+        return (int) width;
+    }
+
+    /**
+     * get the height in int
+     *
+     * @return height of the object in int
+     */
+    public int getIntHeight() {
+        return (int)height;
+    }
+
 }
