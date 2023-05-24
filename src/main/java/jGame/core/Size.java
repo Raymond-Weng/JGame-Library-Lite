@@ -51,7 +51,7 @@ public class Size {
      * @return height of the object in int
      */
     public int getIntHeight() {
-        return (int)height;
+        return (int) height;
     }
 
 }

@@ -17,4 +17,5 @@ public interface Setting {
 
 
     //TODO other settings
+    //TODO doc
 }

@@ -1,3 +1,7 @@
 
 jGame
 jGame.core
+jGame.exception
+jGame.gameObject
+jGame.loop
+jGame.output

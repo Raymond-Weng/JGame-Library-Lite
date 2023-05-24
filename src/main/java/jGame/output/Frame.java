@@ -8,7 +8,7 @@ import java.awt.*;
 public class Frame implements Output {
     JFrame jFrame;
 
-    public Frame(Size size){
+    public Frame(Size size) {
         jFrame = new JFrame();
         jFrame.setVisible(false);
         jFrame.setSize(size.getIntWidth(), size.getIntHeight());
