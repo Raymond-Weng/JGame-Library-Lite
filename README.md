@@ -6,3 +6,4 @@ Have fun with your coding time~
 
 ## Links
 [Github](https://github.com/Raymond-Weng/JGame-Library-Lite)
+[Java Doc](https://raymond-weng.github.io/JGame-Library-Lite/Doc/index.html)
