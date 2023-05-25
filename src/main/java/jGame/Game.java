@@ -4,24 +4,66 @@
 
 package jGame;
 
-import jGame.core.Setting;
 import jGame.exception.PriorityException;
 import jGame.gameObject.GameObject;
+import jGame.loop.Render;
+import jGame.loop.Update;
+import jGame.output.Output;
 
 import java.util.ArrayList;
 
 public class Game {
-    private Setting setting;
-    private ArrayList<ArrayList<GameObject>> objects;
+    public static class Builder {
+        private Output output;
 
+        public Builder setOutput(Output output) {
+            this.output = output;
+            return this;
+        }
+
+        private Render render;
+
+        public Builder setRender(Render render) {
+            this.render = render;
+            return this;
+        }
+
+        private Update update;
+
+        public Builder setUpdate(Update update) {
+            this.update = update;
+            return this;
+        }
+
+        public Game build() {
+            return new Game(
+                    output,
+                    render,
+                    update
+            );
+        }
+    }
+
+    private final ArrayList<ArrayList<GameObject>> objects;
+
+    private Output output;
+    private Render render;
+    private Update update;
 
     /**
-     * The creating of the game.
+     * the creating of the game, also use the Builder to build it.
      *
-     * @param setting the setting of the game, pass the object after finishing the class.
+     * @param output the output of the game
+     * @param render the tool and objects render
+     * @param update the tool and objects update
      */
-    public Game(Setting setting) {
-        this.setting = setting;
+    public Game(Output output,
+                Render render,
+                Update update) {
+        this.output = output;
+        this.render = render;
+        this.update = update;
+
         objects = new ArrayList<>(10);
         for (int i = 0; i < 10; i++) {
             objects.add(new ArrayList<>());
@@ -32,7 +74,7 @@ public class Game {
      * build the game, like loading output, reading file, etc.
      */
     public void build() {
-
+        //TODO build of the game
     }
 
     /**
@@ -40,15 +82,6 @@ public class Game {
      */
     public void run() {
         //TODO game start method
-    }
-
-    /**
-     * get the setting of the game
-     *
-     * @return the setting of the game
-     */
-    public Setting getSetting() {
-        return setting;
     }
 
     /**
