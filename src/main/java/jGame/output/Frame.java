@@ -20,4 +20,5 @@ public class Frame implements Output {
     }
 
     //TODO Frame
+    //TODO builder for building an object
 }

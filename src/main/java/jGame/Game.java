@@ -4,10 +4,13 @@
 
 package jGame;
 
+import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
 import jGame.gameObject.GameObject;
 import jGame.loop.Render;
+import jGame.loop.RenderImpl;
 import jGame.loop.Update;
+import jGame.loop.UpdateImpl;
 import jGame.output.Output;
 
 import java.util.ArrayList;
@@ -35,12 +38,19 @@ public class Game {
             return this;
         }
 
-        public Game build() {
-            return new Game(
-                    output,
-                    render,
-                    update
-            );
+        public Game build() throws BuilderException {
+            if (
+                    output != null
+                // || render != null
+                // || update != null
+            )
+                return new Game(
+                        output,
+                        (render == null) ? new RenderImpl() : render,
+                        (update == null) ? new UpdateImpl() : update
+                );
+            else
+                throw new BuilderException("There is some missing args.");
         }
     }
 
