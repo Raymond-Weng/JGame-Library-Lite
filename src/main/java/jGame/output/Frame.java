@@ -16,7 +16,11 @@ public class Frame implements Output {
 
     @Override
     public Graphics getGraphics() {
-        return null;
+        return jFrame.getGraphics();
+    }
+
+    public void show(){
+        jFrame.setVisible(true);
     }
 
     //TODO Frame

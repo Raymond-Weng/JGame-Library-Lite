@@ -7,47 +7,64 @@ package jGame;
 import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
 import jGame.gameObject.GameObject;
-import jGame.loop.Render;
-import jGame.loop.RenderImpl;
-import jGame.loop.Update;
-import jGame.loop.UpdateImpl;
+import jGame.loop.render.Render;
+import jGame.loop.render.RenderImpl;
+import jGame.loop.update.Update;
+import jGame.loop.update.UpdateImpl;
 import jGame.output.Output;
 
 import java.util.ArrayList;
 
 public class Game {
     public static class Builder {
-        private Output output;
+        private Output output = null;
 
         public Builder setOutput(Output output) {
             this.output = output;
             return this;
         }
 
-        private Render render;
+        private Render render = null;
 
         public Builder setRender(Render render) {
             this.render = render;
             return this;
         }
 
-        private Update update;
+        private Update update = null;
 
         public Builder setUpdate(Update update) {
             this.update = update;
             return this;
         }
 
+        private double maxFps = 0;
+
+        public Builder setMaxFps(double maxFps) {
+            this.maxFps = maxFps;
+            return this;
+        }
+
+        private double maxUps = 0;
+
+        public Builder setMaxUps(double maxUps) {
+            this.maxUps = maxUps;
+            return this;
+        }
+
+
         public Game build() throws BuilderException {
             if (
                     output != null
-                // || render != null
-                // || update != null
+//                            || render != null
+//                            || update != null
+//                            || maxFps != 0
+//                            || maxUps != 0
             )
                 return new Game(
                         output,
-                        (render == null) ? new RenderImpl() : render,
-                        (update == null) ? new UpdateImpl() : update
+                        (render == null) ? new RenderImpl((maxFps == 0) ? 60 : maxFps) : render,
+                        (update == null) ? new UpdateImpl((maxUps == 0) ? 60 : maxUps) : update
                 );
             else
                 throw new BuilderException("There is some missing args.");
