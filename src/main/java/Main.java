@@ -1,16 +1,23 @@
+import com.sun.org.apache.xml.internal.serializer.OutputPropertiesFactory;
 import jGame.Game;
 import jGame.core.Size;
 import jGame.exception.BuilderException;
 import jGame.loop.render.RenderImpl;
 import jGame.loop.update.UpdateImpl;
 import jGame.output.Frame;
+import jGame.output.Output;
 
 public class Main {
     public static void main(String[] args) {
         Game game = null;
+        Frame output = new Frame.Builder()
+                .setSize(new Size(800d,600d))
+                .setNumBufferStrategy(3)
+                .build();
+
         try {
             game = new Game.Builder()
-                    .setOutput(new Frame(new Size(800d, 600d)))
+                    .setOutput(output)
                     .setRender(new RenderImpl(60))
                     .setUpdate(new UpdateImpl(60))
                     .build();
@@ -19,5 +26,6 @@ public class Main {
         }
         game.build();
         game.run();
+        output.show();
     }
 }
