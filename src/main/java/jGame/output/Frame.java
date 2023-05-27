@@ -1,6 +1,8 @@
 package jGame.output;
 
+import jGame.Game;
 import jGame.core.Size;
+import jGame.exception.BuilderException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,46 +16,90 @@ public class Frame implements Output {
             return this;
         }
 
-        private int numBufferStrategy;
+        private int numBufferStrategy = -1;
+
         public Builder setNumBufferStrategy(int numBufferStrategy) {
             this.numBufferStrategy = numBufferStrategy;
             return this;
         }
 
-        public Frame build() {
-            return new Frame(size,
-                    numBufferStrategy);
+        private int defaultCloseOperation = -1;
+
+        public Builder setDefaultCloseOperation(int defaultCloseOperation) {
+            this.defaultCloseOperation = defaultCloseOperation;
+            return this;
+        }
+
+        private String frameTitle = null;
+
+        public Builder setFrameTitle(String title) {
+            this.frameTitle = title;
+            return this;
+        }
+
+        public Frame build() throws BuilderException {
+            if (size != null)
+                return new Frame(
+                        size,
+                        (numBufferStrategy == 0) ? 2 : numBufferStrategy,
+                        (defaultCloseOperation == -1) ? JFrame.EXIT_ON_CLOSE : defaultCloseOperation,
+                        (frameTitle == null) ? "Game" : frameTitle
+                );
+            else
+                throw new BuilderException("There is some missing args.");
         }
     }
 
     private JFrame jFrame;
     private Canvas canvas;
     private Size size;
-    private int numBufferStrategy;
+    private Game game;
 
-    public Frame(Size size, int numBufferStrategy) {
+    private Frame(Size size,
+                 int numBufferStrategy,
+                 int defaultCloseOperation,
+                 String frameTitle
+    ) {
         this.size = size;
-        this.numBufferStrategy = numBufferStrategy;
+        this.game = game;
 
         jFrame = new JFrame();
         canvas = new Canvas();
 
         jFrame.setVisible(false);
-        jFrame.setSize(size.getIntWidth(), size.getIntHeight());
-        jFrame.add(canvas);
+        jFrame.setResizable(false);
+        jFrame.setDefaultCloseOperation(defaultCloseOperation);
+        jFrame.setTitle(frameTitle);
+
+        canvas.setFocusable(false);
+        canvas.setSize(new Dimension(size.getIntWidth(), size.getIntHeight()));
+        jFrame.getContentPane().add(canvas);
+        jFrame.pack();
+
+        canvas.createBufferStrategy(numBufferStrategy);
     }
+
+    public void showFrame(Game game) {
+        this.game = game;
+        jFrame.setVisible(true);
+
+        new GameLaunching(game).start();
+    }
+
 
     @Override
     public Graphics getGraphics() {
         return canvas.getBufferStrategy().getDrawGraphics();
     }
 
+    @Override
     public void show() {
-        jFrame.setVisible(true);
-        canvas.createBufferStrategy(numBufferStrategy);
-        Graphics graphics = this.getGraphics();
-        graphics.setColor(Color.BLACK);
-        graphics.fillRect(0, 0, size.getIntWidth(), size.getIntHeight());
+        canvas.getBufferStrategy().show();
+    }
+
+    @Override
+    public Size getSize() {
+        return this.size;
     }
 
     //TODO Frame

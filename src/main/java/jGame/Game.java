@@ -38,14 +38,14 @@ public class Game {
             return this;
         }
 
-        private double maxFps = 0;
+        private double maxFps = -1;
 
         public Builder setMaxFps(double maxFps) {
             this.maxFps = maxFps;
             return this;
         }
 
-        private double maxUps = 0;
+        private double maxUps = -1;
 
         public Builder setMaxUps(double maxUps) {
             this.maxUps = maxUps;
@@ -56,15 +56,11 @@ public class Game {
         public Game build() throws BuilderException {
             if (
                     output != null
-//                            || render != null
-//                            || update != null
-//                            || maxFps != 0
-//                            || maxUps != 0
             )
                 return new Game(
                         output,
-                        (render == null) ? new RenderImpl((maxFps == 0) ? 60 : maxFps) : render,
-                        (update == null) ? new UpdateImpl((maxUps == 0) ? 60 : maxUps) : update
+                        (render == null) ? new RenderImpl((maxFps == -1) ? 60 : maxFps) : render,
+                        (update == null) ? new UpdateImpl((maxUps == -1) ? 60 : maxUps) : update
                 );
             else
                 throw new BuilderException("There is some missing args.");
@@ -77,14 +73,7 @@ public class Game {
     private Render render;
     private Update update;
 
-    /**
-     * the creating of the game, also use the Builder to build it.
-     *
-     * @param output the output of the game
-     * @param render the tool and objects render
-     * @param update the tool and objects update
-     */
-    public Game(Output output,
+    private Game(Output output,
                 Render render,
                 Update update) {
         this.output = output;
@@ -135,5 +124,9 @@ public class Game {
             default:
                 throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
         }
+    }
+
+    public Output getOutput() {
+        return output;
     }
 }
