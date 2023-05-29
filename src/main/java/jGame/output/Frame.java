@@ -37,13 +37,21 @@ public class Frame implements Output {
             return this;
         }
 
+        private Image icon = null;
+
+        public Builder setIcon(Image icon) {
+            this.icon = icon;
+            return this;
+        }
+
         public Frame build() throws BuilderException {
             if (size != null)
                 return new Frame(
                         size,
                         (numBufferStrategy == 0) ? 2 : numBufferStrategy,
                         (defaultCloseOperation == -1) ? JFrame.EXIT_ON_CLOSE : defaultCloseOperation,
-                        (frameTitle == null) ? "Game" : frameTitle
+                        (frameTitle == null) ? "Game" : frameTitle,
+                        icon
                 );
             else
                 throw new BuilderException("There is some missing args.");
@@ -56,12 +64,12 @@ public class Frame implements Output {
     private Game game;
 
     private Frame(Size size,
-                 int numBufferStrategy,
-                 int defaultCloseOperation,
-                 String frameTitle
+                  int numBufferStrategy,
+                  int defaultCloseOperation,
+                  String frameTitle,
+                  Image icon
     ) {
         this.size = size;
-        this.game = game;
 
         jFrame = new JFrame();
         canvas = new Canvas();
@@ -70,11 +78,13 @@ public class Frame implements Output {
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(defaultCloseOperation);
         jFrame.setTitle(frameTitle);
+        jFrame.setIconImage(icon);
 
         canvas.setFocusable(false);
         canvas.setSize(new Dimension(size.getIntWidth(), size.getIntHeight()));
         jFrame.getContentPane().add(canvas);
         jFrame.pack();
+        jFrame.setLocationRelativeTo(null);
 
         canvas.createBufferStrategy(numBufferStrategy);
     }
@@ -103,5 +113,4 @@ public class Frame implements Output {
     }
 
     //TODO Frame
-    //TODO builder for building an object
 }
