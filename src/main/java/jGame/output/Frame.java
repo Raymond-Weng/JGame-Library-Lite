@@ -94,6 +94,7 @@ public class Frame implements Output {
         jFrame.setVisible(true);
 
         new GameLaunching(game).start();
+        while()
     }
 
 

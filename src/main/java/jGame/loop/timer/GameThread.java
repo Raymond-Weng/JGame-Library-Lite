@@ -1,5 +1,7 @@
 package jGame.loop.timer;
 
+import jGame.output.GameLaunching;
+
 import java.util.ArrayList;
 
 public class GameThread extends Thread {
