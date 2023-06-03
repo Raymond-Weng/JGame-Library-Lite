@@ -6,7 +6,7 @@ import jGame.loop.update.UpdateImpl;
 import jGame.output.Frame;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Game game = null;
         Frame output = null;
         try {
@@ -25,5 +25,6 @@ public class Main {
         }
         game.build();
         game.run();
+        System.out.println("test");
     }
 }

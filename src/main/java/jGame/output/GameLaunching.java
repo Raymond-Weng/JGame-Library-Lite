@@ -10,7 +10,6 @@ public class GameLaunching extends Thread {
     private final double updateRate;
     private double lastUpdate;
     private double accumulator = 0;
-    private boolean running = true;
 
     public GameLaunching(Game game) {
         super();
@@ -20,7 +19,8 @@ public class GameLaunching extends Thread {
 
     @Override
     public void run() {
-        while (running) {
+        game.loading = true;
+        while (game.loading) {
             double currentTimeMillis = System.currentTimeMillis();
             accumulator += currentTimeMillis - lastUpdate;
             lastUpdate = currentTimeMillis;
@@ -43,9 +43,5 @@ public class GameLaunching extends Thread {
         graphics.drawString(text, (output.getSize().getIntWidth() - strW) / 2, (output.getSize().getIntHeight() - stwH) / 2);
         graphics.dispose();
         output.show();
-    }
-
-    public void stopLoop(){
-        running = false;
     }
 }

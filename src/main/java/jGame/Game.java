@@ -66,6 +66,7 @@ public class Game {
                 throw new BuilderException("There is some missing args.");
         }
     }
+    public boolean loading = false;
 
     private final ArrayList<ArrayList<GameObject>> objects;
 
@@ -97,6 +98,8 @@ public class Game {
      * start the game
      */
     public void run() {
+        this.loading = false;
+
         //TODO game start method
     }
 
