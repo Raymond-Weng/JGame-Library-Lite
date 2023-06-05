@@ -10,6 +10,7 @@ public class GameLaunching extends Thread {
     private final double updateRate;
     private double lastUpdate;
     private double accumulator = 0;
+    private boolean running = true;
 
     public GameLaunching(Game game) {
         super();
@@ -19,7 +20,6 @@ public class GameLaunching extends Thread {
 
     @Override
     public void run() {
-        game.loading = true;
         while (game.loading) {
             double currentTimeMillis = System.currentTimeMillis();
             accumulator += currentTimeMillis - lastUpdate;

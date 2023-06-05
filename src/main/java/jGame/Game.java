@@ -66,7 +66,7 @@ public class Game {
                 throw new BuilderException("There is some missing args.");
         }
     }
-    public boolean loading = false;
+    public volatile boolean loading = false;
 
     private final ArrayList<ArrayList<GameObject>> objects;
 
