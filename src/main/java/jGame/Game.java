@@ -9,6 +9,9 @@ import jGame.exception.PriorityException;
 import jGame.gameObject.GameObject;
 import jGame.loop.render.Render;
 import jGame.loop.render.RenderImpl;
+import jGame.loop.timer.GameThread;
+import jGame.loop.timer.Timer;
+import jGame.loop.timer.TimerManager;
 import jGame.loop.update.Update;
 import jGame.loop.update.UpdateImpl;
 import jGame.output.Output;
@@ -71,15 +74,15 @@ public class Game {
     private final ArrayList<ArrayList<GameObject>> objects;
 
     private Output output;
-    private Render render;
-    private Update update;
+    private TimerManager timerManager;
+    private GameThread gameThread;
 
     private Game(Output output,
                 Render render,
                 Update update) {
         this.output = output;
-        this.render = render;
-        this.update = update;
+
+        timerManager = new TimerManager(render, update);
 
         objects = new ArrayList<>(10);
         for (int i = 0; i < 10; i++) {
@@ -91,6 +94,8 @@ public class Game {
      * build the game, like loading output, reading file, etc.
      */
     public void build() {
+        GameThread gameThread1 = new GameThread(timerManager);
+
         //TODO build of the game
     }
 
