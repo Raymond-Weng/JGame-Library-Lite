@@ -10,7 +10,6 @@ import jGame.gameObject.GameObject;
 import jGame.loop.render.Render;
 import jGame.loop.render.RenderImpl;
 import jGame.loop.timer.GameThread;
-import jGame.loop.timer.Timer;
 import jGame.loop.timer.TimerManager;
 import jGame.loop.update.Update;
 import jGame.loop.update.UpdateImpl;
@@ -55,6 +54,13 @@ public class Game {
             return this;
         }
 
+        private int threadCount = -1;
+
+        public Builder setThreadCount(int threadCount) {
+            this.threadCount = threadCount;
+            return this;
+        }
+
 
         public Game build() throws BuilderException {
             if (
@@ -63,26 +69,33 @@ public class Game {
                 return new Game(
                         output,
                         (render == null) ? new RenderImpl((maxFps == -1) ? 60 : maxFps) : render,
-                        (update == null) ? new UpdateImpl((maxUps == -1) ? 60 : maxUps) : update
+                        (update == null) ? new UpdateImpl((maxUps == -1) ? 60 : maxUps) : update,
+                        Math.max(threadCount, 2)
                 );
             else
                 throw new BuilderException("There is some missing args.");
         }
     }
+
     public volatile boolean loading = false;
 
     private final ArrayList<ArrayList<GameObject>> objects;
 
     private Output output;
     private TimerManager timerManager;
+
+    private GameThread[] gameThreads;
     private GameThread gameThread;
 
     private Game(Output output,
-                Render render,
-                Update update) {
+                 Render render,
+                 Update update,
+                 int threadCount) {
         this.output = output;
 
         timerManager = new TimerManager(render, update);
+
+        gameThreads = new GameThread[threadCount];
 
         objects = new ArrayList<>(10);
         for (int i = 0; i < 10; i++) {
@@ -94,7 +107,9 @@ public class Game {
      * build the game, like loading output, reading file, etc.
      */
     public void build() {
-        GameThread gameThread1 = new GameThread(timerManager);
+        for(int i = 0; i < gameThreads.length; i++){
+            gameThreads[i] = new GameThread(timerManager);
+        }
 
         //TODO build of the game
     }
