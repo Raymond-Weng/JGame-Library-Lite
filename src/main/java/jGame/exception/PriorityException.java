@@ -1,6 +1,10 @@
 package jGame.exception;
 
-public class PriorityException extends Exception {
+/**
+ * this happens in the method with priority setting, when the value is unacceptable.
+ */
+
+public class PriorityException extends RuntimeException {
     private String message = null;
 
     public PriorityException(String message) {

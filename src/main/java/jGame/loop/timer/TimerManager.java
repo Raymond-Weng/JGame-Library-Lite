@@ -11,6 +11,10 @@ public class TimerManager {
     private Update update;
     private ArrayList<Timer> timers;
 
+
+    public TimerManager(){
+        timers = new ArrayList<>();
+    }
     public TimerManager(Render render, Update update) {
         this.render = render;
         this.update = update;

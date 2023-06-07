@@ -5,6 +5,10 @@ import jGame.core.Size;
 
 import java.awt.*;
 
+/**
+ * the object to check if two things hit together.
+ */
+
 public class Hitbox {
     private Rectangle rectangle;
 

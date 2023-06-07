@@ -1,7 +1,8 @@
+package jGame.core;
+
 /**
  * For talk about size of object or frame etc.
  */
-package jGame.core;
 
 public class Size {
     private double width;

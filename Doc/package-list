@@ -3,5 +3,8 @@ jGame
 jGame.core
 jGame.exception
 jGame.gameObject
-jGame.loop
+jGame.gameObject.objects
+jGame.loop.render
+jGame.loop.timer
+jGame.loop.update
 jGame.output

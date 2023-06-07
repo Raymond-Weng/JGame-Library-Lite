@@ -62,7 +62,7 @@ public class Game {
         }
 
 
-        public Game build() throws BuilderException {
+        public Game build(){
             if (
                     output != null
             )
@@ -107,7 +107,7 @@ public class Game {
      * build the game, like loading output, reading file, etc.
      */
     public void build() {
-        for(int i = 0; i < gameThreads.length; i++){
+        for (int i = 0; i < gameThreads.length; i++) {
             gameThreads[i] = new GameThread(timerManager);
         }
 
@@ -118,9 +118,12 @@ public class Game {
      * start the game
      */
     public void run() {
-        this.loading = false;
+        for (int i = 0; i < gameThreads.length; i++) {
+            gameThreads[i] = new GameThread(timerManager);
+        }
+        //TODO run method in Game
 
-        //TODO game start method
+        this.loading = false;
     }
 
     /**

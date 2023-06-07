@@ -44,7 +44,7 @@ public class Frame implements Output {
             return this;
         }
 
-        public Frame build() throws BuilderException {
+        public Frame build(){
             if (size != null)
                 return new Frame(
                         size,

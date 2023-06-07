@@ -1,5 +1,9 @@
 package jGame.core;
 
+/**
+ * this mark the position in a 2D world
+ */
+
 public class Position {
     private double x;
     private double y;
