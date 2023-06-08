@@ -12,7 +12,11 @@ public class GameThread extends Thread {
     @Override
     public void run() {
         while (running) {
-            timerManager.getFullList().forEach(Timer::update);
+            if (timerManager.getUpdate() == null || timerManager.getRender() == null) {
+                timerManager.getTimers().forEach(Timer::update);
+            } else {
+                timerManager.getFullList().forEach(Timer::update);
+            }
         }
     }
 

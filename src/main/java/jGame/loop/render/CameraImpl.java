@@ -15,10 +15,22 @@ public class CameraImpl implements Camera {
     private Position position;
     private GameObject objectOnFocus;
 
+    /**
+     * create a camera
+     * @param game the game object, we need this to get the size of output
+     * @param position the default position of the camera
+     */
     public CameraImpl(Game game, Position position) {
         this(game, position, null);
     }
 
+
+    /**
+     * create a camera
+     * @param game the game object, we need this to get the size of output
+     * @param position the default position of the camera
+     * @param objectOnFocus let the camera follow an object
+     */
     public CameraImpl(Game game, Position position, GameObject objectOnFocus) {
         this.game = game;
         this.position = position;
@@ -28,8 +40,8 @@ public class CameraImpl implements Camera {
     @Override
     public void update() {
         if (objectOnFocus != null) {
-            this.position = new Position(objectOnFocus.getPosition().getX() + (game.getOutput().getSize().getWidth() - objectOnFocus.getSize().getWidth()) / 2,
-                    objectOnFocus.getPosition().getY() + (game.getOutput().getSize().getHeight() - objectOnFocus.getSize().getHeight()) / 2);
+            this.position = new Position(objectOnFocus.getPosition().getX() - (game.getOutput().getSize().getWidth() - objectOnFocus.getSize().getWidth()) / 2,
+                    objectOnFocus.getPosition().getY() - (game.getOutput().getSize().getHeight() - objectOnFocus.getSize().getHeight()) / 2);
         }
     }
 

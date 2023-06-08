@@ -12,9 +12,10 @@ public class TimerManager {
     private ArrayList<Timer> timers;
 
 
-    public TimerManager(){
+    public TimerManager() {
         timers = new ArrayList<>();
     }
+
     public TimerManager(Render render, Update update) {
         this.render = render;
         this.update = update;
@@ -37,5 +38,13 @@ public class TimerManager {
         ArrayList<Timer> list = new ArrayList<>(Arrays.asList(render, update));
         list.addAll(timers);
         return list;
+    }
+
+    public Render getRender() {
+        return render;
+    }
+
+    public Update getUpdate() {
+        return update;
     }
 }
