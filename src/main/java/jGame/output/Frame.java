@@ -111,6 +111,4 @@ public class Frame implements Output {
     public Size getSize() {
         return this.size;
     }
-
-    //TODO Frame
 }

@@ -10,6 +10,7 @@ import jGame.gameObject.GameObject;
 import jGame.loop.render.Render;
 import jGame.loop.render.RenderImpl;
 import jGame.loop.timer.GameThread;
+import jGame.loop.timer.Timer;
 import jGame.loop.timer.TimerManager;
 import jGame.loop.update.Update;
 import jGame.loop.update.UpdateImpl;
@@ -62,7 +63,7 @@ public class Game {
         }
 
 
-        public Game build(){
+        public Game build() {
             if (
                     output != null
             )
@@ -82,7 +83,7 @@ public class Game {
     private final ArrayList<ArrayList<GameObject>> objects;
 
     private Output output;
-    private TimerManager timerManager;
+    private TimerManager[] timerManagers = new TimerManager[10];
 
     private GameThread[] gameThreads;
     private GameThread gameThread;
@@ -93,7 +94,7 @@ public class Game {
                  int threadCount) {
         this.output = output;
 
-        timerManager = new TimerManager(render, update);
+        timerManagers[0] = new TimerManager(render, update);
 
         gameThreads = new GameThread[threadCount];
 
@@ -108,7 +109,11 @@ public class Game {
      */
     public void build() {
         for (int i = 0; i < gameThreads.length; i++) {
-            gameThreads[i] = new GameThread(timerManager);
+            if (i != 0) {
+                timerManagers[i] = new TimerManager();
+            }
+
+            gameThreads[i] = new GameThread(timerManagers[i]);
         }
 
         //TODO build of the game
@@ -119,7 +124,7 @@ public class Game {
      */
     public void run() {
         for (int i = 0; i < gameThreads.length; i++) {
-            gameThreads[i] = new GameThread(timerManager);
+            gameThreads[i].start();
         }
         //TODO run method in Game
 
@@ -152,7 +157,37 @@ public class Game {
         }
     }
 
+    /**
+     * get the output of the game
+     *
+     * @return the output of the game
+     */
     public Output getOutput() {
         return output;
+    }
+
+    /**
+     * add an timer to the thread
+     * @param timer the timer which is going to be added
+     * @param priority the update priority, it will be updated quicker if it bigger. (This should be between 0 and 9)
+     * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
+     */
+    public void addTimer(Timer timer, int priority) throws PriorityException {
+        switch (priority) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                this.timerManagers[priority].addTimer(timer);
+                break;
+            default:
+                throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
+        }
     }
 }
