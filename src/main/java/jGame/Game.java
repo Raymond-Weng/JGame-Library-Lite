@@ -8,7 +8,6 @@ import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
 import jGame.gameObject.GameObject;
 import jGame.loop.render.Render;
-import jGame.loop.render.RenderImpl;
 import jGame.loop.timer.GameThread;
 import jGame.loop.timer.Timer;
 import jGame.loop.timer.TimerManager;
@@ -65,11 +64,12 @@ public class Game {
 
         public Game build() {
             if (
-                    output != null
+                    output != null ||
+                            render != null
             )
                 return new Game(
                         output,
-                        (render == null) ? new RenderImpl((maxFps == -1) ? 60 : maxFps) : render,
+                        render,
                         (update == null) ? new UpdateImpl((maxUps == -1) ? 60 : maxUps) : update,
                         Math.max(threadCount, 2)
                 );
@@ -168,7 +168,8 @@ public class Game {
 
     /**
      * add an timer to the thread
-     * @param timer the timer which is going to be added
+     *
+     * @param timer    the timer which is going to be added
      * @param priority the update priority, it will be updated quicker if it bigger. (This should be between 0 and 9)
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */

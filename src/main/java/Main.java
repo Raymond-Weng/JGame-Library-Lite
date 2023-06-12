@@ -14,7 +14,7 @@ public class Main {
                 .build();
         game = new Game.Builder()
                 .setOutput(output)
-                .setRender(new RenderImpl(60))
+                .setRender(new RenderImpl(game,60))
                 .setUpdate(new UpdateImpl(60))
                 .build();
         output.showFrame(game);
