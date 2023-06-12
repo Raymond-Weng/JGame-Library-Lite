@@ -64,13 +64,14 @@ public class Game {
 
         public Game build() {
             if (
-                    output != null ||
-                            render != null
+                    output != null
+                            || render != null
+                            || update != null
             )
                 return new Game(
                         output,
                         render,
-                        (update == null) ? new UpdateImpl((maxUps == -1) ? 60 : maxUps) : update,
+                        update,
                         Math.max(threadCount, 2)
                 );
             else
