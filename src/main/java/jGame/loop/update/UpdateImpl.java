@@ -1,6 +1,7 @@
 package jGame.loop.update;
 
 import jGame.Game;
+import jGame.gameObject.GameObject;
 
 public class UpdateImpl extends Update {
     private Game game;
@@ -17,7 +18,9 @@ public class UpdateImpl extends Update {
 
     @Override
     public void updateGame() {
-
+        this.game.getObjects().forEach(arrayList -> {
+            arrayList.forEach(GameObject::render);
+        });
     }
 
     //TODO

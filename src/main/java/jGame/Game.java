@@ -168,10 +168,10 @@ public class Game {
     }
 
     /**
-     * add an timer to the thread
+     * add a timer to the thread
      *
      * @param timer    the timer which is going to be added
-     * @param priority the update priority, it will be updated quicker if it bigger. (This should be between 0 and 9)
+     * @param priority the update priority, it will be updated quicker if it smaller. (This should be between 0 and 9)
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */
     public void addTimer(Timer timer, int priority) throws PriorityException {
@@ -191,5 +191,9 @@ public class Game {
             default:
                 throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
         }
+    }
+
+    public ArrayList<ArrayList<GameObject>> getObjects() {
+        return objects;
     }
 }

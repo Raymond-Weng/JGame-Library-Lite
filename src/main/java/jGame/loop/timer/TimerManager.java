@@ -35,7 +35,7 @@ public class TimerManager {
     }
 
     public ArrayList<Timer> getFullList() {
-        ArrayList<Timer> list = new ArrayList<>(Arrays.asList(render, update));
+        ArrayList<Timer> list = new ArrayList<>(Arrays.asList(update, render));
         list.addAll(timers);
         return list;
     }
