@@ -4,6 +4,7 @@
 
 package jGame;
 
+import jGame.debug.Stat;
 import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
 import jGame.gameObject.GameObject;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 
 public class Game {
     public static class Builder {
+        //TODO doc of builder
+
         private Output output = null;
 
         public Builder setOutput(Output output) {
@@ -61,6 +64,12 @@ public class Game {
             return this;
         }
 
+        private int loadingTimeOut = -1;
+        public Builder setLoadingTimeOut(int loadingTimeOut){
+            this.loadingTimeOut = loadingTimeOut;
+            return this;
+        }
+
 
         public Game build() {
             if (
@@ -72,7 +81,8 @@ public class Game {
                         output,
                         render,
                         update,
-                        Math.max(threadCount, 2)
+                        Math.max(threadCount, 2),
+                        (loadingTimeOut == -1) ? 10 : loadingTimeOut
                 );
             else
                 throw new BuilderException("There is some missing args.");
@@ -92,7 +102,8 @@ public class Game {
     private Game(Output output,
                  Render render,
                  Update update,
-                 int threadCount) {
+                 int threadCount,
+                 int loadingTimeOut) {
         this.output = output;
 
         timerManagers[0] = new TimerManager(render, update);
@@ -128,6 +139,15 @@ public class Game {
             gameThreads[i].start();
         }
         //TODO run method in Game
+
+        double currentTime = System.currentTimeMillis();
+        while(!(
+                Stat.getStatBoolean(Stat.OUTPUT_READY) ||
+                        Stat.getStatBoolean(Stat.RENDER_READY) ||
+                        Stat.getStatBoolean(Stat.UPDATE_READY)
+                )){
+            if(currentTime)
+        }
 
         this.loading = false;
     }

@@ -1,5 +1,6 @@
 /**
  * The output(frame, web, etc.&nbsp;) of the game.
+ * PLEASE handle the stat OUTPUT_READY
  */
 
 package jGame.output;

@@ -2,11 +2,8 @@ package jGame.loop.render;
 
 import jGame.Game;
 import jGame.debug.Stat;
-import jGame.gameObject.GameObject;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class RenderImpl extends Render {
     private Game game = null;
@@ -20,7 +17,7 @@ public class RenderImpl extends Render {
         super(1d / maxFps);
     }
 
-    public void setGame(Game game){
+    public void setGame(Game game) {
         this.game = game;
         Stat.setStatBoolean(Stat.RENDER_READY, true);
     }

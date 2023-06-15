@@ -89,6 +89,11 @@ public class Frame implements Output {
         canvas.createBufferStrategy(numBufferStrategy);
     }
 
+
+    public void setGame(Game game){
+        this.game = game;
+    }
+
     public void showFrame(Game game) {
         this.game = game;
         jFrame.setVisible(true);
