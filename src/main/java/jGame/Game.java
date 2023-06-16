@@ -22,8 +22,7 @@ import java.util.ArrayList;
 public class Game {
     /**
      * the thing to create game object, please read the docs of every method
-     *
-     * *must contain args : output, render, update
+     * <p>*must contain args : output, render, update</p>
      */
     public static class Builder {
         private Output output = null;
@@ -97,7 +96,7 @@ public class Game {
 
         /**
          * create the game object
-         * @return
+         * @return the game created
          */
         public Game build() {
             if (

@@ -1,6 +1,7 @@
 
 jGame
 jGame.core
+jGame.debug
 jGame.exception
 jGame.gameObject
 jGame.gameObject.objects
