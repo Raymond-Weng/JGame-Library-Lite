@@ -7,6 +7,7 @@ package jGame;
 import jGame.debug.Stat;
 import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
+import jGame.exception.TimeOutException;
 import jGame.gameObject.GameObject;
 import jGame.loop.render.Render;
 import jGame.loop.timer.GameThread;
@@ -98,6 +99,7 @@ public class Game {
 
     private GameThread[] gameThreads;
     private GameThread gameThread;
+    private int loadingTimeOut;
 
     private Game(Output output,
                  Render render,
@@ -105,6 +107,7 @@ public class Game {
                  int threadCount,
                  int loadingTimeOut) {
         this.output = output;
+        this.loadingTimeOut = loadingTimeOut;
 
         timerManagers[0] = new TimerManager(render, update);
 
@@ -140,13 +143,15 @@ public class Game {
         }
         //TODO run method in Game
 
-        double currentTime = System.currentTimeMillis();
+        double startTime = System.currentTimeMillis();
         while(!(
                 Stat.getStatBoolean(Stat.OUTPUT_READY) ||
                         Stat.getStatBoolean(Stat.RENDER_READY) ||
                         Stat.getStatBoolean(Stat.UPDATE_READY)
                 )){
-            if(currentTime)
+            if((System.currentTimeMillis() - startTime) > (loadingTimeOut * 1000)){
+                throw new TimeOutException("Time out, loading should finish in " + loadingTimeOut + " second.");
+            }
         }
 
         this.loading = false;

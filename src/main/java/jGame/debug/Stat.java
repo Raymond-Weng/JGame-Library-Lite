@@ -27,7 +27,8 @@ public class Stat {
                 renderReady = stat;
                 break;
             case UPDATE_READY:
-
+                updateReady = stat;
+                break;
             default:
                 throw new StatException("Cannot find the stat in boolean with the code " + statCode);
         }
@@ -49,6 +50,8 @@ public class Stat {
                 return outputReady;
             case RENDER_READY:
                 return renderReady;
+            case UPDATE_READY:
+                return updateReady;
             default:
                 throw new StatException("Cannot find the stat in boolean with the code " + statCode);
         }
