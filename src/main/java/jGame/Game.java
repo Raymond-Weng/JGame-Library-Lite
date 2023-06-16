@@ -20,11 +20,22 @@ import jGame.output.Output;
 import java.util.ArrayList;
 
 public class Game {
+    /**
+     * the thing to create game object, please read the docs of every method
+     *
+     * *must contain args : output, render, update
+     */
     public static class Builder {
-        //TODO doc of builder
-
         private Output output = null;
 
+        /**
+         * [must contain]the output of the game
+         *
+         * @param output the output of the game, please implement it
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         * @see Output
+         * @see jGame.output.Frame
+         */
         public Builder setOutput(Output output) {
             this.output = output;
             return this;
@@ -32,6 +43,14 @@ public class Game {
 
         private Render render = null;
 
+        /**
+         * [must contain]set the render class to render the gameObjects
+         *
+         * @param render extend the render to overwrite the things in render
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         * @see Render
+         * @see jGame.loop.render.RenderImpl
+         */
         public Builder setRender(Render render) {
             this.render = render;
             return this;
@@ -39,39 +58,47 @@ public class Game {
 
         private Update update = null;
 
+        /**
+         * [nust contain]set the update class to update the gameObjects
+         *
+         * @param update extend the update to overwrite the things in update
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         * @see Update
+         * @see UpdateImpl
+         */
         public Builder setUpdate(Update update) {
             this.update = update;
             return this;
         }
 
-        private double maxFps = -1;
-
-        public Builder setMaxFps(double maxFps) {
-            this.maxFps = maxFps;
-            return this;
-        }
-
-        private double maxUps = -1;
-
-        public Builder setMaxUps(double maxUps) {
-            this.maxUps = maxUps;
-            return this;
-        }
-
         private int threadCount = -1;
 
+        /**
+         * set the thread count
+         * @param threadCount how many thread you need, this will be set to 2 if you the arg is less than 2
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         */
         public Builder setThreadCount(int threadCount) {
             this.threadCount = threadCount;
             return this;
         }
 
         private int loadingTimeOut = -1;
-        public Builder setLoadingTimeOut(int loadingTimeOut){
+
+        /**
+         * the max loading time, start counting down when the method {@code run()} was called
+         * @param loadingTimeOut the max loading time
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         */
+        public Builder setLoadingTimeOut(int loadingTimeOut) {
             this.loadingTimeOut = loadingTimeOut;
             return this;
         }
 
-
+        /**
+         * create the game object
+         * @return
+         */
         public Game build() {
             if (
                     output != null
@@ -144,12 +171,12 @@ public class Game {
         //TODO run method in Game
 
         double startTime = System.currentTimeMillis();
-        while(!(
+        while (!(
                 Stat.getStatBoolean(Stat.OUTPUT_READY) ||
                         Stat.getStatBoolean(Stat.RENDER_READY) ||
                         Stat.getStatBoolean(Stat.UPDATE_READY)
-                )){
-            if((System.currentTimeMillis() - startTime) > (loadingTimeOut * 1000)){
+        )) {
+            if ((System.currentTimeMillis() - startTime) > (loadingTimeOut * 1000)) {
                 throw new TimeOutException("Time out, loading should finish in " + loadingTimeOut + " second.");
             }
         }
