@@ -1,6 +1,7 @@
 package jGame.loop.update;
 
 import jGame.Game;
+import jGame.debug.Stat;
 import jGame.gameObject.GameObject;
 
 public class UpdateImpl extends Update {
@@ -8,12 +9,17 @@ public class UpdateImpl extends Update {
 
     /**
      * create the object
-     * @param game the game to get the objects
+     *
      * @param maxUps the maximum ups, the maximum update per second, is different from update rate
      */
-    public UpdateImpl(Game game, double maxUps) {
+    public UpdateImpl(double maxUps) {
         super(1d / maxUps);
         this.game = game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+        Stat.setStatBoolean(Stat.UPDATE_READY, true);
     }
 
     @Override

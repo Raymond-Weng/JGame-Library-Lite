@@ -2,6 +2,7 @@ package jGame.output;
 
 import jGame.Game;
 import jGame.core.Size;
+import jGame.debug.Stat;
 import jGame.exception.BuilderException;
 
 import javax.swing.*;
@@ -44,7 +45,7 @@ public class Frame implements Output {
             return this;
         }
 
-        public Frame build(){
+        public Frame build() {
             if (size != null)
                 return new Frame(
                         size,
@@ -90,8 +91,9 @@ public class Frame implements Output {
     }
 
 
-    public void setGame(Game game){
+    public void setGame(Game game) {
         this.game = game;
+        Stat.setStatBoolean(Stat.OUTPUT_READY, true);
     }
 
     public void showFrame(Game game) {

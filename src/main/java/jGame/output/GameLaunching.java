@@ -16,6 +16,7 @@ public class GameLaunching extends Thread {
         super();
         this.game = game;
         this.updateRate = 1d;
+        game.loading = true;
     }
 
     @Override

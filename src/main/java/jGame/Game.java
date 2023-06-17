@@ -171,8 +171,8 @@ public class Game {
 
         double startTime = System.currentTimeMillis();
         while (!(
-                Stat.getStatBoolean(Stat.OUTPUT_READY) ||
-                        Stat.getStatBoolean(Stat.RENDER_READY) ||
+                Stat.getStatBoolean(Stat.OUTPUT_READY) &&
+                        Stat.getStatBoolean(Stat.RENDER_READY) &&
                         Stat.getStatBoolean(Stat.UPDATE_READY)
         )) {
             if ((System.currentTimeMillis() - startTime) > (loadingTimeOut * 1000)) {
