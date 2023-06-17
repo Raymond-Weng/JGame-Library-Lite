@@ -96,8 +96,11 @@ public class Frame implements Output {
         Stat.setStatBoolean(Stat.OUTPUT_READY, true);
     }
 
-    public void showFrame(Game game) {
-        this.game = game;
+    public void showFrame() {
+        if(game == null){
+            throw new NullPointerException("The game object hasn't been set yet.");
+        }
+
         jFrame.setVisible(true);
 
         new GameLaunching(game).start();

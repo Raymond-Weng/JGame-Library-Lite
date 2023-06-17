@@ -11,8 +11,8 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         Game game = null;
         Frame output = null;
-        Render render = new RenderImpl(60);
-        Update update = new UpdateImpl(60);
+        RenderImpl render = new RenderImpl(60);
+        UpdateImpl update = new UpdateImpl(60);
         output = new Frame.Builder()
                 .setSize(new Size(800d, 600d))
                 .setNumBufferStrategy(2)
@@ -22,8 +22,13 @@ public class Main {
                 .setRender(render)
                 .setUpdate(update)
                 .build();
-        output.showFrame(game);
+        output.setGame(game);
+        output.showFrame();
         game.build();
+
+        render.setGame(game);
+        update.setGame(game);
+
         game.run();
         System.out.println("test");
 //        game.addObject(new Rectangle(), 1);
