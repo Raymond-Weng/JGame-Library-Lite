@@ -16,18 +16,19 @@ public interface Output {
      *
      * @return Graphic object of the display
      */
-    public Graphics getGraphics();
+    Graphics getGraphics();
 
     /**
      * show the things draw on the Graphic
      */
-    public void show();
+    void show();
 
     /**
      * return the size of the game
      * @return the size of the game
      */
-    public Size getSize();
+    Size getSize();
+
 
     //TODO output methods
 }
