@@ -14,7 +14,6 @@ public class UpdateImpl extends Update {
      */
     public UpdateImpl(double maxUps) {
         super(1d / maxUps);
-        this.game = game;
     }
 
     public void setGame(Game game) {
@@ -25,7 +24,7 @@ public class UpdateImpl extends Update {
     @Override
     public void updateGame() {
         this.game.getObjects().forEach(arrayList -> {
-            arrayList.forEach(GameObject::render);
+            arrayList.forEach(GameObject::update);
         });
     }
 

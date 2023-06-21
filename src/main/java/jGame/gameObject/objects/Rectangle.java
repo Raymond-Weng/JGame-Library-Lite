@@ -10,9 +10,11 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class Rectangle extends GameObject {
+    private Position position = new Position(0,0);
+
     @Override
     public void update() {
-
+        position = new Position(position.getX()+1, position.getY()+1);
     }
 
     @Override
@@ -26,7 +28,7 @@ public class Rectangle extends GameObject {
 
     @Override
     public Position getPosition() {
-        return new Position(100, 100);
+        return this.position;
     }
 
     @Override
