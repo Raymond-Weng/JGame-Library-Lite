@@ -26,7 +26,7 @@ public class Rectangle extends GameObject {
 
     @Override
     public Position getPosition() {
-        return new Position(0, 0);
+        return new Position(100, 100);
     }
 
     @Override

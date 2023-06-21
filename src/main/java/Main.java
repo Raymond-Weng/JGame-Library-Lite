@@ -30,9 +30,6 @@ public class Main {
         update.setGame(game);
 
         game.run();
-//        game.addObject(new Rectangle(), 1);
-        while(true){
-            System.out.println(render.getFps());
-        }
+        game.addObject(new Rectangle(), 1);
     }
 }

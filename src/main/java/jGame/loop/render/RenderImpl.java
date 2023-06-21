@@ -25,22 +25,16 @@ public class RenderImpl extends Render {
 
     @Override
     public void renderGame() {
-        //set up the image
-        Image image = new BufferedImage(game.getOutput().getSize().getIntWidth(), game.getOutput().getSize().getIntHeight(), BufferedImage.TYPE_INT_RGB);
-        image.getGraphics().setColor(Color.BLACK);
-        image.getGraphics().fillRect(0, 0, game.getOutput().getSize().getIntWidth(), game.getOutput().getSize().getIntHeight());
-        image.getGraphics().dispose();
+        this.game.getOutput().getGraphics().setColor(Color.BLACK);
+        this.game.getOutput().getGraphics().fillRect(0, 0, game.getOutput().getSize().getIntWidth(), game.getOutput().getSize().getIntHeight());
 
-        //render the objects on the image
         this.game.getObjects().forEach(arrayList ->
             arrayList.forEach(gameObject -> {
-                image.getGraphics().drawImage(gameObject.render(), gameObject.getPosition().getIntX(), gameObject.getPosition().getIntY(), null);
-                image.getGraphics().dispose();
+                this.game.getOutput().getGraphics().drawImage(gameObject.render(), gameObject.getPosition().getIntX(), gameObject.getPosition().getIntY(), null);
+                this.game.getOutput().getGraphics().dispose();
             })
         );
 
-        //render the image to the output
-        this.game.getOutput().getGraphics().drawImage(image, 0, 0,  null);
         this.game.getOutput().getGraphics().dispose();
         this.game.getOutput().show();
     }
