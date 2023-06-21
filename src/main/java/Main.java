@@ -18,6 +18,7 @@ public class Main {
                 .setNumBufferStrategy(2)
                 .build();
         game = new Game.Builder()
+                .setDebug(true)
                 .setOutput(output)
                 .setRender(render)
                 .setUpdate(update)

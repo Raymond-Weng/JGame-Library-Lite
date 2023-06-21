@@ -4,6 +4,7 @@
 
 package jGame;
 
+import jGame.debug.DebugPanel;
 import jGame.debug.Stat;
 import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
@@ -18,7 +19,6 @@ import jGame.loop.update.UpdateImpl;
 import jGame.output.Output;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Game {
     /**
@@ -26,6 +26,19 @@ public class Game {
      * <p>*must contain args : output, render, update</p>
      */
     public static class Builder {
+        private boolean debug = false;
+
+        /**
+         * set it {@code true} if you want debug mode on
+         *
+         * @param debug debug mode?
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         */
+        public Builder setDebug(boolean debug) {
+            this.debug = debug;
+            return this;
+        }
+
         private Output output = null;
 
         /**
@@ -75,6 +88,7 @@ public class Game {
 
         /**
          * set the thread count
+         *
          * @param threadCount how many thread you need, this will be set to 2 if you the arg is less than 2
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
@@ -87,6 +101,7 @@ public class Game {
 
         /**
          * the max loading time, start counting down when the method {@code run()} was called
+         *
          * @param loadingTimeOut the max loading time
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
@@ -97,6 +112,7 @@ public class Game {
 
         /**
          * create the game object
+         *
          * @return the game created
          */
         public Game build() {
@@ -106,6 +122,7 @@ public class Game {
                             || update != null
             )
                 return new Game(
+                        debug,
                         output,
                         render,
                         update,
@@ -117,6 +134,8 @@ public class Game {
         }
     }
 
+    private boolean debug;
+
     public volatile boolean loading = false;
 
     private final ArrayList<ArrayList<GameObject>> objects;
@@ -127,11 +146,13 @@ public class Game {
     private GameThread[] gameThreads;
     private int loadingTimeOut;
 
-    private Game(Output output,
+    private Game(boolean debug,
+                 Output output,
                  Render render,
                  Update update,
                  int threadCount,
                  int loadingTimeOut) {
+        this.debug = debug;
         this.output = output;
         this.loadingTimeOut = loadingTimeOut;
 
@@ -180,6 +201,10 @@ public class Game {
             thread.start();
         }
 
+        if(debug){
+            new DebugPanel(this).start();
+        }
+
         this.loading = false;
     }
 
@@ -226,14 +251,22 @@ public class Game {
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */
     public void addTimer(Timer timer, int priority) throws PriorityException {
-        if(priority < timerManagers.length){
+        if (priority < timerManagers.length) {
             this.timerManagers[priority].addTimer(timer);
-        }else {
+        } else {
             throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
         }
     }
 
     public ArrayList<ArrayList<GameObject>> getObjects() {
         return objects;
+    }
+
+    public GameThread getMainThread() {
+        return gameThreads[0];
+    }
+
+    public boolean isDebug() {
+        return debug;
     }
 }
