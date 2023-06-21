@@ -222,25 +222,14 @@ public class Game {
      * add a timer to the thread
      *
      * @param timer    the timer which is going to be added
-     * @param priority the update priority, it will be updated quicker if it smaller. (This should be between 0 and 9)
+     * @param priority the update priority, it will be updated quicker if it smaller. (This should be smaller than the total of the threads)
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */
     public void addTimer(Timer timer, int priority) throws PriorityException {
-        switch (priority) {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-                this.timerManagers[priority].addTimer(timer);
-                break;
-            default:
-                throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
+        if(priority < timerManagers.length){
+            this.timerManagers[priority].addTimer(timer);
+        }else {
+            throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
         }
     }
 
