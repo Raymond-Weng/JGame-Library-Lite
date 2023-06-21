@@ -18,6 +18,7 @@ import jGame.loop.update.UpdateImpl;
 import jGame.output.Output;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Game {
     /**
@@ -120,11 +121,10 @@ public class Game {
 
     private final ArrayList<ArrayList<GameObject>> objects;
 
-    private Output output;
-    private TimerManager[] timerManagers = new TimerManager[10];
+    private final Output output;
+    private TimerManager[] timerManagers;
 
     private GameThread[] gameThreads;
-    private GameThread gameThread;
     private int loadingTimeOut;
 
     private Game(Output output,
@@ -135,6 +135,7 @@ public class Game {
         this.output = output;
         this.loadingTimeOut = loadingTimeOut;
 
+        timerManagers = new TimerManager[threadCount];
         timerManagers[0] = new TimerManager(render, update);
 
         gameThreads = new GameThread[threadCount];
@@ -164,11 +165,6 @@ public class Game {
      * start the game
      */
     public void run() {
-        for (int i = 0; i < gameThreads.length; i++) {
-            gameThreads[i].start();
-        }
-        //TODO run method in Game
-
         double startTime = System.currentTimeMillis();
         while (!(
                 Stat.getStatBoolean(Stat.OUTPUT_READY) &&
@@ -178,6 +174,10 @@ public class Game {
             if ((System.currentTimeMillis() - startTime) > (loadingTimeOut * 1000)) {
                 throw new TimeOutException("Time out, loading should finish in " + loadingTimeOut + " second.");
             }
+        }
+
+        for (GameThread thread : gameThreads) {
+            thread.start();
         }
 
         this.loading = false;

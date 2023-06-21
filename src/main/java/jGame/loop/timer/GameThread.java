@@ -11,6 +11,7 @@ public class GameThread extends Thread {
 
     @Override
     public void run() {
+        running = true;
         while (running) {
             if (timerManager.getUpdate() == null || timerManager.getRender() == null) {
                 timerManager.getTimers().forEach(Timer::update);

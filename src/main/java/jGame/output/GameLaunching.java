@@ -7,15 +7,14 @@ import java.awt.*;
 public class GameLaunching extends Thread {
     private Game game;
 
-    private final double updateRate;
+    private final double UPDATE_RATE;
     private double lastUpdate;
     private double accumulator = 0;
-    private boolean running = true;
 
     public GameLaunching(Game game) {
         super();
         this.game = game;
-        this.updateRate = 1d;
+        this.UPDATE_RATE = 1d;
         game.loading = true;
     }
 
@@ -25,9 +24,9 @@ public class GameLaunching extends Thread {
             double currentTimeMillis = System.currentTimeMillis();
             accumulator += currentTimeMillis - lastUpdate;
             lastUpdate = currentTimeMillis;
-            if (accumulator > updateRate * 1000d) {
+            if (accumulator > UPDATE_RATE * 1000d) {
                 action();
-                accumulator -= updateRate * 1000d;
+                accumulator -= UPDATE_RATE * 1000d;
             }
         }
     }
