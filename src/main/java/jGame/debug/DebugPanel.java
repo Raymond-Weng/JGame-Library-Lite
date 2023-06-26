@@ -1,7 +1,6 @@
 package jGame.debug;
 
 import jGame.Game;
-import jGame.output.Output;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +9,7 @@ public class DebugPanel extends Thread {
     private Game game;
 
     private JFrame jFrame;
-    private JLabel jLabel;
+    private JTextArea jTextArea;
 
     public DebugPanel(Game game) {
         super();
@@ -18,9 +17,15 @@ public class DebugPanel extends Thread {
         this.UPDATE_RATE = 1d;
         game.loading = true;
         jFrame = new JFrame();
-        jLabel = new JLabel();
 
-        jFrame.add(jLabel);
+        jTextArea = new JTextArea();
+        jTextArea.setText("Loading...");
+        Font font = jTextArea.getFont();
+        jTextArea.setFont(new Font(font.getName(), font.getStyle(), 30));
+
+        jFrame.setLayout(new FlowLayout());
+        jFrame.getContentPane().add(jTextArea);
+        jFrame.pack();
         jFrame.setTitle("Game Debug");
         jFrame.setVisible(true);
     }
@@ -31,7 +36,7 @@ public class DebugPanel extends Thread {
 
     @Override
     public void run() {
-        while (game.loading) {
+        while (game.getMainThread().isRunning()) {
             double currentTimeMillis = System.currentTimeMillis();
             accumulator += currentTimeMillis - lastUpdate;
             lastUpdate = currentTimeMillis;
@@ -43,7 +48,7 @@ public class DebugPanel extends Thread {
     }
 
     private void action() {
-        this.jLabel.setText("FPS: " + game.getMainThread().getTimerManager().getRender().getUps()
+        this.jTextArea.setText("FPS: " + game.getMainThread().getTimerManager().getRender().getUps()
         + "\nUPS: " + game.getMainThread().getTimerManager().getUpdate().getUps());
         jFrame.pack();
     }
