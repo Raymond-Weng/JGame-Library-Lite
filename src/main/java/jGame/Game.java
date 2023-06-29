@@ -5,6 +5,7 @@
 package jGame;
 
 import jGame.debug.DebugPanel;
+import jGame.debug.DebugStringHandler;
 import jGame.debug.Stat;
 import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
@@ -146,6 +147,8 @@ public class Game {
     private GameThread[] gameThreads;
     private int loadingTimeOut;
 
+    private DebugPanel debugPanel;
+
     private Game(boolean debug,
                  Output output,
                  Render render,
@@ -201,8 +204,21 @@ public class Game {
             thread.start();
         }
 
-        if(debug){
-            new DebugPanel(this).start();
+        if (debug) {
+            this.debugPanel = new DebugPanel(this);
+            this.debugPanel.addVariable("FPS", new DebugStringHandler() {
+                @Override
+                public String getText(Game game) {
+                    return String.valueOf(game.timerManagers[0].getRender().getUps());
+                }
+            });
+            this.debugPanel.addVariable("UPS", new DebugStringHandler() {
+                @Override
+                public String getText(Game game) {
+                    return String.valueOf(game.timerManagers[0].getUpdate().getUps());
+                }
+            });
+            this.debugPanel.start();
         }
 
         this.loading = false;

@@ -4,6 +4,10 @@ import jGame.Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class DebugPanel extends Thread {
     private Game game;
@@ -11,8 +15,15 @@ public class DebugPanel extends Thread {
     private JFrame jFrame;
     private JTextArea jTextArea;
 
+    private ArrayList<String> names;
+    private Map<String, DebugStringHandler> debugStringHandlerMap;
+
     public DebugPanel(Game game) {
         super();
+
+        names = new ArrayList<>();
+        debugStringHandlerMap = new HashMap<>();
+
         this.game = game;
         this.UPDATE_RATE = 1d;
         game.loading = true;
@@ -48,8 +59,14 @@ public class DebugPanel extends Thread {
     }
 
     private void action() {
-        this.jTextArea.setText("FPS: " + game.getMainThread().getTimerManager().getRender().getUps()
-        + "\nUPS: " + game.getMainThread().getTimerManager().getUpdate().getUps());
+        AtomicReference<String> text = new AtomicReference<>("");
+        names.forEach(name -> text.set(text + name + " : " + debugStringHandlerMap.get(name).getText(game) + "\n"));
+        jTextArea.setText(text.get());
         jFrame.pack();
+    }
+
+    public void addVariable(String name, DebugStringHandler debugStringHandler) {
+        this.names.add(name);
+        this.debugStringHandlerMap.put(name, debugStringHandler);
     }
 }
