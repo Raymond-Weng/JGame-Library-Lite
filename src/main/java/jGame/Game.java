@@ -218,6 +218,7 @@ public class Game {
                     return String.valueOf(game.timerManagers[0].getUpdate().getUps());
                 }
             });
+
             this.debugPanel.start();
         }
 
@@ -284,5 +285,9 @@ public class Game {
 
     public boolean isDebug() {
         return debug;
+    }
+
+    public DebugPanel getDebugPanel(){
+        return debugPanel;
     }
 }

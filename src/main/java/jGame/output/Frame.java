@@ -7,6 +7,8 @@ import jGame.exception.BuilderException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class Frame implements Output {
     public static class Builder {
@@ -45,6 +47,12 @@ public class Frame implements Output {
             return this;
         }
 
+        private MouseListener mouseListener = null;
+        public Builder setMouseListener(MouseListener mouseListener){
+            this.mouseListener = mouseListener;
+            return this;
+        }
+
         public Frame build() {
             if (size != null)
                 return new Frame(
@@ -52,7 +60,8 @@ public class Frame implements Output {
                         (numBufferStrategy == 0) ? 2 : numBufferStrategy,
                         (defaultCloseOperation == -1) ? JFrame.EXIT_ON_CLOSE : defaultCloseOperation,
                         (frameTitle == null) ? "Game" : frameTitle,
-                        icon
+                        icon,
+                        mouseListener
                 );
             else
                 throw new BuilderException("There is some missing args.");
@@ -68,7 +77,8 @@ public class Frame implements Output {
                   int numBufferStrategy,
                   int defaultCloseOperation,
                   String frameTitle,
-                  Image icon
+                  Image icon,
+                  MouseListener mouseListener
     ) {
         this.size = size;
 
@@ -86,6 +96,8 @@ public class Frame implements Output {
         jFrame.getContentPane().add(canvas);
         jFrame.pack();
         jFrame.setLocationRelativeTo(null);
+
+        canvas.addMouseListener(mouseListener);
 
         canvas.createBufferStrategy(numBufferStrategy);
     }
