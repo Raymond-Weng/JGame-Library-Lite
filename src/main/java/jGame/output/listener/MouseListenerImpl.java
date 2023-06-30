@@ -33,6 +33,7 @@ public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMot
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        mousePos = new Position(e.getX(), e.getY());
     }
 
     @Override
@@ -52,7 +53,7 @@ public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMot
         return mousePressed[button];
     }
 
-    public Position getMousePos(){
+    public Position getMousePos() {
         return mousePos;
     }
 }
