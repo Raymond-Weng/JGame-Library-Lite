@@ -4,7 +4,6 @@ import jGame.Game;
 import jGame.debug.Stat;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class RenderImpl extends Render {
     private Game game = null;
@@ -29,19 +28,27 @@ public class RenderImpl extends Render {
         this.game.getOutput().getGraphics().fillRect(0, 0, game.getOutput().getSize().getIntWidth(), game.getOutput().getSize().getIntHeight());
 
         this.game.getObjects().forEach(arrayList ->
-            arrayList.forEach(gameObject -> {
-                this.game.getOutput().getGraphics().drawImage(gameObject.render(), gameObject.getPosition().getIntX(), gameObject.getPosition().getIntY(), null);
-                this.game.getOutput().getGraphics().dispose();
-            })
+                arrayList.forEach(gameObject -> {
+                    Image image = gameObject.render();
+                    if (new Rectangle(0, 0,
+                            game.getOutput().getSize().getIntWidth(),
+                            game.getOutput().getSize().getIntHeight())
+                            .intersects(new Rectangle(
+                                    gameObject.getPosition().getIntX(),
+                                    gameObject.getPosition().getIntY(),
+                                    image.getWidth(null),
+                                    image.getHeight(null)))) {
+                        this.game.getOutput().getGraphics().drawImage(image, gameObject.getPosition().getIntX(), gameObject.getPosition().getIntY(), null);
+                        this.game.getOutput().getGraphics().dispose();
+                    }
+                })
         );
 
         this.game.getOutput().getGraphics().dispose();
         this.game.getOutput().show();
     }
 
-    public int getFps(){
+    public int getFps() {
         return super.getUps();
     }
-
-    //TODO
 }
