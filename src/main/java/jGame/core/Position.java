@@ -5,53 +5,53 @@ package jGame.core;
  */
 
 public class Position {
-    private double x;
-    private double y;
+    private final double X;
+    private final double Y;
 
     /**
      * create the object
      *
-     * @param x the x of the position
-     * @param y the y of the position
+     * @param x the X of the position
+     * @param y the Y of the position
      */
     public Position(double x, double y) {
-        this.x = x;
-        this.y = y;
+        this.X = x;
+        this.Y = y;
     }
 
     /**
-     * get the x of the position
+     * get the X of the position
      *
-     * @return x of the position
+     * @return X of the position
      */
     public double getX() {
-        return x;
+        return X;
     }
 
     /**
-     * get the y of the position
+     * get the Y of the position
      *
-     * @return y of the position
+     * @return Y of the position
      */
     public double getY() {
-        return y;
+        return Y;
     }
 
     /**
-     * get the x of the position in int
+     * get the X of the position in int
      *
-     * @return x of the position in int
+     * @return X of the position in int
      */
     public int getIntX() {
-        return (int) x;
+        return (int) X;
     }
 
     /**
-     * get the y of the position in int
+     * get the Y of the position in int
      *
-     * @return y of the position in int
+     * @return Y of the position in int
      */
     public int getIntY() {
-        return (int) y;
+        return (int) Y;
     }
 }

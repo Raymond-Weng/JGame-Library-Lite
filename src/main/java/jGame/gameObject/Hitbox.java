@@ -1,5 +1,6 @@
 package jGame.gameObject;
 
+import com.sun.istack.internal.NotNull;
 import jGame.core.Position;
 import jGame.core.Size;
 
@@ -10,7 +11,7 @@ import java.awt.*;
  */
 
 public class Hitbox {
-    private Rectangle rectangle;
+    private volatile Rectangle rectangle;
 
     private boolean isNull = false;
 
@@ -37,7 +38,7 @@ public class Hitbox {
      * @param hitbox the other hitbox
      * @return if the two hitbox hit together
      */
-    public boolean isHit(Hitbox hitbox) {
+    public boolean isHit(@NotNull Hitbox hitbox) {
         if (hitbox.isNull || this.isNull)
             return false;
         else
@@ -67,7 +68,7 @@ public class Hitbox {
      *
      * @param position the new position of the hitbox
      */
-    public void setPosition(Position position) {
+    public void setPosition(@NotNull Position position) {
         this.rectangle = new Rectangle(position.getIntX(), position.getIntY(), this.rectangle.width, this.rectangle.height);
     }
 
@@ -76,7 +77,7 @@ public class Hitbox {
      *
      * @param size the new size of the hitbox
      */
-    public void setSize(Size size) {
+    public void setSize(@NotNull Size size) {
         this.rectangle = new Rectangle(this.rectangle.x, this.rectangle.y, size.getIntWidth(), size.getIntHeight());
     }
 }
