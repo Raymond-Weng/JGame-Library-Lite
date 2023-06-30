@@ -4,9 +4,11 @@ import jGame.Game;
 import jGame.core.Size;
 import jGame.debug.Stat;
 import jGame.exception.BuilderException;
+import jGame.output.listener.KeyListenerImpl;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -53,6 +55,12 @@ public class Frame implements Output {
             return this;
         }
 
+        private KeyListener keyListener;
+        public Builder setKeyListener(KeyListener keyListener){
+            this.keyListener = keyListener;
+            return this;
+        }
+
         public Frame build() {
             if (size != null)
                 return new Frame(
@@ -61,7 +69,8 @@ public class Frame implements Output {
                         (defaultCloseOperation == -1) ? JFrame.EXIT_ON_CLOSE : defaultCloseOperation,
                         (frameTitle == null) ? "Game" : frameTitle,
                         icon,
-                        mouseListener
+                        mouseListener,
+                        keyListener
                 );
             else
                 throw new BuilderException("There is some missing args.");
@@ -78,7 +87,8 @@ public class Frame implements Output {
                   int defaultCloseOperation,
                   String frameTitle,
                   Image icon,
-                  MouseListener mouseListener
+                  MouseListener mouseListener,
+                  KeyListener keyListener
     ) {
         this.size = size;
 
@@ -98,6 +108,7 @@ public class Frame implements Output {
         jFrame.setLocationRelativeTo(null);
 
         canvas.addMouseListener(mouseListener);
+        jFrame.addKeyListener(keyListener);
 
         canvas.createBufferStrategy(numBufferStrategy);
     }

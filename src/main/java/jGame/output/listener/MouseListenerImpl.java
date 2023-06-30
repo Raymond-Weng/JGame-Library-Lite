@@ -3,7 +3,7 @@ package jGame.output.listener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class MouseListener implements java.awt.event.MouseListener {
+public class MouseListenerImpl implements java.awt.event.MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {}
 
