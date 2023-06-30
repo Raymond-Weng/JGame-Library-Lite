@@ -1,27 +1,41 @@
 package jGame.gameObject.objects;
 
+import com.sun.istack.internal.NotNull;
 import jGame.core.Position;
 import jGame.core.Size;
 import jGame.gameObject.GameObject;
 import jGame.gameObject.Hitbox;
+import javafx.geometry.Pos;
 
-import java.awt.*;
 import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 
 public class Rectangle extends GameObject {
-    private Position position = new Position(0,0);
+    private Position position;
+    private Size size;
+    private Color color;
+
+    private Hitbox hitbox;
+
+    public Rectangle(){
+        this.position = new Position(0d, 0d);
+        this.size = new Size(50d, 50d);
+        this.color = Color.WHITE;
+
+        hitbox = new Hitbox(position, size);
+    }
 
     @Override
     public void update() {
-        position = new Position(position.getX()+1, position.getY()+1);
     }
 
     @Override
     public Image render() {
-        Image image = new BufferedImage(50,50,BufferedImage.TYPE_INT_ARGB);
-        image.getGraphics().setColor(Color.WHITE);
-        image.getGraphics().fillRect(0,0,50,50);
+        Image image = new BufferedImage(size.getIntWidth(), size.getIntHeight(), BufferedImage.TYPE_INT_ARGB);
+        image.getGraphics().setColor(color);
+        image.getGraphics().fillRect(position.getIntX(), position.getIntY(), size.getIntWidth(), size.getIntHeight());
         image.getGraphics().dispose();
         return image;
     }
@@ -33,12 +47,25 @@ public class Rectangle extends GameObject {
 
     @Override
     public Hitbox getHitbox() {
-        return null;
+        return hitbox;
     }
 
     @Override
     public Size getSize() {
-        return null;
+        return size;
     }
-    //TODO
+
+    public void setPosition(@NotNull Position position){
+        this.position = position;
+        hitbox.setPosition(position);
+    }
+
+    public void setSize(@NotNull Size size){
+        this.size = size;
+        hitbox.setSize(size);
+    }
+
+    public void setColor(@NotNull Color color){
+        this.color = color;
+    }
 }
