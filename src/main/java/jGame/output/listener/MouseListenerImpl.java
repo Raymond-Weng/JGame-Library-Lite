@@ -1,11 +1,15 @@
 package jGame.output.listener;
 
+import jGame.core.Position;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
-public class MouseListenerImpl implements java.awt.event.MouseListener {
+public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMotionListener {
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
@@ -27,14 +31,28 @@ public class MouseListenerImpl implements java.awt.event.MouseListener {
         mouseInside = false;
     }
 
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        mousePos = new Position(e.getX(), e.getY());
+    }
+
     private boolean mouseInside;
     private boolean[] mousePressed = new boolean[MouseInfo.getNumberOfButtons() + 1];
+    private Position mousePos = new Position(0, 0);
 
-    public boolean isMouseInside(){
+    public boolean isMouseInside() {
         return mouseInside;
     }
 
-    public boolean isMousePressed(int button){
+    public boolean isMousePressed(int button) {
         return mousePressed[button];
+    }
+
+    public Position getMousePos(){
+        return mousePos;
     }
 }

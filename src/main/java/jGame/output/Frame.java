@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 public class Frame implements Output {
     public static class Builder {
@@ -59,6 +60,12 @@ public class Frame implements Output {
             return this;
         }
 
+        private MouseMotionListener mouseMotionListener;
+        public Builder setMouseMotionListener(MouseMotionListener mouseMotionListener){
+            this.mouseMotionListener = mouseMotionListener;
+            return this;
+        }
+
         public Frame build() {
             if (size != null)
                 return new Frame(
@@ -68,6 +75,7 @@ public class Frame implements Output {
                         (frameTitle == null) ? "Game" : frameTitle,
                         icon,
                         mouseListener,
+                        mouseMotionListener,
                         keyListener
                 );
             else
@@ -86,6 +94,7 @@ public class Frame implements Output {
                   String frameTitle,
                   Image icon,
                   MouseListener mouseListener,
+                  MouseMotionListener mouseMotionListener,
                   KeyListener keyListener
     ) {
         this.size = size;
@@ -106,6 +115,7 @@ public class Frame implements Output {
         jFrame.setLocationRelativeTo(null);
 
         canvas.addMouseListener(mouseListener);
+        canvas.addMouseMotionListener(mouseMotionListener);
         jFrame.addKeyListener(keyListener);
 
         canvas.createBufferStrategy(numBufferStrategy);

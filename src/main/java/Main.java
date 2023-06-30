@@ -25,6 +25,7 @@ public class Main {
                 .setSize(new Size(800d, 600d))
                 .setNumBufferStrategy(2)
                 .setMouseListener(mouseListenerImpl)
+                .setMouseMotionListener(mouseListenerImpl)
                 .setKeyListener(keyListenerImpl)
                 .build();
         game = new Game.Builder()
@@ -54,6 +55,18 @@ public class Main {
             @Override
             public String getText(Game game) {
                 return String.valueOf(Main.mouseListenerImpl.isMousePressed(MouseEvent.BUTTON1));
+            }
+        });
+        game.getDebugPanel().addVariable("Mouse X", new DebugStringHandler() {
+            @Override
+            public String getText(Game game) {
+                return String.valueOf(Main.mouseListenerImpl.getMousePos().getX());
+            }
+        });
+        game.getDebugPanel().addVariable("Mouse Y", new DebugStringHandler() {
+            @Override
+            public String getText(Game game) {
+                return String.valueOf(Main.mouseListenerImpl.getMousePos().getY());
             }
         });
         game.getDebugPanel().addVariable("A Pressed", new DebugStringHandler() {
