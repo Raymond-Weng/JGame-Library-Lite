@@ -1,6 +1,6 @@
 package jGame.loop.render;
 
-import jGame.Game;
+import jGame.main.Game;
 import jGame.core.Position;
 import jGame.gameObject.GameObject;
 

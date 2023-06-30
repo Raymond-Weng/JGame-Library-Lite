@@ -1,8 +1,8 @@
-package jGame.debug;
+package jGame.main;
 
 import jGame.exception.StatException;
 
-public class Stat {
+public class ReadyChecker {
     public static final int OUTPUT_READY = 0;
     private static volatile boolean outputReady = false;
 
@@ -32,10 +32,6 @@ public class Stat {
             default:
                 throw new StatException("Cannot find the stat in boolean with the code " + statCode);
         }
-    }
-
-    public static void setStatInteger(int statCode, int stat) {
-
     }
 
     /**

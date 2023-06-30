@@ -1,7 +1,7 @@
 package jGame.loop.render;
 
-import jGame.Game;
-import jGame.debug.Stat;
+import jGame.main.Game;
+import jGame.main.ReadyChecker;
 
 import java.awt.*;
 
@@ -19,7 +19,7 @@ public class RenderImpl extends Render {
 
     public void setGame(Game game) {
         this.game = game;
-        Stat.setStatBoolean(Stat.RENDER_READY, true);
+        ReadyChecker.setStatBoolean(ReadyChecker.RENDER_READY, true);
     }
 
     @Override

@@ -1,4 +1,4 @@
-import jGame.Game;
+import jGame.main.Game;
 import jGame.core.Size;
 import jGame.debug.DebugStringHandler;
 import jGame.gameObject.objects.Rectangle;

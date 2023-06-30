@@ -1,6 +1,6 @@
 package jGame.debug;
 
-import jGame.Game;
+import jGame.main.Game;
 
 public interface DebugStringHandler {
     /**

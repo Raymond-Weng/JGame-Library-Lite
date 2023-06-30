@@ -1,15 +1,13 @@
 package jGame.output;
 
-import jGame.Game;
+import jGame.main.Game;
 import jGame.core.Size;
-import jGame.debug.Stat;
+import jGame.main.ReadyChecker;
 import jGame.exception.BuilderException;
-import jGame.output.listener.KeyListenerImpl;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Frame implements Output {
@@ -116,7 +114,7 @@ public class Frame implements Output {
 
     public void setGame(Game game) {
         this.game = game;
-        Stat.setStatBoolean(Stat.OUTPUT_READY, true);
+        ReadyChecker.setStatBoolean(ReadyChecker.OUTPUT_READY, true);
     }
 
     public void showFrame() {

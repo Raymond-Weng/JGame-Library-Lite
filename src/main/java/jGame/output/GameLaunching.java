@@ -1,6 +1,6 @@
 package jGame.output;
 
-import jGame.Game;
+import jGame.main.Game;
 
 import java.awt.*;
 

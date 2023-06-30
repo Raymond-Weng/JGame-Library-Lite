@@ -2,11 +2,10 @@
  * The main object to control whole game.
  */
 
-package jGame;
+package jGame.main;
 
 import jGame.debug.DebugPanel;
 import jGame.debug.DebugStringHandler;
-import jGame.debug.Stat;
 import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
 import jGame.exception.TimeOutException;
@@ -191,9 +190,9 @@ public class Game {
     public void run() {
         double startTime = System.currentTimeMillis();
         while (!(
-                Stat.getStatBoolean(Stat.OUTPUT_READY) &&
-                        Stat.getStatBoolean(Stat.RENDER_READY) &&
-                        Stat.getStatBoolean(Stat.UPDATE_READY)
+                ReadyChecker.getStatBoolean(ReadyChecker.OUTPUT_READY) &&
+                        ReadyChecker.getStatBoolean(ReadyChecker.RENDER_READY) &&
+                        ReadyChecker.getStatBoolean(ReadyChecker.UPDATE_READY)
         )) {
             if ((System.currentTimeMillis() - startTime) > (loadingTimeOut * 1000)) {
                 throw new TimeOutException("Time out, loading should finish in " + loadingTimeOut + " second.");

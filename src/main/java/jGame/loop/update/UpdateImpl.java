@@ -1,7 +1,7 @@
 package jGame.loop.update;
 
-import jGame.Game;
-import jGame.debug.Stat;
+import jGame.main.Game;
+import jGame.main.ReadyChecker;
 import jGame.gameObject.GameObject;
 
 public class UpdateImpl extends Update {
@@ -18,7 +18,7 @@ public class UpdateImpl extends Update {
 
     public void setGame(Game game) {
         this.game = game;
-        Stat.setStatBoolean(Stat.UPDATE_READY, true);
+        ReadyChecker.setStatBoolean(ReadyChecker.UPDATE_READY, true);
     }
 
     @Override
