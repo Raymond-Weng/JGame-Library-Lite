@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMotionListener {
+public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMotionListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
     }
@@ -52,7 +52,7 @@ public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMot
         return mousePressed[button];
     }
 
-    public Position getMousePos(){
+    public Position getMousePos() {
         return mousePos;
     }
 }
