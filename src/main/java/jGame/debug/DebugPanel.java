@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * this is made for debugging, set debug to true to enable this panel
+ */
 public class DebugPanel extends Thread {
     private Game game;
 
@@ -18,6 +21,11 @@ public class DebugPanel extends Thread {
     private ArrayList<String> names;
     private Map<String, DebugStringHandler> debugStringHandlerMap;
 
+    /**
+     * this method will be called if the debug is set to true in Game.
+     *
+     * @param game the current game of this panel
+     */
     public DebugPanel(Game game) {
         super();
 
@@ -65,6 +73,14 @@ public class DebugPanel extends Thread {
         jFrame.pack();
     }
 
+    /**
+     * add something to the panel, and it will start tracking it, and it will show as 'name + " : " + the string returned' .
+     *
+     * @param name               the name of the tracker
+     * @param debugStringHandler the handler to return the string to this panel
+     *
+     * @see DebugStringHandler
+     */
     public void addVariable(String name, DebugStringHandler debugStringHandler) {
         this.names.add(name);
         this.debugStringHandlerMap.put(name, debugStringHandler);
