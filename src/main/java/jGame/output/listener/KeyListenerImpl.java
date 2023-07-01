@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class KeyListenerImpl implements KeyListener {
+public class KeyListenerImpl implements KeyListener, jGame.output.listener.KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {}
 
