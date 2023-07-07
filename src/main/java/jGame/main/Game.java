@@ -10,6 +10,8 @@ import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
 import jGame.exception.TimeOutException;
 import jGame.gameObject.GameObject;
+import jGame.loop.render.Camera;
+import jGame.loop.render.NonCamera;
 import jGame.loop.render.Render;
 import jGame.loop.timer.GameThread;
 import jGame.loop.timer.Timer;
@@ -110,6 +112,19 @@ public class Game {
             return this;
         }
 
+        private Camera camera = null;
+
+        /**
+         * the camera of the game, to look around the map
+         *
+         * @param camera the camera of the game
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         */
+        public Builder setCamera(Camera camera) {
+            this.camera = camera;
+            return this;
+        }
+
         /**
          * create the game object
          *
@@ -126,6 +141,7 @@ public class Game {
                         output,
                         render,
                         update,
+                        (camera == null) ? new NonCamera() : camera,
                         Math.max(threadCount, 2),
                         (loadingTimeOut == -1) ? 10 : loadingTimeOut
                 );
@@ -147,16 +163,19 @@ public class Game {
     private int loadingTimeOut;
 
     private DebugPanel debugPanel;
+    private Camera camera;
 
     private Game(boolean debug,
                  Output output,
                  Render render,
                  Update update,
+                 Camera camera,
                  int threadCount,
                  int loadingTimeOut) {
         this.debug = debug;
         this.output = output;
         this.loadingTimeOut = loadingTimeOut;
+        this.camera = camera;
 
         timerManagers = new TimerManager[threadCount];
         timerManagers[0] = new TimerManager(render, update);
@@ -286,7 +305,15 @@ public class Game {
         return debug;
     }
 
-    public DebugPanel getDebugPanel(){
+    public DebugPanel getDebugPanel() {
         return debugPanel;
+    }
+
+    public Camera getCamera(){
+        return camera;
+    }
+
+    public void setCamera(Camera camera){
+        this.camera = camera;
     }
 }

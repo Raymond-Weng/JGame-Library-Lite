@@ -38,7 +38,10 @@ public class RenderImpl extends Render {
                                     gameObject.getPosition().getIntY(),
                                     image.getWidth(null),
                                     image.getHeight(null)))) {
-                        this.game.getOutput().getGraphics().drawImage(image, gameObject.getPosition().getIntX(), gameObject.getPosition().getIntY(), null);
+                        this.game.getOutput().getGraphics().drawImage(image,
+                                gameObject.getPosition().getIntX() - game.getCamera().getPosition().getIntX(),
+                                gameObject.getPosition().getIntY() - game.getCamera().getPosition().getIntY(),
+                                null);
                         this.game.getOutput().getGraphics().dispose();
                     }
                 })
