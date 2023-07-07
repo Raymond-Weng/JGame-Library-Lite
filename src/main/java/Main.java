@@ -17,18 +17,16 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         Main.mouseListenerImpl = new MouseListenerImpl();
         Main.keyListenerImpl = new KeyListenerImpl();
-        Game game = null;
-        Frame output = null;
         RenderImpl render = new RenderImpl(60);
         UpdateImpl update = new UpdateImpl(60);
-        output = new Frame.Builder()
+        Frame output = new Frame.Builder()
                 .setSize(new Size(800d, 600d))
                 .setNumBufferStrategy(2)
                 .setMouseListener(mouseListenerImpl)
                 .setMouseMotionListener(mouseListenerImpl)
                 .setKeyListener(keyListenerImpl)
                 .build();
-        game = new Game.Builder()
+        Game game = new Game.Builder()
                 .setDebug(true)
                 .setOutput(output)
                 .setRender(render)
