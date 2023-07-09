@@ -166,18 +166,14 @@ public class Game {
 
     public final boolean ONLY_RENDER_AFTER_UPDATE;
 
-    private boolean debug;
-
     public volatile boolean loading = false;
 
+    private boolean debug;
     private final ArrayList<ArrayList<GameObject>> objects;
-
     private final Output output;
     private TimerManager[] timerManagers;
-
     private GameThread[] gameThreads;
     private int loadingTimeOut;
-
     private DebugPanel debugPanel;
     private Camera camera;
 
@@ -225,6 +221,10 @@ public class Game {
      * start the game
      */
     public void run() {
+        if(getMainThread().isRunning()){
+            return;
+        }
+
         double startTime = System.currentTimeMillis();
         while (!(
                 ReadyChecker.getStatBoolean(ReadyChecker.OUTPUT_READY) &&
@@ -287,6 +287,25 @@ public class Game {
         }
     }
 
+    public void removeObject(GameObject gameObject, int priority) throws PriorityException {
+        switch (priority) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+                this.objects.get(priority).remove(gameObject);
+                break;
+            default:
+                throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
+        }
+    }
+
     /**
      * get the output of the game
      *
@@ -306,6 +325,14 @@ public class Game {
     public void addTimer(Timer timer, int priority) throws PriorityException {
         if (priority < timerManagers.length) {
             this.timerManagers[priority].addTimer(timer);
+        } else {
+            throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
+        }
+    }
+
+    public void removeTimer(Timer timer, int priority) throws PriorityException {
+        if (priority < timerManagers.length) {
+            this.timerManagers[priority].removeTimer(timer);
         } else {
             throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
         }
