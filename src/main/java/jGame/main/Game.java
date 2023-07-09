@@ -125,6 +125,19 @@ public class Game {
             return this;
         }
 
+        private boolean ONLY_RENDER_AFTER_UPDATE = true;
+
+        /**
+         * set if the {@code render()} method of the Render class will only be called after the method {@code update} ran
+         *
+         * @param ONLY_RENDER_AFTER_UPDATE will it need to wait? (default value is {@code true}
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         */
+        public Builder setOnlyRenderAfterUpdate(boolean ONLY_RENDER_AFTER_UPDATE) {
+            this.ONLY_RENDER_AFTER_UPDATE = ONLY_RENDER_AFTER_UPDATE;
+            return this;
+        }
+
         /**
          * create the game object
          *
@@ -143,12 +156,15 @@ public class Game {
                         update,
                         (camera == null) ? new NonCamera() : camera,
                         Math.max(threadCount, 2),
-                        (loadingTimeOut == -1) ? 10 : loadingTimeOut
+                        (loadingTimeOut == -1) ? 10 : loadingTimeOut,
+                        ONLY_RENDER_AFTER_UPDATE
                 );
             else
                 throw new BuilderException("There is some missing args.");
         }
     }
+
+    public final boolean ONLY_RENDER_AFTER_UPDATE;
 
     private boolean debug;
 
@@ -171,7 +187,9 @@ public class Game {
                  Update update,
                  Camera camera,
                  int threadCount,
-                 int loadingTimeOut) {
+                 int loadingTimeOut,
+                 boolean ONLY_RENDER_AFTER_UPDATE) {
+        this.ONLY_RENDER_AFTER_UPDATE = ONLY_RENDER_AFTER_UPDATE;
         this.debug = debug;
         this.output = output;
         this.loadingTimeOut = loadingTimeOut;
@@ -309,11 +327,11 @@ public class Game {
         return debugPanel;
     }
 
-    public Camera getCamera(){
+    public Camera getCamera() {
         return camera;
     }
 
-    public void setCamera(Camera camera){
+    public void setCamera(Camera camera) {
         this.camera = camera;
     }
 }

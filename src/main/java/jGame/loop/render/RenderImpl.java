@@ -6,8 +6,6 @@ import jGame.main.ReadyChecker;
 import java.awt.*;
 
 public class RenderImpl extends Render {
-    private Game game = null;
-
     /**
      * create the object
      *
@@ -15,11 +13,6 @@ public class RenderImpl extends Render {
      */
     public RenderImpl(double maxFps) {
         super(1d / maxFps);
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-        ReadyChecker.setStatBoolean(ReadyChecker.RENDER_READY, true);
     }
 
     @Override
