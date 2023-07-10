@@ -39,6 +39,7 @@ public abstract class GameObject {
 
     /**
      * return the size of the object
+     *
      * @return the size of the object
      */
     public abstract Size getSize();

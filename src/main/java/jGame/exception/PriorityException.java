@@ -12,12 +12,12 @@ public class PriorityException extends RuntimeException {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return message;
     }
 
     @Override
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
 }

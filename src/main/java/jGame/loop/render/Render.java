@@ -4,6 +4,9 @@ import jGame.loop.timer.Timer;
 import jGame.main.Game;
 import jGame.main.ReadyChecker;
 
+/**
+ * the render, graphic control of the game
+ */
 public abstract class Render extends Timer {
     protected Game game = null;
 
@@ -16,7 +19,11 @@ public abstract class Render extends Timer {
         super(updateRate);
     }
 
-
+    /**
+     * give the game to this to let it know more about this, loading page will run until these "setGame" was called
+     *
+     * @param game the current game
+     */
     public void setGame(Game game) {
         this.game = game;
         ReadyChecker.setStatBoolean(ReadyChecker.RENDER_READY, true);

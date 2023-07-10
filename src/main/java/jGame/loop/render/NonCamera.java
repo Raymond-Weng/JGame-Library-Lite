@@ -3,12 +3,17 @@ package jGame.loop.render;
 import jGame.core.Position;
 import jGame.gameObject.GameObject;
 
-public class NonCamera implements Camera{
+/**
+ * if you don't want to use the camera, you can just use this and the camera will not work at all
+ */
+public class NonCamera implements Camera {
     @Override
-    public void update() {}
+    public void update() {
+    }
 
     @Override
-    public void focusOn(GameObject gameObject) {}
+    public void focusOn(GameObject gameObject) {
+    }
 
     @Override
     public GameObject getFocus() {
@@ -16,7 +21,8 @@ public class NonCamera implements Camera{
     }
 
     @Override
-    public void clearFocus() {}
+    public void clearFocus() {
+    }
 
     @Override
     public Position getPosition() {
@@ -24,5 +30,6 @@ public class NonCamera implements Camera{
     }
 
     @Override
-    public void setPosition(Position position) {}
+    public void setPosition(Position position) {
+    }
 }

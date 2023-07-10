@@ -78,7 +78,6 @@ public class DebugPanel extends Thread {
      *
      * @param name               the name of the tracker
      * @param debugStringHandler the handler to return the string to this panel
-     *
      * @see DebugStringHandler
      */
     public void addVariable(String name, DebugStringHandler debugStringHandler) {

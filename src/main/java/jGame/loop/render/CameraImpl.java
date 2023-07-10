@@ -1,8 +1,8 @@
 package jGame.loop.render;
 
-import jGame.main.Game;
 import jGame.core.Position;
 import jGame.gameObject.GameObject;
+import jGame.main.Game;
 
 /**
  * make the Camera
@@ -17,7 +17,8 @@ public class CameraImpl implements Camera {
 
     /**
      * create a camera
-     * @param game the game object, we need this to get the size of output
+     *
+     * @param game     the game object, we need this to get the size of output
      * @param position the default position of the camera
      */
     public CameraImpl(Game game, Position position) {
@@ -27,8 +28,9 @@ public class CameraImpl implements Camera {
 
     /**
      * create a camera
-     * @param game the game object, we need this to get the size of output
-     * @param position the default position of the camera
+     *
+     * @param game          the game object, we need this to get the size of output
+     * @param position      the default position of the camera
      * @param objectOnFocus let the camera follow an object
      */
     public CameraImpl(Game game, Position position, GameObject objectOnFocus) {

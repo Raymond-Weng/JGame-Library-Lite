@@ -1,10 +1,10 @@
 package jGame.loop.render;
 
-import jGame.main.Game;
-import jGame.main.ReadyChecker;
-
 import java.awt.*;
 
+/**
+ * the simplest working camera, feel free to use this if you don't want to make your code too huge
+ */
 public class RenderImpl extends Render {
     /**
      * create the object
@@ -42,9 +42,5 @@ public class RenderImpl extends Render {
 
         this.game.getOutput().getGraphics().dispose();
         this.game.getOutput().show();
-    }
-
-    public int getFps() {
-        return super.getUps();
     }
 }

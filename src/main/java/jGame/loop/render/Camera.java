@@ -3,6 +3,9 @@ package jGame.loop.render;
 import jGame.core.Position;
 import jGame.gameObject.GameObject;
 
+/**
+ * this is a class for camera controlling
+ */
 public interface Camera {
     /**
      * update all the things of the camera here, include position, focus etc.
