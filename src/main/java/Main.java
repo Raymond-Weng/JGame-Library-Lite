@@ -1,9 +1,8 @@
-import jGame.main.Game;
 import jGame.core.Size;
 import jGame.debug.DebugStringHandler;
-import jGame.gameObject.objects.Rectangle;
 import jGame.loop.render.RenderImpl;
 import jGame.loop.update.UpdateImpl;
+import jGame.main.Game;
 import jGame.output.Frame;
 import jGame.output.listener.KeyListenerImpl;
 import jGame.output.listener.MouseListenerImpl;
@@ -14,6 +13,7 @@ import java.awt.event.MouseEvent;
 public class Main {
     public static MouseListenerImpl mouseListenerImpl;
     public static KeyListenerImpl keyListenerImpl;
+
     public static void main(String[] args) throws InterruptedException {
         Main.mouseListenerImpl = new MouseListenerImpl();
         Main.keyListenerImpl = new KeyListenerImpl();
@@ -40,7 +40,6 @@ public class Main {
         update.setGame(game);
 
         game.run();
-        game.addObject(new Rectangle(), 1);
 
         game.getDebugPanel().addVariable("Mouse Inside", new DebugStringHandler() {
             @Override
