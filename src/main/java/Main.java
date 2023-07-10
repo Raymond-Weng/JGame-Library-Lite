@@ -1,3 +1,4 @@
+import jGame.core.Position;
 import jGame.core.Size;
 import jGame.debug.DebugStringHandler;
 import jGame.loop.render.RenderImpl;
@@ -20,7 +21,7 @@ public class Main {
         RenderImpl render = new RenderImpl(60);
         UpdateImpl update = new UpdateImpl(60);
         Frame output = new Frame.Builder()
-                .setSize(new Size(800d, 600d))
+                .setSize(new Size(1600d, 1000d))
                 .setNumBufferStrategy(2)
                 .setMouseListener(mouseListenerImpl)
                 .setMouseMotionListener(mouseListenerImpl)

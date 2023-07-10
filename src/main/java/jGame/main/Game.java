@@ -265,7 +265,6 @@ public class Game {
      * add an object to the list, start rendering and updating.
      *
      * @param gameObject the object which is going to be added
-     * @param priority   the render (or update) priority, it will be rendered (or updated) quicker if it bigger. (This should be between 0 and 9)
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */
     public void addObject(GameObject gameObject, int priority) throws PriorityException {
