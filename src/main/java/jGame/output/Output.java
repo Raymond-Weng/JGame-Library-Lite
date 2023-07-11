@@ -29,7 +29,4 @@ public interface Output {
      * @return the size of the game
      */
     Size getSize();
-
-
-    //TODO output methods
 }

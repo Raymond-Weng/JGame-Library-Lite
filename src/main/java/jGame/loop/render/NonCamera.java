@@ -1,5 +1,6 @@
 package jGame.loop.render;
 
+import com.sun.istack.internal.NotNull;
 import jGame.core.Position;
 import jGame.gameObject.GameObject;
 
@@ -30,6 +31,6 @@ public class NonCamera implements Camera {
     }
 
     @Override
-    public void setPosition(Position position) {
+    public void setPosition(@NotNull Position position) {
     }
 }

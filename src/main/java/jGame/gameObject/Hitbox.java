@@ -60,7 +60,7 @@ public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
      *
      * @param shape the new shape if the hitbox
      */
-    public void setShape(E shape) {
+    public void setShape(@NotNull E shape) {
         this.shape = shape;
     }
 }

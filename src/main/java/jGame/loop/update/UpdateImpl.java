@@ -20,6 +20,4 @@ public class UpdateImpl extends Update {
             arrayList.forEach(GameObject::update);
         });
     }
-
-    //TODO
 }

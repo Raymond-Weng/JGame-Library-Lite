@@ -1,5 +1,6 @@
 package jGame.output;
 
+import com.sun.istack.internal.NotNull;
 import jGame.main.Game;
 import jGame.core.Size;
 import jGame.main.ReadyChecker;
@@ -23,7 +24,7 @@ public class Frame implements Output {
          * @param size the size of the display area
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
-        public Builder setSize(Size size) {
+        public Builder setSize(@NotNull Size size) {
             this.size = size;
             return this;
         }

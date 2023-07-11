@@ -1,9 +1,6 @@
-/**
- * The main object to control whole game.
- */
-
 package jGame.main;
 
+import com.sun.istack.internal.NotNull;
 import jGame.debug.DebugPanel;
 import jGame.debug.DebugStringHandler;
 import jGame.exception.BuilderException;
@@ -22,6 +19,9 @@ import jGame.output.Output;
 
 import java.util.ArrayList;
 
+/**
+ * The main object to control whole game.
+ */
 public class Game {
     /**
      * the thing to create game object, please read the docs of every method
@@ -51,7 +51,7 @@ public class Game {
          * @see Output
          * @see jGame.output.Frame
          */
-        public Builder setOutput(Output output) {
+        public Builder setOutput(@NotNull Output output) {
             this.output = output;
             return this;
         }
@@ -66,7 +66,7 @@ public class Game {
          * @see Render
          * @see jGame.loop.render.RenderImpl
          */
-        public Builder setRender(Render render) {
+        public Builder setRender(@NotNull Render render) {
             this.render = render;
             return this;
         }
@@ -81,7 +81,7 @@ public class Game {
          * @see Update
          * @see UpdateImpl
          */
-        public Builder setUpdate(Update update) {
+        public Builder setUpdate(@NotNull Update update) {
             this.update = update;
             return this;
         }
@@ -219,8 +219,6 @@ public class Game {
 
             gameThreads[i] = new GameThread(timerManagers[i]);
         }
-
-        //TODO build of the game
     }
 
     /**
@@ -273,7 +271,7 @@ public class Game {
      * @param gameObject the object which is going to be added
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */
-    public void addObject(GameObject gameObject, int priority) throws PriorityException {
+    public void addObject(@NotNull GameObject gameObject, int priority) throws PriorityException {
         switch (priority) {
             case 0:
             case 1:
@@ -292,7 +290,7 @@ public class Game {
         }
     }
 
-    public void removeObject(GameObject gameObject, int priority) throws PriorityException {
+    public void removeObject(@NotNull GameObject gameObject, int priority) throws PriorityException {
         switch (priority) {
             case 0:
             case 1:
@@ -327,7 +325,7 @@ public class Game {
      * @param priority the update priority, it will be updated quicker if it smaller. (This should be smaller than the total of the threads)
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */
-    public void addTimer(Timer timer, int priority) throws PriorityException {
+    public void addTimer(@NotNull Timer timer, int priority) throws PriorityException {
         if (priority < timerManagers.length) {
             this.timerManagers[priority].addTimer(timer);
         } else {
@@ -335,7 +333,7 @@ public class Game {
         }
     }
 
-    public void removeTimer(Timer timer, int priority) throws PriorityException {
+    public void removeTimer(@NotNull Timer timer, int priority) throws PriorityException {
         if (priority < timerManagers.length) {
             this.timerManagers[priority].removeTimer(timer);
         } else {
@@ -364,6 +362,7 @@ public class Game {
 
     /**
      * check if the debug mode is on
+     *
      * @return debug mode
      */
     public boolean isDebug() {
@@ -372,6 +371,7 @@ public class Game {
 
     /**
      * get the debug panel
+     *
      * @return the debug panel, return null if the debug mode is off
      */
     public DebugPanel getDebugPanel() {
@@ -380,6 +380,7 @@ public class Game {
 
     /**
      * get the camera
+     *
      * @return the camera in use
      */
     public Camera getCamera() {
@@ -388,9 +389,10 @@ public class Game {
 
     /**
      * change the using camera
+     *
      * @param camera the new camera
      */
     public void setCamera(Camera camera) {
-        this.camera = camera;
+        this.camera = (camera == null) ? new NonCamera() : camera;
     }
 }

@@ -1,5 +1,6 @@
 package jGame.loop.update;
 
+import com.sun.istack.internal.NotNull;
 import jGame.loop.timer.Timer;
 import jGame.main.Game;
 import jGame.main.ReadyChecker;
@@ -22,7 +23,7 @@ public abstract class Update extends Timer {
      * give the update object a game to let it knows more
      * @param game the current game
      */
-    public void setGame(Game game) {
+    public void setGame(@NotNull Game game) {
         this.game = game;
         ReadyChecker.setStatBoolean(ReadyChecker.UPDATE_READY, true);
     }

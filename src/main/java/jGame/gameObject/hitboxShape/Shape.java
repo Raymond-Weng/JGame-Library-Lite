@@ -1,5 +1,7 @@
 package jGame.gameObject.hitboxShape;
 
+import com.sun.istack.internal.NotNull;
+
 /**
  * the shape of the hitbox, for computing if the two shape hit
  *
@@ -13,5 +15,5 @@ public abstract class Shape {
      * @param shape the second shape
      * @return is two shape hit together
      */
-    public abstract boolean intersects(Shape shape);
+    public abstract boolean intersects(@NotNull Shape shape);
 }
