@@ -4,9 +4,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-public class KeyListenerImpl implements KeyListener{
+/**
+ * the better key listener, including saving the event from frame
+ */
+public class KeyListenerImpl implements KeyListener {
     @Override
-    public void keyTyped(KeyEvent e) {}
+    public void keyTyped(KeyEvent e) {
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -30,10 +34,20 @@ public class KeyListenerImpl implements KeyListener{
 
     private ArrayList<Boolean> keyPressed;
 
+    /**
+     * create a new key listener
+     */
     public KeyListenerImpl() {
         keyPressed = new ArrayList<>();
     }
 
+    /**
+     * check if the key is pressed
+     *
+     * @param keyCode the keycode defined in {@code KeyEvent}
+     * @return is the key pressed
+     * @see KeyEvent
+     */
     public boolean isKeyPressed(int keyCode) {
         if (keyPressed.size() <= keyCode) {
             while (keyPressed.size() <= keyCode) {

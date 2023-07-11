@@ -6,6 +6,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+/**
+ * the better mouse listener, including saving the event from frame
+ */
 public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -45,14 +48,30 @@ public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMot
     private boolean[] mousePressed = new boolean[MouseInfo.getNumberOfButtons() + 1];
     private Position mousePos = new Position(0, 0);
 
+    /**
+     * check if the mouse is inside the frame
+     *
+     * @return is the mouse inside the frame
+     */
     public boolean isMouseInside() {
         return mouseInside;
     }
 
+    /**
+     * check if the mouse is pressed
+     *
+     * @param button the button code defined in {@code KeyEvent}
+     * @return is the mouse button pressed
+     */
     public boolean isMousePressed(int button) {
         return mousePressed[button];
     }
 
+    /**
+     * get the position of the mouse
+     *
+     * @return the position of the mouse
+     */
     public Position getMousePos() {
         return mousePos;
     }

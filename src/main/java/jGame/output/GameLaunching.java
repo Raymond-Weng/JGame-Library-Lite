@@ -4,13 +4,19 @@ import jGame.main.Game;
 
 import java.awt.*;
 
+/**
+ * the loading page for waiting everything ready
+ */
 public class GameLaunching extends Thread {
     private Game game;
-
     private final double UPDATE_RATE;
     private double lastUpdate;
     private double accumulator = 0;
 
+    /**
+     * create a loading page
+     * @param game
+     */
     public GameLaunching(Game game) {
         super();
         this.game = game;

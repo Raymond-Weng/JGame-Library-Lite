@@ -1,14 +1,15 @@
-/**
- * The output(frame, web, etc.&nbsp;) of the game.
- * PLEASE handle the stat OUTPUT_READY
- */
-
 package jGame.output;
 
 import jGame.core.Size;
 
 import java.awt.*;
 
+/**
+ * The output(frame, web, etc.&nbsp;) of the game.
+ * PLEASE handle the stat OUTPUT_READY
+ *
+ * @see jGame.main.ReadyChecker
+ */
 public interface Output {
 
     /**
