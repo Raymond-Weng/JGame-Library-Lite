@@ -1,8 +1,9 @@
-
+exampleCode
 jGame.core
 jGame.debug
 jGame.exception
 jGame.gameObject
+jGame.gameObject.hitboxShape
 jGame.loop.render
 jGame.loop.timer
 jGame.loop.update

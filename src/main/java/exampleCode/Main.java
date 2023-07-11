@@ -1,4 +1,5 @@
-import jGame.core.Position;
+package exampleCode;
+
 import jGame.core.Size;
 import jGame.debug.DebugStringHandler;
 import jGame.loop.render.RenderImpl;
