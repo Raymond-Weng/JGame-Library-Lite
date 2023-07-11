@@ -1,7 +1,5 @@
 package jGame.loop.update;
 
-import jGame.main.Game;
-import jGame.main.ReadyChecker;
 import jGame.gameObject.GameObject;
 
 public class UpdateImpl extends Update {

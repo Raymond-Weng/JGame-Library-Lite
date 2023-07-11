@@ -1,6 +1,7 @@
 package jGame.output;
 
 import com.sun.istack.internal.NotNull;
+
 import jGame.main.Game;
 import jGame.core.Size;
 import jGame.main.ReadyChecker;

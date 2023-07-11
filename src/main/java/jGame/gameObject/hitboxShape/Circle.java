@@ -1,6 +1,7 @@
 package jGame.gameObject.hitboxShape;
 
 import com.sun.istack.internal.NotNull;
+
 import jGame.core.Position;
 
 public class Circle extends Shape {

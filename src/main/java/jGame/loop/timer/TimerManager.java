@@ -1,6 +1,7 @@
 package jGame.loop.timer;
 
 import com.sun.istack.internal.NotNull;
+
 import jGame.loop.render.Render;
 import jGame.loop.update.Update;
 

@@ -1,6 +1,7 @@
 package jGame.loop.render;
 
 import com.sun.istack.internal.NotNull;
+
 import jGame.core.Position;
 import jGame.gameObject.GameObject;
 
