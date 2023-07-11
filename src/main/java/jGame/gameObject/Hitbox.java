@@ -11,6 +11,13 @@ public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
 
     private boolean isNull = false;
 
+    /**
+     * create a hittable hitbox
+     *
+     * @param shape the shape of the hitbox
+     *
+     * @see jGame.gameObject.hitboxShape.Shape
+     */
     public Hitbox(E shape) {
         this.shape = shape;
     }
@@ -48,6 +55,11 @@ public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
         return isNull;
     }
 
+    /**
+     * set the shape of the hitbox
+     *
+     * @param shape the new shape if the hitbox
+     */
     public void setShape(E shape) {
         this.shape = shape;
     }

@@ -3,7 +3,7 @@ package jGame.loop.render;
 import java.awt.*;
 
 /**
- * the simplest working camera, feel free to use this if you don't want to make your code too huge
+ * the simple render implement
  */
 public class RenderImpl extends Render {
     /**

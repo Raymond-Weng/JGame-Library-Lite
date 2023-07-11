@@ -74,7 +74,7 @@ public class Game {
         private Update update = null;
 
         /**
-         * [nust contain]set the update class to update the gameObjects
+         * [must contain]set the update class to update the gameObjects
          *
          * @param update extend the update to overwrite the things in update
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
@@ -164,8 +164,14 @@ public class Game {
         }
     }
 
+    /**
+     * should render run if the update hasn't run
+     */
     public final boolean ONLY_RENDER_AFTER_UPDATE;
 
+    /**
+     * is the game loading
+     */
     public volatile boolean loading = false;
 
     private boolean debug;
@@ -221,7 +227,7 @@ public class Game {
      * start the game
      */
     public void run() {
-        if(getMainThread().isRunning()){
+        if (getMainThread().isRunning()) {
             return;
         }
 
@@ -337,26 +343,53 @@ public class Game {
         }
     }
 
+    /**
+     * get the list of the objects
+     *
+     * @return the list of the objects
+     */
     public ArrayList<ArrayList<GameObject>> getObjects() {
         return objects;
     }
 
+    /**
+     * get the main game thread (the thread with render and update) of this game
+     *
+     * @return the main thread of this game object
+     */
     public GameThread getMainThread() {
+
         return gameThreads[0];
     }
 
+    /**
+     * check if the debug mode is on
+     * @return debug mode
+     */
     public boolean isDebug() {
         return debug;
     }
 
+    /**
+     * get the debug panel
+     * @return the debug panel, return null if the debug mode is off
+     */
     public DebugPanel getDebugPanel() {
         return debugPanel;
     }
 
+    /**
+     * get the camera
+     * @return the camera in use
+     */
     public Camera getCamera() {
         return camera;
     }
 
+    /**
+     * change the using camera
+     * @param camera the new camera
+     */
     public void setCamera(Camera camera) {
         this.camera = camera;
     }

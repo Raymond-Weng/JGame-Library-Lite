@@ -2,6 +2,9 @@ package jGame.main;
 
 import jGame.exception.StatException;
 
+/**
+ * check if all items are ready
+ */
 public class ReadyChecker {
     public static final int OUTPUT_READY = 0;
     private static volatile boolean outputReady = false;

@@ -4,13 +4,24 @@ import jGame.loop.timer.Timer;
 import jGame.main.Game;
 import jGame.main.ReadyChecker;
 
+/**
+ * the update, computing control of the game
+ */
 public abstract class Update extends Timer {
     protected Game game = null;
 
-    public Update(double updateRate) {
-        super(updateRate);
+    /**
+     * create a update object
+     * @param updateRateSecond the update rate of this
+     */
+    public Update(double updateRateSecond) {
+        super(updateRateSecond);
     }
 
+    /**
+     * give the update object a game to let it knows more
+     * @param game the current game
+     */
     public void setGame(Game game) {
         this.game = game;
         ReadyChecker.setStatBoolean(ReadyChecker.UPDATE_READY, true);
