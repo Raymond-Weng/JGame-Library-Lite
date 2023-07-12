@@ -13,14 +13,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class Main {
-    public static MouseListenerImpl mouseListenerImpl;
-    public static KeyListenerImpl keyListenerImpl;
+    private static Main main;
+    public static Main get(){
+        return main;
+    }
+
+    public Game game;
+    public MouseListenerImpl mouseListener;
+    public KeyListenerImpl keyListener;
 
     public static void main(String[] args) throws InterruptedException {
-        Main.mouseListenerImpl = new MouseListenerImpl();
-        Main.keyListenerImpl = new KeyListenerImpl();
+        MouseListenerImpl mouseListenerImpl = new MouseListenerImpl();
+        KeyListenerImpl keyListenerImpl = new KeyListenerImpl();
         RenderImpl render = new RenderImpl(60);
         UpdateImpl update = new UpdateImpl(60);
+
         Frame output = new Frame.Builder()
                 .setSize(new Size(1600d, 1000d))
                 .setNumBufferStrategy(2)
@@ -43,35 +50,47 @@ public class Main {
 
         game.run();
 
-        game.getDebugPanel().addVariable("Mouse Inside", new DebugStringHandler() {
+        main = new Main(game, mouseListenerImpl, keyListenerImpl);
+    }
+
+    public Main(Game game, MouseListenerImpl mouseListener, KeyListenerImpl keyListener){
+        this.game = game;
+        this.mouseListener = mouseListener;
+        this.keyListener = keyListener;
+
+        debugSetup();
+    }
+
+    private void debugSetup(){
+        this.game.getDebugPanel().addVariable("Mouse Inside", new DebugStringHandler() {
             @Override
             public String getText(Game game) {
-                return String.valueOf(Main.mouseListenerImpl.isMouseInside());
+                return String.valueOf(Main.get().mouseListener.isMouseInside());
             }
         });
 
-        game.getDebugPanel().addVariable("Mouse Pressed", new DebugStringHandler() {
+        this.game.getDebugPanel().addVariable("Mouse Pressed", new DebugStringHandler() {
             @Override
             public String getText(Game game) {
-                return String.valueOf(Main.mouseListenerImpl.isMousePressed(MouseEvent.BUTTON1));
+                return String.valueOf(Main.get().mouseListener.isMousePressed(MouseEvent.BUTTON1));
             }
         });
-        game.getDebugPanel().addVariable("Mouse X", new DebugStringHandler() {
+        this.game.getDebugPanel().addVariable("Mouse X", new DebugStringHandler() {
             @Override
             public String getText(Game game) {
-                return String.valueOf(Main.mouseListenerImpl.getMousePos().getX());
+                return String.valueOf(Main.get().mouseListener.getMousePos().getX());
             }
         });
-        game.getDebugPanel().addVariable("Mouse Y", new DebugStringHandler() {
+        this.game.getDebugPanel().addVariable("Mouse Y", new DebugStringHandler() {
             @Override
             public String getText(Game game) {
-                return String.valueOf(Main.mouseListenerImpl.getMousePos().getY());
+                return String.valueOf(Main.get().mouseListener.getMousePos().getY());
             }
         });
-        game.getDebugPanel().addVariable("A Pressed", new DebugStringHandler() {
+        this.game.getDebugPanel().addVariable("A Pressed", new DebugStringHandler() {
             @Override
             public String getText(Game game) {
-                return String.valueOf(Main.keyListenerImpl.isKeyPressed(KeyEvent.VK_A));
+                return String.valueOf(Main.get().keyListener.isKeyPressed(KeyEvent.VK_A));
             }
         });
     }
