@@ -8,9 +8,9 @@ import com.sun.istack.internal.NotNull;
  * @see TimerManager
  */
 public class GameThread extends Thread {
-    private TimerManager timerManager;
+    private final TimerManager timerManager;
 
-    private boolean running = false;
+    private volatile boolean running = false;
 
     /**
      * create a new thread ({@code Game} class will handle this)
@@ -26,9 +26,13 @@ public class GameThread extends Thread {
         running = true;
         while (running) {
             if (timerManager.getUpdate() == null || timerManager.getRender() == null) {
-                timerManager.getTimers().forEach(Timer::update);
+                synchronized (timerManager.getTimers()) {
+                    timerManager.getTimers().forEach(Timer::update);
+                }
             } else {
-                timerManager.getFullList().forEach(Timer::update);
+                synchronized (timerManager) {
+                    timerManager.getFullList().forEach(Timer::update);
+                }
             }
         }
     }

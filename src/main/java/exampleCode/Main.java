@@ -19,8 +19,8 @@ public class Main {
     }
 
     public Game game;
-    public MouseListenerImpl mouseListener;
-    public KeyListenerImpl keyListener;
+    public volatile MouseListenerImpl mouseListener;
+    public volatile KeyListenerImpl keyListener;
 
     public static void main(String[] args) throws InterruptedException {
         MouseListenerImpl mouseListenerImpl = new MouseListenerImpl();
@@ -43,12 +43,9 @@ public class Main {
                 .build();
         output.setGame(game);
         output.showFrame();
-        game.build();
 
         render.setGame(game);
         update.setGame(game);
-
-        game.run();
 
         main = new Main(game, mouseListenerImpl, keyListenerImpl);
     }
@@ -58,7 +55,11 @@ public class Main {
         this.mouseListener = mouseListener;
         this.keyListener = keyListener;
 
+        game.build();
+
         debugSetup();
+
+        game.run();
     }
 
     private void debugSetup(){

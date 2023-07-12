@@ -44,9 +44,9 @@ public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMot
         mousePos = new Position(e.getX(), e.getY());
     }
 
-    private boolean mouseInside;
-    private boolean[] mousePressed = new boolean[MouseInfo.getNumberOfButtons() + 1];
-    private Position mousePos = new Position(0, 0);
+    private volatile boolean mouseInside;
+    private final boolean[] mousePressed = new boolean[MouseInfo.getNumberOfButtons() + 1];
+    private volatile Position mousePos = new Position(0, 0);
 
     /**
      * check if the mouse is inside the frame

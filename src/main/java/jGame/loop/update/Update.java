@@ -10,7 +10,7 @@ import jGame.main.ReadyChecker;
  * the update, computing control of the game
  */
 public abstract class Update extends Timer {
-    protected Game game = null;
+    protected volatile Game game = null;
 
     /**
      * create a update object

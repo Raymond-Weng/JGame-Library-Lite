@@ -6,7 +6,7 @@ import jGame.core.Position;
 import jGame.core.Size;
 
 public class Rectangle extends Shape {
-    private java.awt.Rectangle rectangle;
+    private final java.awt.Rectangle rectangle;
 
     /**
      * create a rectangle

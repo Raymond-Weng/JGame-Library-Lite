@@ -9,7 +9,7 @@ import com.sun.istack.internal.NotNull;
 public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
     private volatile E shape;
 
-    private boolean isNull = false;
+    private final boolean isNull;
 
     /**
      * create a hittable hitbox
@@ -20,6 +20,7 @@ public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
      */
     public Hitbox(E shape) {
         this.shape = shape;
+        this.isNull = false;
     }
 
     /**

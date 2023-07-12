@@ -14,15 +14,15 @@ import java.util.Arrays;
  * @see Timer
  */
 public class TimerManager {
-    private Render render;
-    private Update update;
-    private ArrayList<Timer> timers;
+    private final Render render;
+    private final Update update;
+    private final ArrayList<Timer> timers;
 
     /**
      * create a timerManager with no render and update
      */
     public TimerManager() {
-        timers = new ArrayList<>();
+        this(null, null);
     }
 
     /**
@@ -31,7 +31,7 @@ public class TimerManager {
      * @param render the Render of the game
      * @param update the Update of the game
      */
-    public TimerManager(@NotNull Render render, @NotNull Update update) {
+    public TimerManager(Render render, Update update) {
         this.render = render;
         this.update = update;
         timers = new ArrayList<>();

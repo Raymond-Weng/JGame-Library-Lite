@@ -32,7 +32,7 @@ public class KeyListenerImpl implements KeyListener {
         keyPressed.set(e.getKeyCode(), false);
     }
 
-    private ArrayList<Boolean> keyPressed;
+    private final ArrayList<Boolean> keyPressed;
 
     /**
      * create a new key listener

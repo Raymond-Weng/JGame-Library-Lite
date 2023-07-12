@@ -13,9 +13,9 @@ import jGame.main.Game;
  */
 
 public class CameraImpl implements Camera {
-    private Game game;
-    private Position position;
-    private GameObject objectOnFocus;
+    private final Game game;
+    private volatile Position position;
+    private volatile GameObject objectOnFocus;
 
     /**
      * create a camera

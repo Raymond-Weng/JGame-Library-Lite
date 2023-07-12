@@ -68,7 +68,9 @@ public class DebugPanel extends Thread {
 
     private void action() {
         AtomicReference<String> text = new AtomicReference<>("");
-        names.forEach(name -> text.set(text + name + " : " + debugStringHandlerMap.get(name).getText(game) + "\n"));
+        synchronized (names){
+            names.forEach(name -> text.set(text + name + " : " + debugStringHandlerMap.get(name).getText(game) + "\n"));
+        }
         jTextArea.setText(text.get());
         jFrame.pack();
     }

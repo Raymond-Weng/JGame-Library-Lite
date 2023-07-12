@@ -12,8 +12,8 @@ public abstract class Timer {
     private double accumulatorUps = 0d;
 
     private int updateTime = 0;
-    private int ups = 0;
-    private int maxUps;
+    private volatile int ups = 0;
+    private final int maxUps;
 
     /**
      * create a timer

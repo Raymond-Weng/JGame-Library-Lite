@@ -10,7 +10,7 @@ import jGame.main.ReadyChecker;
  * the render, graphic control of the game
  */
 public abstract class Render extends Timer {
-    protected Game game = null;
+    protected volatile Game game = null;
 
     /**
      * create the object and set the rate

@@ -145,8 +145,8 @@ public class Frame implements Output {
 
     private final JFrame jFrame;
     private final Canvas canvas;
-    private Size size;
-    private Game game;
+    private final Size size;
+    private volatile Game game;
 
     private Frame(Size size,
                   int numBufferStrategy,

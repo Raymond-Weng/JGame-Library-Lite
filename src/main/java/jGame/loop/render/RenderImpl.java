@@ -20,25 +20,27 @@ public class RenderImpl extends Render {
         this.game.getOutput().getGraphics().setColor(Color.BLACK);
         this.game.getOutput().getGraphics().fillRect(0, 0, game.getOutput().getSize().getIntWidth(), game.getOutput().getSize().getIntHeight());
 
-        this.game.getObjects().forEach(arrayList ->
-                arrayList.forEach(gameObject -> {
-                    Image image = gameObject.render();
-                    if (new Rectangle(0, 0,
-                            game.getOutput().getSize().getIntWidth(),
-                            game.getOutput().getSize().getIntHeight())
-                            .intersects(new Rectangle(
-                                    gameObject.getPosition().getIntX(),
-                                    gameObject.getPosition().getIntY(),
-                                    image.getWidth(null),
-                                    image.getHeight(null)))) {
-                        this.game.getOutput().getGraphics().drawImage(image,
-                                gameObject.getPosition().getIntX() - game.getCamera().getPosition().getIntX(),
-                                gameObject.getPosition().getIntY() - game.getCamera().getPosition().getIntY(),
-                                null);
-                        this.game.getOutput().getGraphics().dispose();
-                    }
-                })
-        );
+        synchronized (this.game.getObjects()) {
+            this.game.getObjects().forEach(arrayList ->
+                    arrayList.forEach(gameObject -> {
+                        Image image = gameObject.render();
+                        if (new Rectangle(0, 0,
+                                game.getOutput().getSize().getIntWidth(),
+                                game.getOutput().getSize().getIntHeight())
+                                .intersects(new Rectangle(
+                                        gameObject.getPosition().getIntX(),
+                                        gameObject.getPosition().getIntY(),
+                                        image.getWidth(null),
+                                        image.getHeight(null)))) {
+                            this.game.getOutput().getGraphics().drawImage(image,
+                                    gameObject.getPosition().getIntX() - game.getCamera().getPosition().getIntX(),
+                                    gameObject.getPosition().getIntY() - game.getCamera().getPosition().getIntY(),
+                                    null);
+                            this.game.getOutput().getGraphics().dispose();
+                        }
+                    })
+            );
+        }
 
         this.game.getOutput().getGraphics().dispose();
         this.game.getOutput().show();

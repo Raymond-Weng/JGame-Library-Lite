@@ -220,6 +220,22 @@ public class Game {
 
             gameThreads[i] = new GameThread(timerManagers[i]);
         }
+
+        if(debug){
+            this.debugPanel = new DebugPanel(this);
+            this.debugPanel.addVariable("FPS", new DebugStringHandler() {
+                @Override
+                public String getText(Game game) {
+                    return String.valueOf(game.timerManagers[0].getRender().getUps());
+                }
+            });
+            this.debugPanel.addVariable("UPS", new DebugStringHandler() {
+                @Override
+                public String getText(Game game) {
+                    return String.valueOf(game.timerManagers[0].getUpdate().getUps());
+                }
+            });
+        }
     }
 
     /**
@@ -246,20 +262,6 @@ public class Game {
         }
 
         if (debug) {
-            this.debugPanel = new DebugPanel(this);
-            this.debugPanel.addVariable("FPS", new DebugStringHandler() {
-                @Override
-                public String getText(Game game) {
-                    return String.valueOf(game.timerManagers[0].getRender().getUps());
-                }
-            });
-            this.debugPanel.addVariable("UPS", new DebugStringHandler() {
-                @Override
-                public String getText(Game game) {
-                    return String.valueOf(game.timerManagers[0].getUpdate().getUps());
-                }
-            });
-
             this.debugPanel.start();
         }
 

@@ -6,8 +6,8 @@ import jGame.core.Position;
 
 public class Circle extends Shape {
 
-    private Position position;
-    private double radius;
+    private final Position position;
+    private final double radius;
 
     /**
      * create a new circle

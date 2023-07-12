@@ -14,8 +14,12 @@ public class UpdateImpl extends Update {
 
     @Override
     public void updateGame() {
-        this.game.getObjects().forEach(arrayList -> {
-            arrayList.forEach(GameObject::update);
-        });
+        synchronized (this.game.getObjects()) {
+            synchronized (this.game.getObjects()) {
+                this.game.getObjects().forEach(arrayList -> {
+                    arrayList.forEach(GameObject::update);
+                });
+            }
+        }
     }
 }
