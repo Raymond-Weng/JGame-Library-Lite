@@ -40,7 +40,7 @@ public class DebugPanel extends Thread {
         jTextArea = new JTextArea();
         jTextArea.setText("Loading...");
         Font font = jTextArea.getFont();
-        jTextArea.setFont(new Font(font.getName(), font.getStyle(), 30));
+        jTextArea.setFont(new Font(font.getName(), font.getStyle(), game.FONT_SIZE));
 
         jFrame.setLayout(new FlowLayout());
         jFrame.getContentPane().add(jTextArea);

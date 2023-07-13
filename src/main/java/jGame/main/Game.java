@@ -139,6 +139,18 @@ public class Game {
             return this;
         }
 
+        private int fontSize = 20;
+
+        /**
+         * set the font size of the debug panel and loading page
+         * @param fontSize the size of the font
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         */
+        public Builder setFontSize(int fontSize){
+            this.fontSize = fontSize;
+            return this;
+        }
+
         /**
          * create the game object
          *
@@ -158,7 +170,8 @@ public class Game {
                         (camera == null) ? new NonCamera() : camera,
                         Math.max(threadCount, 2),
                         (loadingTimeOut == -1) ? 10 : loadingTimeOut,
-                        ONLY_RENDER_AFTER_UPDATE
+                        ONLY_RENDER_AFTER_UPDATE,
+                        fontSize
                 );
             else
                 throw new BuilderException("There is some missing args.");
@@ -171,18 +184,23 @@ public class Game {
     public final boolean ONLY_RENDER_AFTER_UPDATE;
 
     /**
+     * the size of the fonts
+     */
+    public final int FONT_SIZE;
+
+    /**
      * is the game loading
      */
     public volatile boolean loading = false;
 
-    private boolean debug;
+    private final boolean debug;
     private final ArrayList<ArrayList<GameObject>> objects;
     private final Output output;
-    private TimerManager[] timerManagers;
-    private GameThread[] gameThreads;
-    private int loadingTimeOut;
-    private DebugPanel debugPanel;
-    private Camera camera;
+    private final TimerManager[] timerManagers;
+    private final GameThread[] gameThreads;
+    private final int loadingTimeOut;
+    private volatile DebugPanel debugPanel;
+    private volatile Camera camera;
 
     private Game(boolean debug,
                  Output output,
@@ -191,12 +209,14 @@ public class Game {
                  Camera camera,
                  int threadCount,
                  int loadingTimeOut,
-                 boolean ONLY_RENDER_AFTER_UPDATE) {
+                 boolean ONLY_RENDER_AFTER_UPDATE,
+                 int FONT_SIZE) {
         this.ONLY_RENDER_AFTER_UPDATE = ONLY_RENDER_AFTER_UPDATE;
         this.debug = debug;
         this.output = output;
         this.loadingTimeOut = loadingTimeOut;
         this.camera = camera;
+        this.FONT_SIZE = FONT_SIZE;
 
         timerManagers = new TimerManager[threadCount];
         timerManagers[0] = new TimerManager(render, update);

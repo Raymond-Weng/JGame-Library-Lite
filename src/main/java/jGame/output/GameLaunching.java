@@ -46,6 +46,7 @@ public class GameLaunching extends Thread {
         graphics.setColor(Color.black);
         graphics.fillRect(0, 0, output.getSize().getIntWidth(), output.getSize().getIntHeight());
         graphics.setColor(Color.white);
+        graphics.setFont(new Font(null, Font.PLAIN, game.FONT_SIZE));
         int strW = graphics.getFontMetrics().stringWidth(text);
         int stwH = graphics.getFontMetrics().getFont().getSize();
         graphics.drawString(text, (output.getSize().getIntWidth() - strW) / 2, (output.getSize().getIntHeight() - stwH) / 2);
