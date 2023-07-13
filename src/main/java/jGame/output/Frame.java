@@ -130,7 +130,7 @@ public class Frame implements Output {
             if (size != null)
                 return new Frame(
                         size,
-                        (numBufferStrategy == 0) ? 2 : numBufferStrategy,
+                        (numBufferStrategy == -1) ? 2 : numBufferStrategy,
                         (defaultCloseOperation == -1) ? JFrame.EXIT_ON_CLOSE : defaultCloseOperation,
                         (frameTitle == null) ? "Game" : frameTitle,
                         icon,

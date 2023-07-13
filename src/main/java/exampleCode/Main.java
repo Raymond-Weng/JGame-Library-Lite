@@ -1,5 +1,6 @@
 package exampleCode;
 
+import game.Player;
 import jGame.core.Size;
 import jGame.debug.DebugStringHandler;
 import jGame.loop.render.RenderImpl;
@@ -94,5 +95,8 @@ public class Main {
                 return String.valueOf(Main.get().keyListener.isKeyPressed(KeyEvent.VK_A));
             }
         });
+
+        Player player = new Player(keyListener);
+        game.addObject(player, 1);
     }
 }
