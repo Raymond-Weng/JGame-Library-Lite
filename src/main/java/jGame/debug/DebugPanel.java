@@ -42,6 +42,9 @@ public class DebugPanel extends Thread {
         Font font = jTextArea.getFont();
         jTextArea.setFont(new Font(font.getName(), font.getStyle(), game.FONT_SIZE));
 
+        jFrame.setFocusable(false);
+        jTextArea.setFocusable(false);
+
         jFrame.setLayout(new FlowLayout());
         jFrame.getContentPane().add(jTextArea);
         jFrame.pack();
