@@ -24,17 +24,18 @@ public class RenderImpl extends Render {
             this.game.getObjects().forEach(arrayList ->
                     arrayList.forEach(gameObject -> {
                         Image image = gameObject.render();
-                        if (new Rectangle(0, 0,
+                        if (new Rectangle(game.getCamera().getPosition().getIntX() - (game.getOutput().getSize().getIntWidth()/2),
+                                game.getCamera().getPosition().getIntY() - (game.getOutput().getSize().getIntHeight()/2),
                                 game.getOutput().getSize().getIntWidth(),
                                 game.getOutput().getSize().getIntHeight())
                                 .intersects(new Rectangle(
-                                        gameObject.getPosition().getIntX(),
-                                        gameObject.getPosition().getIntY(),
+                                        gameObject.getPosition().getIntX() - (image.getWidth(null) / 2),
+                                        gameObject.getPosition().getIntY() - (image.getHeight(null) / 2),
                                         image.getWidth(null),
                                         image.getHeight(null)))) {
                             this.game.getOutput().getGraphics().drawImage(image,
-                                    gameObject.getPosition().getIntX() - game.getCamera().getPosition().getIntX(),
-                                    gameObject.getPosition().getIntY() - game.getCamera().getPosition().getIntY(),
+                                    gameObject.getPosition().getIntX() - (image.getWidth(null) / 2) - game.getCamera().getPosition().getIntX() + (game.getOutput().getSize().getIntWidth()/2),
+                                    gameObject.getPosition().getIntY() - (image.getHeight(null) / 2) - game.getCamera().getPosition().getIntY() + (game.getOutput().getSize().getIntHeight()/2),
                                     null);
                             this.game.getOutput().getGraphics().dispose();
                         }

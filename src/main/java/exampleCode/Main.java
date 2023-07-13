@@ -23,6 +23,8 @@ public class Main {
     public volatile MouseListenerImpl mouseListener;
     public volatile KeyListenerImpl keyListener;
 
+    public static Player player;
+
     public static void main(String[] args) throws InterruptedException {
         MouseListenerImpl mouseListenerImpl = new MouseListenerImpl();
         KeyListenerImpl keyListenerImpl = new KeyListenerImpl();
@@ -60,6 +62,9 @@ public class Main {
 
         debugSetup();
 
+        Main.player = new Player(keyListener);
+        game.addObject(player, 1);
+
         game.run();
     }
 
@@ -96,7 +101,18 @@ public class Main {
             }
         });
 
-        Player player = new Player(keyListener);
-        game.addObject(player, 1);
+        this.game.getDebugPanel().addVariable("Camera X, Y", new DebugStringHandler() {
+            @Override
+            public String getText(Game game) {
+                return game.getCamera().getPosition().getIntX() + "/" + game.getCamera().getPosition().getIntY();
+            }
+        });
+
+        this.game.getDebugPanel().addVariable("Player X, Y", new DebugStringHandler() {
+            @Override
+            public String getText(Game game) {
+                return Main.player.getPosition().getIntX() + "/" + Main.player.getPosition().getIntY();
+            }
+        });
     }
 }
