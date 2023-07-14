@@ -1,7 +1,5 @@
 package jGame.gameObject;
 
-import com.sun.istack.internal.NotNull;
-
 /**
  * the object to check if two things hit together.
  */
@@ -15,7 +13,6 @@ public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
      * create a hittable hitbox
      *
      * @param shape the shape of the hitbox
-     *
      * @see jGame.gameObject.hitboxShape.Shape
      */
     public Hitbox(E shape) {
@@ -36,7 +33,7 @@ public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
      * @param hitbox the other hitbox
      * @return if the two hitbox hit together
      */
-    public boolean isHit(@NotNull Hitbox<E> hitbox) {
+    public boolean isHit(Hitbox<E> hitbox) {
         if (hitbox.isNull || this.isNull)
             return false;
         else
@@ -61,7 +58,7 @@ public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
      *
      * @param shape the new shape if the hitbox
      */
-    public void setShape(@NotNull E shape) {
+    public void setShape(E shape) {
         this.shape = shape;
     }
 }

@@ -1,7 +1,5 @@
 package jGame.debug;
 
-import com.sun.istack.internal.NotNull;
-
 import jGame.main.Game;
 
 import javax.swing.*;
@@ -26,7 +24,7 @@ public class DebugPanel extends Thread {
      *
      * @param game the current game of this panel
      */
-    public DebugPanel(@NotNull Game game) {
+    public DebugPanel(Game game) {
         super();
 
         names = new ArrayList<>();
@@ -71,7 +69,7 @@ public class DebugPanel extends Thread {
 
     private void action() {
         AtomicReference<String> text = new AtomicReference<>("");
-        synchronized (names){
+        synchronized (names) {
             names.forEach(name -> text.set(text + name + " : " + debugStringHandlerMap.get(name).getText(game) + "\n"));
         }
         jTextArea.setText(text.get());
@@ -85,7 +83,7 @@ public class DebugPanel extends Thread {
      * @param debugStringHandler the handler to return the string to this panel
      * @see DebugStringHandler
      */
-    public void addVariable(String name, @NotNull DebugStringHandler debugStringHandler) {
+    public void addVariable(String name, DebugStringHandler debugStringHandler) {
         this.names.add(name);
         this.debugStringHandlerMap.put(name, debugStringHandler);
     }

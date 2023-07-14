@@ -1,7 +1,5 @@
 package jGame.loop.timer;
 
-import com.sun.istack.internal.NotNull;
-
 /**
  * threads running in the game, if you have some timer need to run in different thread of render and output, use this in the {@code Game} class
  *
@@ -17,7 +15,7 @@ public class GameThread extends Thread {
      *
      * @param timerManager the timer manager, which let this know what timer need to run
      */
-    public GameThread(@NotNull TimerManager timerManager) {
+    public GameThread(TimerManager timerManager) {
         this.timerManager = timerManager;
     }
 

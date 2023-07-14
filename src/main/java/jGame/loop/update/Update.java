@@ -1,7 +1,5 @@
 package jGame.loop.update;
 
-import com.sun.istack.internal.NotNull;
-
 import jGame.loop.timer.Timer;
 import jGame.main.Game;
 import jGame.main.ReadyChecker;
@@ -14,6 +12,7 @@ public abstract class Update extends Timer {
 
     /**
      * create a update object
+     *
      * @param updateRateSecond the update rate of this
      */
     public Update(double updateRateSecond) {
@@ -22,17 +21,18 @@ public abstract class Update extends Timer {
 
     /**
      * give the update object a game to let it knows more
+     *
      * @param game the current game
      */
-    public void setGame(@NotNull Game game) {
+    public void setGame(Game game) {
         this.game = game;
         ReadyChecker.setStatBoolean(ReadyChecker.UPDATE_READY, true);
     }
 
     @Override
-    public void action(){
+    public void action() {
         updateGame();
-        if(game.ONLY_RENDER_AFTER_UPDATE){
+        if (game.ONLY_RENDER_AFTER_UPDATE) {
             game.getMainThread().getTimerManager().getRender().renderGame();
         }
     }

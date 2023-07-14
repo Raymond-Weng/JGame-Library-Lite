@@ -1,7 +1,5 @@
 package jGame.loop.render;
 
-import com.sun.istack.internal.NotNull;
-
 import jGame.core.Position;
 import jGame.gameObject.GameObject;
 
@@ -45,5 +43,5 @@ public interface Camera {
      *
      * @param position the new position of the camera
      */
-    void setPosition(@NotNull Position position);
+    void setPosition(Position position);
 }

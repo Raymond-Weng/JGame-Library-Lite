@@ -1,7 +1,5 @@
 package jGame.loop.render;
 
-import com.sun.istack.internal.NotNull;
-
 import jGame.core.Position;
 import jGame.gameObject.GameObject;
 import jGame.main.Game;
@@ -23,7 +21,7 @@ public class CameraImpl implements Camera {
      * @param game     the game object, we need this to get the size of output
      * @param position the default position of the camera
      */
-    public CameraImpl(@NotNull Game game, @NotNull Position position) {
+    public CameraImpl(Game game, Position position) {
         this(game, position, null);
     }
 
@@ -35,7 +33,7 @@ public class CameraImpl implements Camera {
      * @param position      the default position of the camera
      * @param objectOnFocus let the camera follow an object
      */
-    public CameraImpl(@NotNull Game game, @NotNull Position position, GameObject objectOnFocus) {
+    public CameraImpl(Game game, Position position, GameObject objectOnFocus) {
         this.game = game;
         this.position = position;
         this.objectOnFocus = objectOnFocus;
@@ -70,7 +68,7 @@ public class CameraImpl implements Camera {
     }
 
     @Override
-    public void setPosition(@NotNull Position position) {
+    public void setPosition(Position position) {
         this.position = position;
     }
 }

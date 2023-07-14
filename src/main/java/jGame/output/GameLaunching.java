@@ -1,7 +1,5 @@
 package jGame.output;
 
-import com.sun.istack.internal.NotNull;
-
 import jGame.main.Game;
 
 import java.awt.*;
@@ -17,9 +15,10 @@ public class GameLaunching extends Thread {
 
     /**
      * create a loading page
+     *
      * @param game the current game
      */
-    public GameLaunching(@NotNull Game game) {
+    public GameLaunching(Game game) {
         super();
         this.game = game;
         this.UPDATE_RATE = 1d;

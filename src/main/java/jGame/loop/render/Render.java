@@ -1,7 +1,5 @@
 package jGame.loop.render;
 
-import com.sun.istack.internal.NotNull;
-
 import jGame.loop.timer.Timer;
 import jGame.main.Game;
 import jGame.main.ReadyChecker;
@@ -26,7 +24,7 @@ public abstract class Render extends Timer {
      *
      * @param game the current game
      */
-    public void setGame(@NotNull Game game) {
+    public void setGame(Game game) {
         this.game = game;
         ReadyChecker.setStatBoolean(ReadyChecker.RENDER_READY, true);
     }

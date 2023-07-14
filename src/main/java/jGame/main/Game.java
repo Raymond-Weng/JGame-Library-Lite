@@ -1,7 +1,5 @@
 package jGame.main;
 
-import com.sun.istack.internal.NotNull;
-
 import jGame.debug.DebugPanel;
 import jGame.debug.DebugStringHandler;
 import jGame.exception.BuilderException;
@@ -52,7 +50,7 @@ public class Game {
          * @see Output
          * @see jGame.output.Frame
          */
-        public Builder setOutput(@NotNull Output output) {
+        public Builder setOutput(Output output) {
             this.output = output;
             return this;
         }
@@ -67,7 +65,7 @@ public class Game {
          * @see Render
          * @see jGame.loop.render.RenderImpl
          */
-        public Builder setRender(@NotNull Render render) {
+        public Builder setRender(Render render) {
             this.render = render;
             return this;
         }
@@ -82,7 +80,7 @@ public class Game {
          * @see Update
          * @see UpdateImpl
          */
-        public Builder setUpdate(@NotNull Update update) {
+        public Builder setUpdate(Update update) {
             this.update = update;
             return this;
         }
@@ -143,10 +141,11 @@ public class Game {
 
         /**
          * set the font size of the debug panel and loading page
+         *
          * @param fontSize the size of the font
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
-        public Builder setFontSize(int fontSize){
+        public Builder setFontSize(int fontSize) {
             this.fontSize = fontSize;
             return this;
         }
@@ -241,7 +240,7 @@ public class Game {
             gameThreads[i] = new GameThread(timerManagers[i]);
         }
 
-        if(debug){
+        if (debug) {
             this.debugPanel = new DebugPanel(this);
             this.debugPanel.addVariable("FPS", new DebugStringHandler() {
                 @Override
@@ -294,7 +293,7 @@ public class Game {
      * @param gameObject the object which is going to be added
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */
-    public void addObject(@NotNull GameObject gameObject, int priority) throws PriorityException {
+    public void addObject(GameObject gameObject, int priority) throws PriorityException {
         switch (priority) {
             case 0:
             case 1:
@@ -313,7 +312,7 @@ public class Game {
         }
     }
 
-    public void removeObject(@NotNull GameObject gameObject, int priority) throws PriorityException {
+    public void removeObject(GameObject gameObject, int priority) throws PriorityException {
         switch (priority) {
             case 0:
             case 1:
@@ -348,7 +347,7 @@ public class Game {
      * @param priority the update priority, it will be updated quicker if it smaller. (This should be smaller than the total of the threads)
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */
-    public void addTimer(@NotNull Timer timer, int priority) throws PriorityException {
+    public void addTimer(Timer timer, int priority) throws PriorityException {
         if (priority < timerManagers.length) {
             this.timerManagers[priority].addTimer(timer);
         } else {
@@ -356,7 +355,7 @@ public class Game {
         }
     }
 
-    public void removeTimer(@NotNull Timer timer, int priority) throws PriorityException {
+    public void removeTimer(Timer timer, int priority) throws PriorityException {
         if (priority < timerManagers.length) {
             this.timerManagers[priority].removeTimer(timer);
         } else {

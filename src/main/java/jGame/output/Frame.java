@@ -1,11 +1,9 @@
 package jGame.output;
 
-import com.sun.istack.internal.NotNull;
-
-import jGame.main.Game;
 import jGame.core.Size;
-import jGame.main.ReadyChecker;
 import jGame.exception.BuilderException;
+import jGame.main.Game;
+import jGame.main.ReadyChecker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,10 +20,11 @@ public class Frame implements Output {
 
         /**
          * [must contain]the size of the display area
+         *
          * @param size the size of the display area
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
-        public Builder setSize(@NotNull Size size) {
+        public Builder setSize(Size size) {
             this.size = size;
             return this;
         }
@@ -34,9 +33,9 @@ public class Frame implements Output {
 
         /**
          * the number of the bufferStrategy
+         *
          * @param numBufferStrategy how many bufferStrategy should this frane have
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
-         *
          * @see java.awt.image.BufferStrategy
          */
         public Builder setNumBufferStrategy(int numBufferStrategy) {
@@ -48,9 +47,9 @@ public class Frame implements Output {
 
         /**
          * set the thing to do if the red "x" is clicked
+         *
          * @param defaultCloseOperation the code defined in {@code JFrame}
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
-         *
          * @see JFrame
          */
         public Builder setDefaultCloseOperation(int defaultCloseOperation) {
@@ -62,6 +61,7 @@ public class Frame implements Output {
 
         /**
          * set the title of this frame
+         *
          * @param title the title of this
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
@@ -74,6 +74,7 @@ public class Frame implements Output {
 
         /**
          * set the icon of the frame
+         *
          * @param icon the icon of the frame
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
@@ -86,12 +87,12 @@ public class Frame implements Output {
 
         /**
          * set the mouse listener
+         *
          * @param mouseListener the mouse listener to be added to frame
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
-         *
          * @see jGame.output.listener.MouseListenerImpl
          */
-        public Builder setMouseListener(MouseListener mouseListener){
+        public Builder setMouseListener(MouseListener mouseListener) {
             this.mouseListener = mouseListener;
             return this;
         }
@@ -100,12 +101,12 @@ public class Frame implements Output {
 
         /**
          * set the key listener
+         *
          * @param keyListener the key listener to be added to frame
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
-         *
          * @see jGame.output.listener.KeyListenerImpl
          */
-        public Builder setKeyListener(KeyListener keyListener){
+        public Builder setKeyListener(KeyListener keyListener) {
             this.keyListener = keyListener;
             return this;
         }
@@ -114,16 +115,18 @@ public class Frame implements Output {
 
         /**
          * set the mouse motion listener
+         *
          * @param mouseMotionListener the mouse motion listener to be added to the frame
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
-        public Builder setMouseMotionListener(MouseMotionListener mouseMotionListener){
+        public Builder setMouseMotionListener(MouseMotionListener mouseMotionListener) {
             this.mouseMotionListener = mouseMotionListener;
             return this;
         }
 
         /**
          * build to get the frame object
+         *
          * @return the object created with arguments
          */
         public Frame build() {
@@ -184,6 +187,7 @@ public class Frame implements Output {
 
     /**
      * give game to this frame to let it know more information
+     *
      * @param game the current game object
      */
     public void setGame(Game game) {
@@ -192,7 +196,7 @@ public class Frame implements Output {
     }
 
     public void showFrame() {
-        if(game == null){
+        if (game == null) {
             throw new NullPointerException("The game object hasn't been set yet.");
         }
 
