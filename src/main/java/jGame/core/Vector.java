@@ -57,6 +57,17 @@ public class Vector {
     }
 
     /**
+     * Returns a value the indicates whether the two vectors are equaled.
+     *
+     * @param vec1 the first vector you to be compared.
+     * @param vec2 the second vector you to be compared.
+     * @return a value the indicates whether the two vectors are equaled.
+     */
+    public static boolean equals(Vector vec1, Vector vec2) {
+        return (vec1.x == vec2.x && vec1.y == vec2.y);
+    }
+
+    /**
      * Returns a vector whose elements are the maximum of each of the pairs of elements in two specified vectors.
      *
      * @param vec1 the vector to be computed.
