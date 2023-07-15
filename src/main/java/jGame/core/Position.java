@@ -54,4 +54,17 @@ public class Position {
     public int getIntY() {
         return (int) Y;
     }
+
+    /**
+     * get the distance between this and another point
+     * @param position the second position
+     * @return the distance between this and the second position
+     */
+    public double getDistance(Position position) {
+        return Math.sqrt(Math.pow(this.getX() - position.getX(), 2) + Math.pow(this.getY() + position.getY(), 2));
+    }
+
+    public double magnitude(){
+        return this.getDistance(new Position(0d, 0d));
+    }
 }
