@@ -1,6 +1,7 @@
 package jGame.loop.render;
 
 import jGame.core.Position;
+import jGame.core.Size;
 import jGame.gameObject.GameObject;
 import jGame.main.Game;
 
@@ -13,6 +14,7 @@ import jGame.main.Game;
 public class CameraImpl implements Camera {
     private final Game game;
     private volatile Position position;
+    private volatile Size displaySize;
     private volatile GameObject objectOnFocus;
 
     /**
@@ -21,8 +23,8 @@ public class CameraImpl implements Camera {
      * @param game     the game object, we need this to get the size of output
      * @param position the default position of the camera
      */
-    public CameraImpl(Game game, Position position) {
-        this(game, position, null);
+    public CameraImpl(Game game, Position position, Size size) {
+        this(game, position, size, null);
     }
 
 
@@ -33,9 +35,10 @@ public class CameraImpl implements Camera {
      * @param position      the default position of the camera
      * @param objectOnFocus let the camera follow an object
      */
-    public CameraImpl(Game game, Position position, GameObject objectOnFocus) {
+    public CameraImpl(Game game, Position position, Size displaySize, GameObject objectOnFocus) {
         this.game = game;
         this.position = position;
+        this.displaySize = displaySize;
         this.objectOnFocus = objectOnFocus;
     }
 
@@ -70,5 +73,14 @@ public class CameraImpl implements Camera {
     @Override
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    @Override
+    public Size getDisplayArea() {
+        return displaySize;
+    }
+
+    public void setDisplaySize(Size displaySize){
+        this.displaySize = displaySize;
     }
 }

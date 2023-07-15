@@ -11,7 +11,7 @@ public abstract class Render extends Timer {
     protected volatile Game game = null;
 
     /**
-     * create the object and set the rate
+     * create the object and set the rate (the rate won't matter if the boolean {@code OnlyRenderAfterUpdate is true})
      *
      * @param updateRate the rate of updating (for second), the max ups will be (1/updateRate)
      */

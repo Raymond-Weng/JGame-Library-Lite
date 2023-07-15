@@ -1,6 +1,7 @@
 package jGame.loop.render;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * the simple render implement
@@ -17,33 +18,42 @@ public class RenderImpl extends Render {
 
     @Override
     public void renderGame() {
-        this.game.getOutput().getGraphics().setColor(Color.BLACK);
-        this.game.getOutput().getGraphics().fillRect(0, 0, game.getOutput().getSize().getIntWidth(), game.getOutput().getSize().getIntHeight());
+        Image image = new BufferedImage(game.getOutput().getSize().getIntWidth(),
+                game.getOutput().getSize().getIntHeight(),
+                BufferedImage.TYPE_INT_ARGB);
 
         synchronized (this.game.getObjects()) {
             this.game.getObjects().forEach(arrayList ->
                     arrayList.forEach(gameObject -> {
-                        Image image = gameObject.render();
+                        Image object = gameObject.render();
                         if (new Rectangle(game.getCamera().getPosition().getIntX() - (game.getOutput().getSize().getIntWidth()/2),
                                 game.getCamera().getPosition().getIntY() - (game.getOutput().getSize().getIntHeight()/2),
                                 game.getOutput().getSize().getIntWidth(),
                                 game.getOutput().getSize().getIntHeight())
                                 .intersects(new Rectangle(
-                                        gameObject.getPosition().getIntX() - (image.getWidth(null) / 2),
-                                        gameObject.getPosition().getIntY() - (image.getHeight(null) / 2),
-                                        image.getWidth(null),
-                                        image.getHeight(null)))) {
-                            this.game.getOutput().getGraphics().drawImage(image,
-                                    gameObject.getPosition().getIntX() - (image.getWidth(null) / 2) - game.getCamera().getPosition().getIntX() + (game.getOutput().getSize().getIntWidth()/2),
-                                    gameObject.getPosition().getIntY() - (image.getHeight(null) / 2) - game.getCamera().getPosition().getIntY() + (game.getOutput().getSize().getIntHeight()/2),
+                                        gameObject.getPosition().getIntX() - (object.getWidth(null) / 2),
+                                        gameObject.getPosition().getIntY() - (object.getHeight(null) / 2),
+                                        object.getWidth(null),
+                                        object.getHeight(null)))) {
+                            image.getGraphics().drawImage(object,
+                                    gameObject.getPosition().getIntX() - (object.getWidth(null) / 2) - game.getCamera().getPosition().getIntX() + (game.getOutput().getSize().getIntWidth()/2),
+                                    gameObject.getPosition().getIntY() - (object.getHeight(null) / 2) - game.getCamera().getPosition().getIntY() + (game.getOutput().getSize().getIntHeight()/2),
                                     null);
-                            this.game.getOutput().getGraphics().dispose();
+                            image.getGraphics().dispose();
                         }
                     })
             );
         }
 
-        this.game.getOutput().getGraphics().dispose();
-        this.game.getOutput().show();
+        image.getGraphics().dispose();
+
+        game.getOutput().getGraphics().drawImage(image,
+                0,
+                0,
+                game.getCamera().getDisplayArea().getIntWidth(),
+                game.getCamera().getDisplayArea().getIntHeight(),
+                Color.BLACK,
+                null);
+        game.getOutput().show();
     }
 }

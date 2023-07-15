@@ -158,15 +158,15 @@ public class Game {
         public Game build() {
             if (
                     output != null
-                            || render != null
-                            || update != null
+                            && render != null
+                            && update != null
             )
                 return new Game(
                         debug,
                         output,
                         render,
                         update,
-                        (camera == null) ? new NonCamera() : camera,
+                        (camera == null) ? new NonCamera(output.getSize()) : camera,
                         Math.max(threadCount, 2),
                         (loadingTimeOut == -1) ? 10 : loadingTimeOut,
                         ONLY_RENDER_AFTER_UPDATE,
@@ -415,6 +415,6 @@ public class Game {
      * @param camera the new camera
      */
     public void setCamera(Camera camera) {
-        this.camera = (camera == null) ? new NonCamera() : camera;
+        this.camera = (camera == null) ? new NonCamera(this.output.getSize()) : camera;
     }
 }

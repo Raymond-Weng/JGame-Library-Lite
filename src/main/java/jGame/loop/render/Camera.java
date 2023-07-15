@@ -1,6 +1,7 @@
 package jGame.loop.render;
 
 import jGame.core.Position;
+import jGame.core.Size;
 import jGame.gameObject.GameObject;
 
 /**
@@ -44,4 +45,10 @@ public interface Camera {
      * @param position the new position of the camera
      */
     void setPosition(Position position);
+
+    /**
+     * give the render the display area, and let it handle the zooming (not the size of the frame)
+     * @return the size to display
+     */
+    Size getDisplayArea();
 }
