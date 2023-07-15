@@ -258,7 +258,7 @@ public class Vector {
      * @param vec2, the vector you want to normalize.
      * @return a normalized vector.
      */
-    public Vector normalized(Vector vec2) {
+    public static Vector normalized(Vector vec2) {
         if(vec2.x == 0 && vec2.y == 0) {
             return new Vector(0, 0);
         }
@@ -281,5 +281,13 @@ public class Vector {
 
         double theta = Math.atan(vec2.y / vec2.x);
         return new Vector(Math.cos(theta), Math.sin(theta));
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 }
