@@ -43,7 +43,8 @@ public class Player extends GameObject {
         xv *= friction;
         yv *= friction;
 
-        position = new Position(position.getX() + xv, position.getY() + yv);
+        position = new Position(position.getX() + xv,
+                position.getY() + yv);
     }
 
     @Override
