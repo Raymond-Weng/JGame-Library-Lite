@@ -10,6 +10,7 @@ import jGame.output.Frame;
 import jGame.output.listener.KeyListenerImpl;
 import jGame.output.listener.MouseListenerImpl;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 

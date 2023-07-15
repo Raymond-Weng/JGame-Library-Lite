@@ -16,6 +16,7 @@ import jGame.loop.update.Update;
 import jGame.loop.update.UpdateImpl;
 import jGame.output.Output;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -150,6 +151,18 @@ public class Game {
             return this;
         }
 
+        private Color backgroundColor = Color.black;
+
+        /**
+         * set the background color of the game
+         * @param backgroundColor the space without game object cover
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         */
+        public Builder setBackgroundColor(Color backgroundColor){
+            this.backgroundColor = backgroundColor;
+            return this;
+        }
+
         /**
          * create the game object
          *
@@ -170,7 +183,8 @@ public class Game {
                         Math.max(threadCount, 2),
                         (loadingTimeOut == -1) ? 10 : loadingTimeOut,
                         ONLY_RENDER_AFTER_UPDATE,
-                        fontSize
+                        fontSize,
+                        backgroundColor
                 );
             else
                 throw new BuilderException("There is some missing args.");
@@ -186,6 +200,8 @@ public class Game {
      * the size of the fonts
      */
     public final int FONT_SIZE;
+
+    public final Color BACKGROUND_COLOR;
 
     /**
      * is the game loading
@@ -209,13 +225,15 @@ public class Game {
                  int threadCount,
                  int loadingTimeOut,
                  boolean ONLY_RENDER_AFTER_UPDATE,
-                 int FONT_SIZE) {
+                 int FONT_SIZE,
+                 Color backgroundColor) {
         this.ONLY_RENDER_AFTER_UPDATE = ONLY_RENDER_AFTER_UPDATE;
         this.debug = debug;
         this.output = output;
         this.loadingTimeOut = loadingTimeOut;
         this.camera = camera;
         this.FONT_SIZE = FONT_SIZE;
+        this.BACKGROUND_COLOR = backgroundColor;
 
         timerManagers = new TimerManager[threadCount];
         timerManagers[0] = new TimerManager(render, update);

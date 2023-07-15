@@ -52,7 +52,7 @@ public class RenderImpl extends Render {
                 0,
                 game.getCamera().getDisplayArea().getIntWidth(),
                 game.getCamera().getDisplayArea().getIntHeight(),
-                Color.BLACK,
+                game.BACKGROUND_COLOR,
                 null);
         game.getOutput().show();
     }
