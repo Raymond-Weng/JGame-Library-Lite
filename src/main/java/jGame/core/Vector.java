@@ -27,6 +27,42 @@ public class Vector {
     }
 
     /**
+     * Returns the x value of the vector.
+     *
+     * @return the x value of the vector.
+     */
+    public double getX() {
+        return x;
+    }
+
+    /**
+     * Sets the x value of the vector.
+     *
+     * @param x the value that'll be set to the vector's x element.
+     */
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    /**
+     * Returns the y value of the vector.
+     *
+     * @return the y value of the vector.
+     */
+    public double getY() {
+        return y;
+    }
+
+    /**
+     * Sets the y value of the vector.
+     *
+     * @param y the value that'll be set to the vector's y element.
+     */
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    /**
      * Sets the elements to the absolute values of each of this instance's elements.
      */
     public void abs() {
@@ -44,6 +80,17 @@ public class Vector {
      */
     public static Vector abs(Vector vec2) {
         return new Vector(Math.abs(vec2.x), Math.abs(vec2.y));
+    }
+
+    /**
+     * Computes the Euclidean distance between the two given points.
+     *
+     * @param vec1
+     * @param vec2
+     * @return double, the distance of the points.
+     */
+    public static double distance(Vector vec1, Vector vec2) {
+        return Math.sqrt(Math.pow(vec1.x - vec2.x, 2) + Math.pow(vec1.y - vec2.y, 2));
     }
 
     /**
@@ -65,6 +112,17 @@ public class Vector {
      */
     public static boolean equals(Vector vec1, Vector vec2) {
         return (vec1.x == vec2.x && vec1.y == vec2.y);
+    }
+
+    /**
+     * Returns the magnitude of the vector.
+     *
+     * For example, given vector(3, 4), it'll return 5.
+     *
+     * @return the magnitude of the vector.
+     */
+    public double magnitude() {
+        return distance(new Vector(0, 0), this);
     }
 
     /**
@@ -260,45 +318,25 @@ public class Vector {
     }
 
     /**
+     * Returns if both elements this instance is NaN or not.
+     *
+     * @return if both elements this instance is NaN or not.
+     */
+    public boolean isBothNaN() {
+        return Double.isNaN(x) && Double.isNaN(y);
+    }
+
+    /**
      * Makes this vector have a magnitude of 1.
      *
      * When normalized, a vector keeps the same direction but its length is 1.0.
      *
      * Note that the current vector is unchanged and a new normalized vector is returned.
      *
-     * @param vec2, the vector you want to normalize.
      * @return a normalized vector.
      */
-    public static Vector normalized(Vector vec2) {
-        if(vec2.x == 0 && vec2.y == 0) {
-            return new Vector(0, 0);
-        }
-        else if(vec2.x == 0) {
-            if(vec2.y > 0) {
-                return new Vector(0, 1);
-            }
-            else if(vec2.y < 0) {
-                return new Vector(0, -1);
-            }
-        }
-        else if(vec2.y == 0) {
-            if(vec2.x > 0) {
-                return new Vector(1, 0);
-            }
-            else if(vec2.x < 0) {
-                return new Vector(-1, 0);
-            }
-        }
-
-        double theta = Math.atan(vec2.y / vec2.x);
-        return new Vector(Math.cos(theta), Math.sin(theta));
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
+    public Vector normalized() {
+        Vector normalizedVector = Vector.divide(this, this.magnitude());
+        return !normalizedVector.isBothNaN() ? normalizedVector : new Vector(0);
     }
 }

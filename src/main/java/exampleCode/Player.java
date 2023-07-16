@@ -1,4 +1,4 @@
-package game;
+package exampleCode;
 
 import jGame.core.Position;
 import jGame.core.Size;
@@ -17,8 +17,8 @@ public class Player extends GameObject {
 
     Position position = new Position(0, 0);
 
-    double xv = 0;
-    double yv = 0;
+    Vector movementInput = new Vector(0);
+    Vector velocity = new Vector(0);
     double friction = 0.8;
 
     public Player(KeyListenerImpl keyListener) {
@@ -27,24 +27,31 @@ public class Player extends GameObject {
 
     @Override
     public void update() {
-        double speed = 4;
+        double speed = 2;
+
         if(keyListener.isKeyPressed(KeyEvent.VK_D) || keyListener.isKeyPressed(KeyEvent.VK_RIGHT)) {
-            xv += speed;
+            movementInput.setX(1);
         }
-        if(keyListener.isKeyPressed(KeyEvent.VK_A) || keyListener.isKeyPressed(KeyEvent.VK_LEFT)) {
-            xv -= speed;
+        else if(keyListener.isKeyPressed(KeyEvent.VK_A) || keyListener.isKeyPressed(KeyEvent.VK_LEFT)) {
+            movementInput.setX(-1);
+        }
+        else {
+            movementInput.setX(0);
         }
         if(keyListener.isKeyPressed(KeyEvent.VK_W) || keyListener.isKeyPressed(KeyEvent.VK_UP)) {
-            yv -= speed;
+            movementInput.setY(-1);
         }
-        if(keyListener.isKeyPressed(KeyEvent.VK_S) || keyListener.isKeyPressed(KeyEvent.VK_DOWN)) {
-            yv += speed;
+        else if(keyListener.isKeyPressed(KeyEvent.VK_S) || keyListener.isKeyPressed(KeyEvent.VK_DOWN)) {
+            movementInput.setY(1);
         }
-        xv *= friction;
-        yv *= friction;
+        else {
+            movementInput.setY(0);
+        }
 
-        position = new Position(position.getX() + xv,
-                position.getY() + yv);
+        velocity.add(Vector.multiply(movementInput.normalized(), speed));
+        velocity.multiply(friction);
+
+        position = new Position(position.getX() + velocity.getX(), position.getY() + velocity.getY());
     }
 
     @Override

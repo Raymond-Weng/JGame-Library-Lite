@@ -1,6 +1,5 @@
 package exampleCode;
 
-import game.Player;
 import jGame.core.Size;
 import jGame.debug.DebugStringHandler;
 import jGame.loop.render.RenderImpl;
