@@ -9,13 +9,13 @@ import jGame.output.Frame;
 import jGame.output.listener.KeyListenerImpl;
 import jGame.output.listener.MouseListenerImpl;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class Main {
     private static Main main;
-    public static Main get(){
+
+    public static Main get() {
         return main;
     }
 
@@ -53,7 +53,7 @@ public class Main {
         main = new Main(game, mouseListenerImpl, keyListenerImpl);
     }
 
-    public Main(Game game, MouseListenerImpl mouseListener, KeyListenerImpl keyListener){
+    public Main(Game game, MouseListenerImpl mouseListener, KeyListenerImpl keyListener) {
         this.game = game;
         this.mouseListener = mouseListener;
         this.keyListener = keyListener;
@@ -68,7 +68,7 @@ public class Main {
         game.run();
     }
 
-    private void debugSetup(){
+    private void debugSetup() {
         this.game.getDebugPanel().addVariable("Mouse Inside", new DebugStringHandler() {
             @Override
             public String getText(Game game) {

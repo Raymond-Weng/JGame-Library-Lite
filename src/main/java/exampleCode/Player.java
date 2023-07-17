@@ -2,10 +2,10 @@ package exampleCode;
 
 import jGame.core.Position;
 import jGame.core.Size;
-import jGame.core.Vector;
 import jGame.gameObject.GameObject;
 import jGame.gameObject.Hitbox;
 import jGame.output.listener.KeyListenerImpl;
+import jGame.core.Vector;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
