@@ -1,7 +1,7 @@
 package jGame.core;
 
 /**
- * this mark the position in a 2D world
+ * this mark the position in a 2D world, note that the position is in the center of the object
  */
 
 public class Position {
