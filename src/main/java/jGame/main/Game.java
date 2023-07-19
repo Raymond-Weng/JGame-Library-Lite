@@ -17,6 +17,7 @@ import jGame.loop.update.UpdateImpl;
 import jGame.output.Output;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -217,6 +218,7 @@ public class Game {
     private final int loadingTimeOut;
     private volatile DebugPanel debugPanel;
     private volatile Camera camera;
+    private ArrayList<ArrayList<GameObject>> objectsToBeRemoved;
 
     private Game(boolean debug,
                  Output output,
@@ -273,6 +275,11 @@ public class Game {
                     return String.valueOf(game.timerManagers[0].getUpdate().getUps());
                 }
             });
+        }
+
+        objectsToBeRemoved = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            objectsToBeRemoved.add(new ArrayList<>());
         }
     }
 
@@ -344,7 +351,7 @@ public class Game {
             case 7:
             case 8:
             case 9:
-                this.objects.get(priority).remove(gameObject);
+                this.objectsToBeRemoved.get(priority).add(gameObject);
                 break;
             default:
                 throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
@@ -398,7 +405,6 @@ public class Game {
      * @return the main thread of this game object
      */
     public GameThread getMainThread() {
-
         return gameThreads[0];
     }
 
@@ -436,5 +442,20 @@ public class Game {
      */
     public void setCamera(Camera camera) {
         this.camera = (camera == null) ? new NonCamera(this.output.getSize()) : camera;
+    }
+
+    /**
+     * [auto call] remove timers which was made to be removed in {@code remove()}
+     */
+    public void cleanObjects(){
+        for(int i = 0; i < objectsToBeRemoved.size(); i++){
+            if(objectsToBeRemoved.get(i).size() != 0){
+                int finalI = i;
+                synchronized (objectsToBeRemoved.get(i)) {
+                    objectsToBeRemoved.get(i).forEach(gameObject -> objects.get(finalI).remove(gameObject));
+                    objectsToBeRemoved.set(i, new ArrayList<>());
+                }
+            }
+        }
     }
 }

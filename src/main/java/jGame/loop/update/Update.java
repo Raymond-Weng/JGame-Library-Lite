@@ -4,6 +4,8 @@ import jGame.loop.timer.Timer;
 import jGame.main.Game;
 import jGame.main.ReadyChecker;
 
+import java.util.ArrayList;
+
 /**
  * the update, computing control of the game
  */
@@ -34,6 +36,9 @@ public abstract class Update extends Timer {
         updateGame();
         if (game.ONLY_RENDER_AFTER_UPDATE) {
             game.getMainThread().getTimerManager().getRender().renderGame();
+        }
+        synchronized (game.getObjects()){
+            game.cleanObjects();
         }
     }
 

@@ -3,6 +3,7 @@ package jGame.loop.timer;
 import jGame.loop.render.Render;
 import jGame.loop.update.Update;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,6 +16,8 @@ public class TimerManager {
     private final Render render;
     private final Update update;
     private final ArrayList<Timer> timers;
+
+    private volatile ArrayList<Timer> timersToBeRemoved;
 
     /**
      * create a timerManager with no render and update
@@ -33,6 +36,7 @@ public class TimerManager {
         this.render = render;
         this.update = update;
         timers = new ArrayList<>();
+        timersToBeRemoved = new ArrayList<>();
     }
 
     /**
@@ -89,5 +93,17 @@ public class TimerManager {
      */
     public Update getUpdate() {
         return update;
+    }
+
+    /**
+     * [auto call] remove timers which was made to be removed in {@code remove()}
+     */
+    public void cleanTimer(){
+        if(timersToBeRemoved.size() != 0) {
+            synchronized (timersToBeRemoved) {
+                timersToBeRemoved.forEach(timers::remove);
+                timersToBeRemoved = new ArrayList<>();
+            }
+        }
     }
 }

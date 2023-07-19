@@ -26,10 +26,12 @@ public class GameThread extends Thread {
             if (timerManager.getUpdate() == null || timerManager.getRender() == null) {
                 synchronized (timerManager.getTimers()) {
                     timerManager.getTimers().forEach(Timer::update);
+                    timerManager.cleanTimer();
                 }
             } else {
                 synchronized (timerManager) {
                     timerManager.getFullList().forEach(Timer::update);
+                    timerManager.cleanTimer();
                 }
             }
         }
