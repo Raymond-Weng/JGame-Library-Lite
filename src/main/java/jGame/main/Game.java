@@ -155,10 +155,11 @@ public class Game {
 
         /**
          * set the background color of the game
+         *
          * @param backgroundColor the space without game object cover
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
-        public Builder setBackgroundColor(Color backgroundColor){
+        public Builder setBackgroundColor(Color backgroundColor) {
             this.backgroundColor = backgroundColor;
             return this;
         }

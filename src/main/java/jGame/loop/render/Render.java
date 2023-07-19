@@ -33,11 +33,15 @@ public abstract class Render extends Timer {
     public void action() {
         if (!game.ONLY_RENDER_AFTER_UPDATE) {
             renderGame();
+        }else{
+            this.updateTime--;
         }
     }
 
     /**
      * render one frame
+     *
+     * PLEASE handle the {@code updateTime} or the {@code fps} won't work
      */
     public abstract void renderGame();
 }

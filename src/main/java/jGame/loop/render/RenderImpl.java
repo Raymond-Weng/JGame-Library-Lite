@@ -55,5 +55,7 @@ public class RenderImpl extends Render {
                 game.BACKGROUND_COLOR,
                 null);
         game.getOutput().show();
+
+        this.updateTime++;
     }
 }

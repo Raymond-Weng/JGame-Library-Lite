@@ -11,7 +11,10 @@ public abstract class Timer {
     private double accumulator = 0d;
     private double accumulatorUps = 0d;
 
-    private int updateTime = 0;
+    /**
+     * this is the update time of the timer, minus this by 1 if you do nothing because of some checking item after {@code update()} was called
+     */
+    protected volatile int updateTime = 0;
     private volatile int ups = 0;
     private final int maxUps;
 
@@ -37,7 +40,7 @@ public abstract class Timer {
     }
 
     /**
-     * the thread will call this and the method will compute if this can be update
+     * the thread will call this and the method will compute if this can be updated
      */
     public void update() {
         double currentTimeMillis = System.currentTimeMillis();
