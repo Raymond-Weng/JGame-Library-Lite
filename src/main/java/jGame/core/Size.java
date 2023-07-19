@@ -20,12 +20,32 @@ public class Size {
     }
 
     /**
+     * Get a new size object with new {@code width}.
+     *
+     * @param width the new width
+     * @return the size object with old height and new width
+     */
+    public Size setWidth(double width) {
+        return new Size(width, this.height);
+    }
+
+    /**
      * gets the width
      *
      * @return width of the object
      */
     public double getWidth() {
         return width;
+    }
+
+    /**
+     * Get a new size object with new {@code height}.
+     *
+     * @param height the new height
+     * @return the size object with old width and new height
+     */
+    public Size setHeight(double height) {
+        return new Size(this.width, height);
     }
 
     /**
