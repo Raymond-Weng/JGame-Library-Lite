@@ -21,9 +21,7 @@ public class Circle extends Shape {
     @Override
     public boolean intersects(Shape shape) {
         Circle circle = (Circle) shape;
-        return (Math.sqrt(Math.pow(this.position.getIntX() - circle.getPosition().getIntX(), 2) +
-                Math.pow(this.position.getIntX() - circle.getPosition().getIntX(), 2)) <=
-                (this.radius + circle.getRadius()));
+        return (this.position.distance(circle.position) <= (this.radius + circle.getRadius()));
     }
 
     /**
