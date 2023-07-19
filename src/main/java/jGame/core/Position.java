@@ -81,7 +81,7 @@ public class Position {
      * @param vec addend.
      * @return quotient.
      */
-    public Position add(Position pos, Vector vec) {
+    public static Position add(Position pos, Vector vec) {
         return new Position(pos.getX() + vec.getX(), pos.getY() + vec.getY());
     }
 
@@ -92,7 +92,7 @@ public class Position {
      * @param pos addend.
      * @return quotient.
      */
-    public Position add(Vector vec, Position pos) {
+    public static Position add(Vector vec, Position pos) {
         return new Position(pos.getX() + vec.getX(), pos.getY() + vec.getY());
     }
 
@@ -114,7 +114,7 @@ public class Position {
      * @return quotient.
      */
 
-    public Position subtract(Position pos, Vector vec) {
+    public static Position subtract(Position pos, Vector vec) {
         return new Position(pos.getX() - vec.getX(), pos.getY() - vec.getY());
     }
 }
