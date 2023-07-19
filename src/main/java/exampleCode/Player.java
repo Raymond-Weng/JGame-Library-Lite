@@ -27,31 +27,31 @@ public class Player extends GameObject {
 
     @Override
     public void update() {
-//        double speed = 2;
-//
-//        if(keyListener.isKeyPressed(KeyEvent.VK_D) || keyListener.isKeyPressed(KeyEvent.VK_RIGHT)) {
-//            movementInput = movementInput.setX(1);
-//        }
-//        else if(keyListener.isKeyPressed(KeyEvent.VK_A) || keyListener.isKeyPressed(KeyEvent.VK_LEFT)) {
-//            movementInput = movementInput.setX(-1);
-//        }
-//        else {
-//            movementInput = movementInput.setX(0);
-//        }
-//        if(keyListener.isKeyPressed(KeyEvent.VK_W) || keyListener.isKeyPressed(KeyEvent.VK_UP)) {
-//            movementInput = movementInput.setY(-1);
-//        }
-//        else if(keyListener.isKeyPressed(KeyEvent.VK_S) || keyListener.isKeyPressed(KeyEvent.VK_DOWN)) {
-//            movementInput = movementInput.setY(1);
-//        }
-//        else {
-//            movementInput = movementInput.setY(0);
-//        }
-//
-//        velocity = velocity.add(Vector.multiply(movementInput.normalized(), speed));
-//        velocity = velocity.multiply(friction);
-//
-//        position = position.add(velocity);
+        double speed = 2;
+
+        if(keyListener.isKeyPressed(KeyEvent.VK_D) || keyListener.isKeyPressed(KeyEvent.VK_RIGHT)) {
+            movementInput = movementInput.setX(1);
+        }
+        else if(keyListener.isKeyPressed(KeyEvent.VK_A) || keyListener.isKeyPressed(KeyEvent.VK_LEFT)) {
+            movementInput = movementInput.setX(-1);
+        }
+        else {
+            movementInput = movementInput.setX(0);
+        }
+        if(keyListener.isKeyPressed(KeyEvent.VK_W) || keyListener.isKeyPressed(KeyEvent.VK_UP)) {
+            movementInput = movementInput.setY(-1);
+        }
+        else if(keyListener.isKeyPressed(KeyEvent.VK_S) || keyListener.isKeyPressed(KeyEvent.VK_DOWN)) {
+            movementInput = movementInput.setY(1);
+        }
+        else {
+            movementInput = movementInput.setY(0);
+        }
+
+        velocity = velocity.add(Vector.multiply(movementInput.normalized(), speed));
+        velocity = velocity.multiply(friction);
+
+        position = position.add(velocity);
     }
 
     @Override
