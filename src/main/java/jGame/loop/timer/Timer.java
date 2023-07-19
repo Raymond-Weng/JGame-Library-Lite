@@ -6,7 +6,7 @@ package jGame.loop.timer;
  * @see TimerManager
  */
 public abstract class Timer {
-    private final double UPDATE_RATE;
+    public final double UPDATE_RATE;
     private double lastUpdate;
     private double accumulator = 0d;
     private double accumulatorUps = 0d;
