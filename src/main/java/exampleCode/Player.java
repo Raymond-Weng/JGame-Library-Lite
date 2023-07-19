@@ -80,6 +80,6 @@ public class Player extends GameObject {
 
     @Override
     public Size getSize() {
-        return null;
+        return new Size(50, 50);
     }
 }

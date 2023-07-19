@@ -33,12 +33,16 @@ public abstract class Update extends Timer {
 
     @Override
     public void action() {
-        updateGame();
-        if (game.ONLY_RENDER_AFTER_UPDATE) {
-            game.getMainThread().getTimerManager().getRender().renderGame();
-        }
-        synchronized (game.getObjects()){
-            game.cleanObjects();
+        if(game.second_loading){
+            game.secondLoading.update();
+        }else {
+            updateGame();
+            if (game.ONLY_RENDER_AFTER_UPDATE) {
+                game.getMainThread().getTimerManager().getRender().renderGame();
+            }
+            synchronized (game.getObjects()) {
+                game.cleanObjects();
+            }
         }
     }
 

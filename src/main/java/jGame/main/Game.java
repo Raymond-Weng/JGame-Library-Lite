@@ -15,9 +15,11 @@ import jGame.loop.timer.TimerManager;
 import jGame.loop.update.Update;
 import jGame.loop.update.UpdateImpl;
 import jGame.output.Output;
+import jGame.output.SecondLoading;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
 import java.awt.*;
-import java.lang.reflect.Array;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -165,6 +167,19 @@ public class Game {
             return this;
         }
 
+        private int gameStartDelay = 3;
+        public Builder setGameStartDelay(int gameStartDelay){
+            this.gameStartDelay = gameStartDelay;
+            return this;
+        }
+
+        private Image loadingImage = null;
+
+        public Builder setLoadingImage(Image loadingImage) {
+            this.loadingImage = loadingImage;
+            return this;
+        }
+
         /**
          * create the game object
          *
@@ -175,7 +190,28 @@ public class Game {
                     output != null
                             && render != null
                             && update != null
-            )
+            ){
+                if(loadingImage == null){
+                    Image image = new BufferedImage(output.getSize().getIntWidth(),
+                            output.getSize().getIntHeight(),
+                            BufferedImage.TYPE_INT_RGB);
+
+                    String text = "Game Library provided by RayJesse Studio";
+                    Graphics graphics = image.getGraphics();
+                    graphics.setColor(Color.black);
+                    graphics.fillRect(0,
+                            0,
+                            output.getSize().getIntWidth(),
+                            output.getSize().getIntHeight());
+                    graphics.setColor(Color.white);
+                    graphics.setFont(new Font(null, Font.PLAIN, fontSize));
+                    int strW = graphics.getFontMetrics().stringWidth(text);
+                    int stwH = graphics.getFontMetrics().getFont().getSize();
+                    graphics.drawString(text, (output.getSize().getIntWidth() - strW) / 2,
+                            (output.getSize().getIntHeight() - stwH) / 2);
+                    graphics.dispose();
+                    loadingImage = image;
+                }
                 return new Game(
                         debug,
                         output,
@@ -186,10 +222,14 @@ public class Game {
                         (loadingTimeOut == -1) ? 10 : loadingTimeOut,
                         ONLY_RENDER_AFTER_UPDATE,
                         fontSize,
-                        backgroundColor
+                        backgroundColor,
+                        gameStartDelay,
+                        loadingImage
                 );
-            else
+            }
+            else {
                 throw new BuilderException("There is some missing args.");
+            }
         }
     }
 
@@ -203,12 +243,32 @@ public class Game {
      */
     public final int FONT_SIZE;
 
+    /**
+     * the background color of the game
+     */
     public final Color BACKGROUND_COLOR;
+
+    /**
+     * the ready time before the game start
+     */
+    public final int GAME_START_DELAY_SECOND;
 
     /**
      * is the game loading
      */
     public volatile boolean loading = false;
+
+    /**
+     * is the game loading
+     */
+    public volatile boolean second_loading = false;
+
+    /**
+     * the game object of the second loading page
+     */
+    public volatile SecondLoading secondLoading;
+
+    public final Image LOADING_IMAGE;
 
     private final boolean debug;
     private final ArrayList<ArrayList<GameObject>> objects;
@@ -229,7 +289,9 @@ public class Game {
                  int loadingTimeOut,
                  boolean ONLY_RENDER_AFTER_UPDATE,
                  int FONT_SIZE,
-                 Color backgroundColor) {
+                 Color backgroundColor,
+                 int GAME_START_DELAY_SECOND,
+                 Image LOADING_IMAGE) {
         this.ONLY_RENDER_AFTER_UPDATE = ONLY_RENDER_AFTER_UPDATE;
         this.debug = debug;
         this.output = output;
@@ -237,6 +299,8 @@ public class Game {
         this.camera = camera;
         this.FONT_SIZE = FONT_SIZE;
         this.BACKGROUND_COLOR = backgroundColor;
+        this.GAME_START_DELAY_SECOND = GAME_START_DELAY_SECOND;
+        this.LOADING_IMAGE = LOADING_IMAGE;
 
         timerManagers = new TimerManager[threadCount];
         timerManagers[0] = new TimerManager(render, update);
@@ -311,7 +375,10 @@ public class Game {
             this.debugPanel.start();
         }
 
+        this.secondLoading = new SecondLoading(this);
         this.loading = false;
+        this.addObject(secondLoading, 0);
+        this.second_loading = true;
     }
 
     /**

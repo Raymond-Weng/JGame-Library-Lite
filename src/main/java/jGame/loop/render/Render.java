@@ -3,6 +3,9 @@ package jGame.loop.render;
 import jGame.loop.timer.Timer;
 import jGame.main.Game;
 import jGame.main.ReadyChecker;
+import jGame.output.Output;
+
+import java.awt.*;
 
 /**
  * the render, graphic control of the game
@@ -31,6 +34,16 @@ public abstract class Render extends Timer {
 
     @Override
     public void action() {
+        if(game.second_loading){
+            Output output = game.getOutput();
+            Graphics graphics = output.getGraphics();
+            graphics.drawImage(game.secondLoading.render(),
+                    0,
+                    0,
+                    null);
+            graphics.dispose();
+            output.show();
+        }
         if (!game.ONLY_RENDER_AFTER_UPDATE) {
             renderGame();
         }else{
