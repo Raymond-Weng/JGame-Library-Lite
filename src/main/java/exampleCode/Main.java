@@ -28,7 +28,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         MouseListenerImpl mouseListenerImpl = new MouseListenerImpl();
         KeyListenerImpl keyListenerImpl = new KeyListenerImpl();
-        RenderImpl render = new RenderImpl(100);
+        RenderImpl render = new RenderImpl(60);
         UpdateImpl update = new UpdateImpl(60);
 
         Frame output = new Frame.Builder()
