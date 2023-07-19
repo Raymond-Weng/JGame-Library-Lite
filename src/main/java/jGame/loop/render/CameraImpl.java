@@ -4,6 +4,7 @@ import jGame.core.Position;
 import jGame.core.Size;
 import jGame.gameObject.GameObject;
 import jGame.main.Game;
+import jGame.main.ReadyChecker;
 
 /**
  * make the Camera
@@ -12,7 +13,7 @@ import jGame.main.Game;
  */
 
 public class CameraImpl implements Camera {
-    private final Game game;
+    private volatile Game game;
     private volatile Position position;
     private volatile Size displaySize;
     private volatile GameObject objectOnFocus;
@@ -20,26 +21,35 @@ public class CameraImpl implements Camera {
     /**
      * create a camera
      *
-     * @param game     the game object, we need this to get the size of output
-     * @param position the default position of the camera
+     * @param position    the default position of the camera
+     * @param displaySize the render the display area, and let it handle the zooming (not the size of the frame)
      */
-    public CameraImpl(Game game, Position position, Size size) {
-        this(game, position, size, null);
+    public CameraImpl(Position position, Size displaySize) {
+        this(position, displaySize, null);
     }
 
 
     /**
      * create a camera
      *
-     * @param game          the game object, we need this to get the size of output
      * @param position      the default position of the camera
+     * @param displaySize   the render the display area, and let it handle the zooming (not the size of the frame)
      * @param objectOnFocus let the camera follow an object
      */
-    public CameraImpl(Game game, Position position, Size displaySize, GameObject objectOnFocus) {
-        this.game = game;
+    public CameraImpl(Position position, Size displaySize, GameObject objectOnFocus) {
         this.position = position;
         this.displaySize = displaySize;
         this.objectOnFocus = objectOnFocus;
+    }
+
+    /**
+     * give the camera a current game
+     *
+     * @param game the game object, we need this to get the size of output
+     */
+    public void setGame(Game game) {
+        this.game = game;
+        ReadyChecker.setStatBoolean(ReadyChecker.CAMERA_READY, true);
     }
 
     @Override
@@ -80,7 +90,7 @@ public class CameraImpl implements Camera {
         return displaySize;
     }
 
-    public void setDisplaySize(Size displaySize){
+    public void setDisplaySize(Size displaySize) {
         this.displaySize = displaySize;
     }
 }

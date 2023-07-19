@@ -6,6 +6,8 @@ import jGame.gameObject.GameObject;
 
 /**
  * this is a class for camera controlling
+ *
+ * PLEASE handle the stat "CAMERA_READY"
  */
 public interface Camera {
     /**

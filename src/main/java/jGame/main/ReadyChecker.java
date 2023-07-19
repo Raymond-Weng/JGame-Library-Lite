@@ -15,6 +15,9 @@ public class ReadyChecker {
     public static final int UPDATE_READY = 2;
     private static volatile boolean updateReady = false;
 
+    public static final int CAMERA_READY = 3;
+    private static volatile boolean cameraReady = false;
+
     /**
      * set the stat (this method work in only stats in boolean)
      *
@@ -31,6 +34,9 @@ public class ReadyChecker {
                 break;
             case UPDATE_READY:
                 updateReady = stat;
+                break;
+            case CAMERA_READY:
+                cameraReady = stat;
                 break;
             default:
                 throw new StatException("Cannot find the stat in boolean with the code " + statCode);
@@ -51,6 +57,8 @@ public class ReadyChecker {
                 return renderReady;
             case UPDATE_READY:
                 return updateReady;
+            case CAMERA_READY:
+                return cameraReady;
             default:
                 throw new StatException("Cannot find the stat in boolean with the code " + statCode);
         }

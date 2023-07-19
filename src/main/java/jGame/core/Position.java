@@ -1,7 +1,7 @@
 package jGame.core;
 
 /**
- * this mark the position in a 2D world, note that the position is in the center of the object
+ * this mark the position in a 2D world
  */
 
 public class Position {
@@ -60,11 +60,61 @@ public class Position {
      * @param position the second position
      * @return the distance between this and the second position
      */
-    public double getDistance(Position position) {
+    public double distance(Position position) {
         return Math.sqrt(Math.pow(this.getX() - position.getX(), 2) + Math.pow(this.getY() + position.getY(), 2));
     }
 
-    public double magnitude(){
-        return this.getDistance(new Position(0d, 0d));
+    /**
+     * Adds a specified vector to this instance's elements.
+     *
+     * @param vec addend
+     * @return quotient.
+     */
+    public Position add(Vector vec) {
+        return new Position(this.X + vec.getX(), this.Y + vec.getY());
+    }
+
+    /**
+     * Adds a specified position and vector together.
+     *
+     * @param pos summand.
+     * @param vec addend.
+     * @return quotient.
+     */
+    public Position add(Position pos, Vector vec) {
+        return new Position(pos.getX() + vec.getX(), pos.getY() + vec.getY());
+    }
+
+    /**
+     * Adds a specified position and vector together.
+     *
+     * @param vec summand.
+     * @param pos addend.
+     * @return quotient.
+     */
+    public Position add(Vector vec, Position pos) {
+        return new Position(pos.getX() + vec.getX(), pos.getY() + vec.getY());
+    }
+
+    /**
+     * Subtracts this instance by a vector.
+     *
+     * @param vec subtrahend.
+     * @return quotient.
+     */
+    public Position subtract(Vector vec) {
+        return new Position(this.X - vec.getX(), this.Y - vec.getY());
+    }
+
+    /**
+     * Subtracts a specified position by a specified vector.
+     *
+     * @param pos minuend.
+     * @param vec subtrahend.
+     * @return quotient.
+     */
+
+    public Position subtract(Position pos, Vector vec) {
+        return new Position(pos.getX() - vec.getX(), pos.getY() - vec.getY());
     }
 }

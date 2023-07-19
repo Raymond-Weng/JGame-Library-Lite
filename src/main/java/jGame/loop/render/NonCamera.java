@@ -3,6 +3,7 @@ package jGame.loop.render;
 import jGame.core.Position;
 import jGame.core.Size;
 import jGame.gameObject.GameObject;
+import jGame.main.ReadyChecker;
 
 /**
  * if you don't want to use the camera, you can just use this and the camera will not work at all
@@ -12,6 +13,7 @@ public class NonCamera implements Camera {
 
     public NonCamera(Size displaySize){
         this.displaySize = displaySize;
+        ReadyChecker.setStatBoolean(ReadyChecker.CAMERA_READY, true);
     }
 
     @Override

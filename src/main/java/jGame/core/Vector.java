@@ -1,9 +1,14 @@
+/**
+ *  A vector is unchangeable, create a new one to access the values.
+ */
+
+
 package jGame.core;
 
 public class Vector {
 
-    private double x;
-    private double y;
+    private final double X;
+    private final double Y;
 
     /**
      * Creates a Vector object whose elements have the specified values.
@@ -12,8 +17,8 @@ public class Vector {
      * @param y the value of the y elements of the vector.
      */
     public Vector(double x, double y) {
-        this.x = x;
-        this.y = y;
+        this.X = x;
+        this.Y = y;
     }
 
     /**
@@ -22,8 +27,8 @@ public class Vector {
      * @param val the value of both elements of the vector.
      */
     public Vector(double val) {
-        this.x = val;
-        this.y = val;
+        this.X = val;
+        this.Y = val;
     }
 
     /**
@@ -32,16 +37,17 @@ public class Vector {
      * @return the x value of the vector.
      */
     public double getX() {
-        return x;
+        return X;
     }
 
     /**
      * Sets the x value of the vector.
      *
      * @param x the value that'll be set to the vector's x element.
+     * @return set vector.
      */
-    public void setX(double x) {
-        this.x = x;
+    public Vector setX(double x) {
+        return new Vector(x, this.Y);
     }
 
     /**
@@ -50,36 +56,36 @@ public class Vector {
      * @return the y value of the vector.
      */
     public double getY() {
-        return y;
+        return Y;
     }
 
     /**
      * Sets the y value of the vector.
      *
      * @param y the value that'll be set to the vector's y element.
+     * @return set vector.
      */
-    public void setY(double y) {
-        this.y = y;
+    public Vector setY(double y) {
+        return new Vector(this.X, y);
     }
 
     /**
      * Sets the elements to the absolute values of each of this instance's elements.
+     *
+     * @return absolute vector.
      */
-    public void abs() {
-        x = Math.abs(x);
-        y = Math.abs(y);
+    public Vector abs() {
+        return new Vector(Math.abs(X), Math.abs(Y));
     }
 
     /**
      * Returns a vector whose elements are the absolute values of each of the specified vector's elements.
      *
-     * Note that the specified vector is unchanged and a new absolute vector is returned.
-     *
-     * @param vec2 the vector to be computed.
+     * @param vec the vector to be computed.
      * @return a vector whose elements are the absolute values of each of the specified vector's elements.
      */
-    public static Vector abs(Vector vec2) {
-        return new Vector(Math.abs(vec2.x), Math.abs(vec2.y));
+    public static Vector abs(Vector vec) {
+        return new Vector(Math.abs(vec.getX()), Math.abs(vec.getY()));
     }
 
     /**
@@ -90,17 +96,17 @@ public class Vector {
      * @return double, the distance of the points.
      */
     public static double distance(Vector vec1, Vector vec2) {
-        return Math.sqrt(Math.pow(vec1.x - vec2.x, 2) + Math.pow(vec1.y - vec2.y, 2));
+        return Math.sqrt(Math.pow(vec1.getX() - vec2.getX(), 2) + Math.pow(vec1.getY() - vec2.getY(), 2));
     }
 
     /**
      * Returns a value that indicates whether this instance and another vector are equal.
      *
-     * @param vec2 the vector you want to compare with.
+     * @param vec the vector you want to compare with.
      * @return a value that indicates whether this instance and another vector are equal.
      */
-    public boolean equals(Vector vec2) {
-        return (x == vec2.x && y == vec2.y);
+    public boolean equals(Vector vec) {
+        return (X == vec.getX() && Y == vec.getY());
     }
 
     /**
@@ -111,7 +117,7 @@ public class Vector {
      * @return a value the indicates whether the two vectors are equaled.
      */
     public static boolean equals(Vector vec1, Vector vec2) {
-        return (vec1.x == vec2.x && vec1.y == vec2.y);
+        return (vec1.getX() == vec2.getX() && vec1.getY() == vec2.getY());
     }
 
     /**
@@ -133,7 +139,7 @@ public class Vector {
      * @return a vector whose elements are the maximum of each of the pairs of elements in two specified vectors.
      */
     public static Vector max(Vector vec1, Vector vec2) {
-        return new Vector(Math.max(vec1.x, vec2.x), Math.max(vec1.y, vec2.y));
+        return new Vector(Math.max(vec1.getX(), vec2.getX()), Math.max(vec1.getY(), vec2.getY()));
     }
 
     /**
@@ -144,95 +150,91 @@ public class Vector {
      * @return a vector whose elements are the minimum of each of the pairs of elements in two specified vectors.
      */
     public static Vector min(Vector vec1, Vector vec2) {
-        return new Vector(Math.min(vec1.x, vec2.x), Math.min(vec1.y, vec2.y));
+        return new Vector(Math.min(vec1.getX(), vec2.getX()), Math.min(vec1.getY(), vec2.getY()));
     }
 
     /**
      * Divides this instance by a specified scalar value.
      *
      * @param val divisor.
+     * @return quotient.
      */
-    public void divide(double val) {
-        x /= val;
-        y /= val;
+    public Vector divide(double val) {
+        return new Vector(X / val, Y / val);
     }
 
     /**
      * Divides the specified vector by a specified scalar value.
      *
-     * Note that the specified vector is unchanged and a new divided vector is returned.
-     *
-     * @param vec2 dividend.
+     * @param vec dividend.
      * @param val divisor.
      * @return quotient.
      */
-    public static Vector divide(Vector vec2, double val) {
-        return new Vector(vec2.x / val, vec2.y / val);
+    public static Vector divide(Vector vec, double val) {
+        return new Vector(vec.getX() / val, vec.getY() / val);
     }
 
     /**
      * Divides this instance  by a specified vector.
      *
-     * @param vec2 dividend.
+     * @param vec dividend.
+     * @return quotient.
      */
-    public void divide(Vector vec2) {
-        x /= vec2.x;
-        y /= vec2.y;
+    public Vector divide(Vector vec) {
+        return new Vector(X / vec.getX(), Y / vec.getY());
     }
 
     /**
      * Divides the first vector by the second one.
-     *
-     * Note that the specified vector is unchanged and a new divided vector is returned.
      *
      * @param vec1 dividend.
      * @param vec2 divisor.
      * @return quotient.
      */
     public static Vector divide(Vector vec1, Vector vec2) {
-        return new Vector(vec1.x / vec2.x, vec1.y / vec2.y);
+        return new Vector(vec1.getX() / vec2.getX(), vec1.getY() / vec2.getY());
     }
 
     /**
      * Multiplies this instance by a specified scalar value.
      *
      * @param val multiplier
+     * @return quotient.
      */
-    public void multiply(double val) {
-        x *= val;
-        y *= val;
+    public Vector multiply(double val) {
+        return new Vector(X * val, Y * val);
     }
 
     /**
      * Returns a vector whose elements are the value of the specified vector multiplies by a scalar value.
      *
-     * @param vec2 multiplicand.
+     * @param vec multiplicand.
      * @param val multiplier.
      * @return quotient.
      */
-    public static Vector multiply(Vector vec2, double val) {
-        return new Vector(vec2.x * val, vec2.y * val);
+    public static Vector multiply(Vector vec, double val) {
+        return new Vector(vec.getX() * val, vec.getY() * val);
     }
 
     /**
      * Returns a vector whose elements are the value of the specified vector multiplies by a scalar value.
      *
      * @param val multiplicand.
-     * @param vec2 multiplier.
+     * @param vec multiplier.
      * @return quotient.
      */
-    public static Vector multiply(double val, Vector vec2) {
-        return new Vector(vec2.x * val, vec2.y * val);
+    public static Vector multiply(double val, Vector vec) {
+        return new Vector(vec.getX() * val, vec.getY() * val);
     }
 
     /**
      * Subtracts this instance's elements by a specified value.
      *
      * @param val subtrahend.
+     * @return quotient.
      */
-    public void subtract(double val) {
-        x -= val;
-        y -= val;
+    public Vector subtract(double val) {
+        return new Vector(X - val, Y - val);
     }
 
     /**
@@ -240,22 +242,22 @@ public class Vector {
      *
      * Note that the specified vector is unchanged and a new subtracted vector is returned.
      *
-     * @param vec2 minuend.
+     * @param vec minuend.
      * @param val subtrahend.
      * @return quotient.
      */
-    public static Vector subtract(Vector vec2, double val) {
-        return new Vector(vec2.x - val, vec2.y - val);
+    public static Vector subtract(Vector vec, double val) {
+        return new Vector(vec.getX() - val, vec.getY() - val);
     }
 
     /**
      * Subtracts a specified vector from this instance.
      *
-     * @param vec2 subtrahend.
+     * @param vec subtrahend.
+     * @return quotient.
      */
-    public void subtract(Vector vec2) {
-        x -= vec2.x;
-        y -= vec2.y;
+    public Vector subtract(Vector vec) {
+        return new Vector(X - vec.getX(), Y - vec.getY());
     }
 
     /**
@@ -263,22 +265,22 @@ public class Vector {
      *
      * Note that neither of the two vector is changed and a new subtracted vector is returned.
      *
-     * @param vec2_1 minuend.
-     * @param vec2_2 subtrahend.
+     * @param vec1 minuend.
+     * @param vec2 subtrahend.
      * @return vec2, quotient.
      */
-    public static Vector subtract(Vector vec2_1, Vector vec2_2) {
-        return new Vector(vec2_1.x - vec2_2.x, vec2_1.y - vec2_2.y);
+    public static Vector subtract(Vector vec1, Vector vec2) {
+        return new Vector(vec1.X - vec2.X, vec1.Y - vec2.Y);
     }
 
     /**
      * Adds the specified value to this instance's elements.
      *
      * @param val addend.
+     * @return quotient.
      */
-    public void add(double val) {
-        x += val;
-        y += val;
+    public Vector add(double val) {
+        return new Vector(this.X + val, this.Y + val);
     }
 
     /**
@@ -286,22 +288,22 @@ public class Vector {
      *
      * Note that the specified vector is unchanged and a new added vector is returned.
      *
-     * @param vec2 summand.
+     * @param vec summand.
      * @param val addend.
      * @return quotient.
      */
-    public static Vector add(Vector vec2, double val) {
-        return new Vector(vec2.x + val, vec2.y + val);
+    public static Vector add(Vector vec, double val) {
+        return new Vector(vec.X + val, vec.Y + val);
     }
 
     /**
      * Adds this instance by a specified vector.
      *
-     * @param vec2 addend.
+     * @param vec addend.
+     * @return quotient.
      */
-    public void add(Vector vec2) {
-        x += vec2.x;
-        y += vec2.y;
+    public Vector add(Vector vec) {
+        return new Vector(this.X + vec.getX(), this.Y + vec.getY());
     }
 
     /**
@@ -309,12 +311,12 @@ public class Vector {
      *
      * Note that neither of the two vector is changed and a new added vector is returned.
      *
-     * @param vec2_1 summand.
-     * @param vec2_2 addend.
+     * @param vec1 summand.
+     * @param vec2 addend.
      * @return vec2, quotient.
      */
-    public static Vector add(Vector vec2_1, Vector vec2_2) {
-        return new Vector(vec2_1.x + vec2_2.x, vec2_1.y + vec2_2.y);
+    public static Vector add(Vector vec1, Vector vec2) {
+        return new Vector(vec1.X + vec2.X, vec1.Y + vec2.Y);
     }
 
     /**
@@ -323,7 +325,7 @@ public class Vector {
      * @return if both elements this instance is NaN or not.
      */
     public boolean isBothNaN() {
-        return Double.isNaN(x) && Double.isNaN(y);
+        return Double.isNaN(X) && Double.isNaN(Y);
     }
 
     /**

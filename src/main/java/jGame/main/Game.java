@@ -287,7 +287,8 @@ public class Game {
         while (!(
                 ReadyChecker.getStatBoolean(ReadyChecker.OUTPUT_READY) &&
                         ReadyChecker.getStatBoolean(ReadyChecker.RENDER_READY) &&
-                        ReadyChecker.getStatBoolean(ReadyChecker.UPDATE_READY)
+                        ReadyChecker.getStatBoolean(ReadyChecker.UPDATE_READY) &&
+                        ReadyChecker.getStatBoolean(ReadyChecker.CAMERA_READY)
         )) {
             if ((System.currentTimeMillis() - startTime) > (loadingTimeOut * 1000)) {
                 throw new TimeOutException("Time out, loading should finish in " + loadingTimeOut + " second.");
