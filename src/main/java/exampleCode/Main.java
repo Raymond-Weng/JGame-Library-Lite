@@ -29,7 +29,7 @@ public class Main {
         MouseListenerImpl mouseListenerImpl = new MouseListenerImpl();
         KeyListenerImpl keyListenerImpl = new KeyListenerImpl();
         RenderImpl render = new RenderImpl(60);
-        UpdateImpl update = new UpdateImpl(60);
+        UpdateImpl update = new UpdateImpl(1000);
 
         Frame output = new Frame.Builder()
                 .setSize(new Size(1600d, 1000d))

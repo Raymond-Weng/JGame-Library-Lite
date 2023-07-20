@@ -377,6 +377,7 @@ public class Game {
 
         this.secondLoading = new SecondLoading(this);
         this.loading = false;
+        System.gc();
         this.addObject(secondLoading, 0);
         this.second_loading = true;
     }
@@ -522,6 +523,7 @@ public class Game {
                     objectsToBeRemoved.get(i).forEach(gameObject -> objects.get(finalI).remove(gameObject));
                     objectsToBeRemoved.set(i, new ArrayList<>());
                 }
+                System.gc();
             }
         }
     }

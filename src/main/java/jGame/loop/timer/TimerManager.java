@@ -54,7 +54,7 @@ public class TimerManager {
      * @param timer the timer to be removed from the thread
      */
     public void removeTimer(Timer timer) {
-        timers.remove(timer);
+        timersToBeRemoved.add(timer);
     }
 
     /**
@@ -104,6 +104,7 @@ public class TimerManager {
                 timersToBeRemoved.forEach(timers::remove);
                 timersToBeRemoved = new ArrayList<>();
             }
+            System.gc();
         }
     }
 }

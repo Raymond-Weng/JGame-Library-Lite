@@ -7,14 +7,14 @@ import jGame.loop.update.Update;
 
 public class test {
     public static void main(String[] args) {
-        Output output;
-        Render render;
-        Update update;
-
-        Game game = new Game.Builder()
-                .setOutput(output)
-                .setRender(render)
-                .setUpdate(update)
-                .build();
+//        Output output;
+//        Render render;
+//        Update update;
+//
+//        Game game = new Game.Builder()
+//                .setOutput(output)
+//                .setRender(render)
+//                .setUpdate(update)
+//                .build();
     }
 }
