@@ -13,7 +13,7 @@ public class Rectangle extends Shape {
      * @param size     the size of the rectangle
      */
     public Rectangle(Position position, Size size) {
-        this.rectangle = new java.awt.Rectangle(position.getIntX(), position.getIntY(), size.getIntWidth(), size.getIntHeight());
+        this.rectangle = new java.awt.Rectangle(position.getIntX() - (size.getIntWidth() / 2), position.getIntY() - (size.getIntHeight() / 2), size.getIntWidth(), size.getIntHeight());
     }
 
     @Override
