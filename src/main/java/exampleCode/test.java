@@ -1,12 +1,20 @@
 package exampleCode;
 
-import jGame.core.Size;
-import jGame.output.Frame;
+import jGame.main.Game;
+import jGame.output.Output;
+import jGame.loop.render.Render;
+import jGame.loop.update.Update;
 
 public class test {
     public static void main(String[] args) {
-        Frame frame = new Frame.Builder()
-                .setSize(new Size(1000, 800))
+        Output output;
+        Render render;
+        Update update;
+
+        Game game = new Game.Builder()
+                .setOutput(output)
+                .setRender(render)
+                .setUpdate(update)
                 .build();
     }
 }
