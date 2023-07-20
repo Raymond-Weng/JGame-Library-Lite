@@ -1,20 +1,35 @@
 package exampleCode;
 
-import jGame.main.Game;
-import jGame.output.Output;
-import jGame.loop.render.Render;
-import jGame.loop.update.Update;
+import jGame.core.Position;
+import jGame.core.Size;
+import jGame.gameObject.GameObject;
+import jGame.gameObject.Hitbox;
 
-public class test {
-    public static void main(String[] args) {
-//        Output output;
-//        Render render;
-//        Update update;
-//
-//        Game game = new Game.Builder()
-//                .setOutput(output)
-//                .setRender(render)
-//                .setUpdate(update)
-//                .build();
+import java.awt.*;
+
+public class test extends GameObject {
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public Image render() {
+        return null;
+    }
+
+    @Override
+    public Position getPosition() {
+        return null;
+    }
+
+    @Override
+    public Hitbox getHitbox() {
+        return null;
+    }
+
+    @Override
+    public Size getSize() {
+        return null;
     }
 }
