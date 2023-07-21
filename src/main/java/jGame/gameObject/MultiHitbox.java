@@ -21,4 +21,17 @@ public class MultiHitbox<E extends Shape> extends Hitbox<E> {
         });
         return isHit.get();
     }
+
+    public boolean isHit(MultiHitbox<E> multiHitbox){
+        AtomicBoolean isHit = new AtomicBoolean(false);
+        multiHitbox.getHitboxs().forEach(hitbox -> arrayList.forEach(hitbox1 -> {if(hitbox1.isHit(hitbox)){
+            isHit.set(true);
+        }
+        }));
+        return isHit.get();
+    }
+
+    public ArrayList<Hitbox<E>> getHitboxs(){
+        return this.arrayList;
+    }
 }

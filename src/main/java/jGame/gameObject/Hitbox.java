@@ -1,5 +1,7 @@
 package jGame.gameObject;
 
+import java.util.ArrayList;
+
 /**
  * the object to check if two things hit together.
  */
