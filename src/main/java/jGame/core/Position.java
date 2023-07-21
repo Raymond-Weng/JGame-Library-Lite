@@ -117,6 +117,38 @@ public class Position {
     }
 
     /**
+     * Adds a specified size to this instance's elements.
+     *
+     * @param size addend.
+     * @return quotient.
+     */
+    public Position add(Size size) {
+        return new Position(this.X + size.getWidth(), this.Y + size.getHeight());
+    }
+
+    /**
+     * Adds a specified position and size together.
+     *
+     * @param pos summand.
+     * @param size addend.
+     * @return quotient.
+     */
+    public static Position add(Position pos, Size size) {
+        return new Position(pos.getX() + size.getWidth(), pos.getY() + size.getHeight());
+    }
+
+    /**
+     * Adds a specified position and size together.
+     *
+     * @param size summand.
+     * @param pos addend.
+     * @return quotient.
+     */
+    public static Position add(Size size, Position pos) {
+        return new Position(pos.getX() + size.getWidth(), pos.getY() + size.getHeight());
+    }
+
+    /**
      * Subtracts this instance by a vector.
      *
      * @param vec subtrahend.
@@ -133,8 +165,27 @@ public class Position {
      * @param vec subtrahend.
      * @return quotient.
      */
-
     public static Position subtract(Position pos, Vector vec) {
         return new Position(pos.getX() - vec.getX(), pos.getY() - vec.getY());
     }
+
+    /**
+     * Subtracts this instance by a size.
+     *
+     * @param size subtrahend.
+     * @return quotient.
+     */
+    public Position subtract(Size size) {
+        return new Position(this.X - size.getWidth(), this.Y - size.getHeight());
+    }
+
+    /**
+     * Subtracts a specified position by a specified size.
+     *
+     * @param pos minuend.
+     * @param size subtrahend.
+     * @return quotient.
+     */
+    public static Position subtract(Position pos, Size size) {
+        return new Position(pos.getX() - size.getWidth(), pos.getY() - size.getHeight());    }
 }

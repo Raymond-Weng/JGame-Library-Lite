@@ -75,4 +75,45 @@ public class Size {
         return (int) height;
     }
 
+    /**
+     * Divides this instance by a specified scalar value.
+     *
+     * @param val divisor.
+     * @return quotient.
+     */
+    public Size divide(double val) {
+        return new Size(width / val, height / val);
+    }
+
+    /**
+     * Divides the specified size by a specified scalar value.
+     *
+     * @param size dividend.
+     * @param val divisor.
+     * @return quotient.
+     */
+    public static Size divide(Size size, double val) {
+        return new Size(size.getWidth() / val, size.getHeight() / val);
+    }
+
+    /**
+     * Divides this instance by a specified size.
+     *
+     * @param size dividend.
+     * @return quotient.
+     */
+    public Size divide(Size size) {
+        return new Size(width / size.getWidth(), height / size.getHeight());
+    }
+
+    /**
+     * Divides the first size by the second one.
+     *
+     * @param size1 dividend.
+     * @param size2 divisor.
+     * @return quotient.
+     */
+    public static Size divide(Size size1, Size size2) {
+        return new Size(size1.getWidth() / size2.getWidth(), size1.getWidth() / size2.getHeight());
+    }
 }

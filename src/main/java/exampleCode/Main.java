@@ -1,119 +1,73 @@
 package exampleCode;
 
+import exampleCode.Objects.Pipe;
+import exampleCode.Objects.Player;
+import exampleCode.Objects.PressSpaceToStart;
+import exampleCode.Objects.Score;
+import jGame.core.Position;
 import jGame.core.Size;
-import jGame.debug.DebugStringHandler;
+
+import jGame.loop.render.CameraImpl;
+import jGame.loop.render.Render;
 import jGame.loop.render.RenderImpl;
+import jGame.loop.update.Update;
 import jGame.loop.update.UpdateImpl;
 import jGame.main.Game;
 import jGame.output.Frame;
 import jGame.output.listener.KeyListenerImpl;
-import jGame.output.listener.MouseListenerImpl;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
-    private static Main main;
+    public static void main(String[] args) {
+        KeyListenerImpl keyListener = new KeyListenerImpl();
 
-    public static Main get() {
-        return main;
-    }
+        Frame frame = new Frame.Builder()
+                .setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
+                .setSize(new Size(1920 / 2, 1080 / 2))
+                .setFrameTitle("FlappyBird")
 
-    public Game game;
-    public volatile MouseListenerImpl mouseListener;
-    public volatile KeyListenerImpl keyListener;
+                .setKeyListener(keyListener)
 
-    public static Player player;
-
-    public static void main(String[] args) throws InterruptedException {
-        MouseListenerImpl mouseListenerImpl = new MouseListenerImpl();
-        KeyListenerImpl keyListenerImpl = new KeyListenerImpl();
-        RenderImpl render = new RenderImpl(60);
-        UpdateImpl update = new UpdateImpl(1000);
-
-        Frame output = new Frame.Builder()
-                .setSize(new Size(1600d, 1000d))
-                .setNumBufferStrategy(2)
-                .setMouseListener(mouseListenerImpl)
-                .setMouseMotionListener(mouseListenerImpl)
-                .setKeyListener(keyListenerImpl)
                 .build();
+
+        CameraImpl camera = new CameraImpl(new Position(0, 0), frame.getSize());
+        Render render = new RenderImpl(60);
+        Update update = new UpdateImpl(60);
+
         Game game = new Game.Builder()
                 .setDebug(true)
-                .setOutput(output)
+                .setOutput(frame)
+                .setCamera(camera)
                 .setRender(render)
                 .setUpdate(update)
-                .setOnlyRenderAfterUpdate(true)
-                .build();
-        output.setGame(game);
-        output.showFrame();
 
+                .setBackgroundColor(new Color(128, 203, 255))
+
+                .build();
+
+        frame.setGame(game);
+        frame.showFrame();  // It's loading screen at first.
+
+        camera.setGame(game);
         render.setGame(game);
         update.setGame(game);
 
-        main = new Main(game, mouseListenerImpl, keyListenerImpl);
-    }
-
-    public Main(Game game, MouseListenerImpl mouseListener, KeyListenerImpl keyListener) {
-        this.game = game;
-        this.mouseListener = mouseListener;
-        this.keyListener = keyListener;
-
         game.build();
 
-        debugSetup();
+        Environment environment = new Environment(0.7);
+        SceneController scene = new SceneController(keyListener);
+        game.addObject(new MainLoop(scene, camera), 0);
+        game.addObject(scene, 0);
 
-        Main.player = new Player(keyListener);
-        game.addObject(player, 1);
+        Player player = new Player(scene, environment, camera, keyListener);
+        game.addObject(new Score(frame, scene, camera), 9);
+        game.addObject(new PressSpaceToStart(frame, scene), 1);
+        game.addObject(player, 8);
+        game.addObject(new Pipe(game, frame, scene, camera, player, new Position(960 + 75, 0)), 2);
+        game.addObject(new Pipe(game, frame, scene, camera, player, new Position(960 * 3 / 2 + 75, 0)), 2);
 
         game.run();
-    }
-
-    private void debugSetup() {
-        this.game.getDebugPanel().addVariable("Mouse Inside", new DebugStringHandler() {
-            @Override
-            public String getText(Game game) {
-                return String.valueOf(Main.get().mouseListener.isMouseInside());
-            }
-        });
-
-        this.game.getDebugPanel().addVariable("Mouse Pressed", new DebugStringHandler() {
-            @Override
-            public String getText(Game game) {
-                return String.valueOf(Main.get().mouseListener.isMousePressed(MouseEvent.BUTTON1));
-            }
-        });
-        this.game.getDebugPanel().addVariable("Mouse X", new DebugStringHandler() {
-            @Override
-            public String getText(Game game) {
-                return String.valueOf(Main.get().mouseListener.getMousePos().getX());
-            }
-        });
-        this.game.getDebugPanel().addVariable("Mouse Y", new DebugStringHandler() {
-            @Override
-            public String getText(Game game) {
-                return String.valueOf(Main.get().mouseListener.getMousePos().getY());
-            }
-        });
-        this.game.getDebugPanel().addVariable("A Pressed", new DebugStringHandler() {
-            @Override
-            public String getText(Game game) {
-                return String.valueOf(Main.get().keyListener.isKeyPressed(KeyEvent.VK_A));
-            }
-        });
-
-        this.game.getDebugPanel().addVariable("Camera X, Y", new DebugStringHandler() {
-            @Override
-            public String getText(Game game) {
-                return game.getCamera().getPosition().getIntX() + "/" + game.getCamera().getPosition().getIntY();
-            }
-        });
-
-        this.game.getDebugPanel().addVariable("Player X, Y", new DebugStringHandler() {
-            @Override
-            public String getText(Game game) {
-                return Main.player.getPosition().getIntX() + "/" + Main.player.getPosition().getIntY();
-            }
-        });
     }
 }
