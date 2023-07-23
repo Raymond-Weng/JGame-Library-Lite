@@ -124,6 +124,18 @@ public class Frame implements Output {
             return this;
         }
 
+        private boolean fullScreen = false;
+
+        /**
+         * set if the frame should be full screen
+         * @param fullScreen if the frame should be full screen
+         * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
+         */
+        public Builder setFullScreen(boolean fullScreen){
+            this.fullScreen = fullScreen;
+            return this;
+        }
+
         /**
          * build to get the frame object
          *
@@ -139,7 +151,8 @@ public class Frame implements Output {
                         icon,
                         mouseListener,
                         mouseMotionListener,
-                        keyListener
+                        keyListener,
+                        fullScreen
                 );
             else
                 throw new BuilderException("There is some missing args.");
@@ -158,13 +171,16 @@ public class Frame implements Output {
                   Image icon,
                   MouseListener mouseListener,
                   MouseMotionListener mouseMotionListener,
-                  KeyListener keyListener
+                  KeyListener keyListener,
+                  boolean fullScreen
     ) {
-        this.size = size;
+        this.size = fullScreen ? new Size(Toolkit.getDefaultToolkit().getScreenSize().width,
+                Toolkit.getDefaultToolkit().getScreenSize().height) : size;
 
         jFrame = new JFrame();
         canvas = new Canvas();
 
+        jFrame.setUndecorated(true);
         jFrame.setVisible(false);
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(defaultCloseOperation);
@@ -182,6 +198,13 @@ public class Frame implements Output {
         jFrame.addKeyListener(keyListener);
 
         canvas.createBufferStrategy(numBufferStrategy);
+
+        if(fullScreen){
+            GraphicsEnvironment.
+                    getLocalGraphicsEnvironment().
+                    getDefaultScreenDevice().
+                    setFullScreenWindow(jFrame);
+        }
     }
 
 

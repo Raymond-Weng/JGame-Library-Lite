@@ -28,6 +28,8 @@ public class Main {
                 .setSize(new Size(1920 / 2, 1080 / 2))
                 .setFrameTitle("FlappyBird")
 
+                .setFullScreen(true)
+
                 .setKeyListener(keyListener)
 
                 .build();
