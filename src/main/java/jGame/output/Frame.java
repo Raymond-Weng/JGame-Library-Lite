@@ -128,10 +128,11 @@ public class Frame implements Output {
 
         /**
          * set if the frame should be full screen
+         *
          * @param fullScreen if the frame should be full screen
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
-        public Builder setFullScreen(boolean fullScreen){
+        public Builder setFullScreen(boolean fullScreen) {
             this.fullScreen = fullScreen;
             return this;
         }
@@ -180,7 +181,9 @@ public class Frame implements Output {
         jFrame = new JFrame();
         canvas = new Canvas();
 
-        jFrame.setUndecorated(true);
+        if (fullScreen) {
+            jFrame.setUndecorated(true);
+        }
         jFrame.setVisible(false);
         jFrame.setResizable(false);
         jFrame.setDefaultCloseOperation(defaultCloseOperation);
@@ -199,7 +202,7 @@ public class Frame implements Output {
 
         canvas.createBufferStrategy(numBufferStrategy);
 
-        if(fullScreen){
+        if (fullScreen) {
             GraphicsEnvironment.
                     getLocalGraphicsEnvironment().
                     getDefaultScreenDevice().
