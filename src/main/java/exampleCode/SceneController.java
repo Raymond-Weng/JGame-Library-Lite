@@ -3,7 +3,7 @@ package exampleCode;
 import jGame.core.Position;
 import jGame.core.Size;
 import jGame.gameObject.GameObject;
-import jGame.gameObject.Hitbox;
+import jGame.gameObject.hitbox.Hitbox;
 import jGame.output.listener.KeyListenerImpl;
 
 import java.awt.*;

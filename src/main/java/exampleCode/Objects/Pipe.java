@@ -5,9 +5,9 @@ import exampleCode.math.PositionConverter;
 import jGame.core.Position;
 import jGame.core.Size;
 import jGame.gameObject.GameObject;
-import jGame.gameObject.Hitbox;
-import jGame.gameObject.MultiHitbox;
-import jGame.gameObject.hitboxShape.Rectangle;
+import jGame.gameObject.hitbox.Hitbox;
+import jGame.gameObject.hitbox.MultiHitbox;
+import jGame.gameObject.hitbox.hitboxShape.Rectangle;
 import jGame.loop.render.CameraImpl;
 import jGame.main.Game;
 

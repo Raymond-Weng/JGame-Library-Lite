@@ -2,6 +2,7 @@ package jGame.gameObject;
 
 import jGame.core.Position;
 import jGame.core.Size;
+import jGame.gameObject.hitbox.Hitbox;
 
 import java.awt.*;
 

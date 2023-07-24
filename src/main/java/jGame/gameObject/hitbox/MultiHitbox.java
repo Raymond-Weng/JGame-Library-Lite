@@ -1,6 +1,6 @@
-package jGame.gameObject;
+package jGame.gameObject.hitbox;
 
-import jGame.gameObject.hitboxShape.Shape;
+import jGame.gameObject.hitbox.hitboxShape.Shape;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -24,14 +24,15 @@ public class MultiHitbox<E extends Shape> extends Hitbox<E> {
 
     public boolean isHit(MultiHitbox<E> multiHitbox){
         AtomicBoolean isHit = new AtomicBoolean(false);
-        multiHitbox.getHitboxs().forEach(hitbox -> arrayList.forEach(hitbox1 -> {if(hitbox1.isHit(hitbox)){
+        multiHitbox.getHitboxes().forEach(hitbox -> arrayList.forEach(hitbox1 -> {if(hitbox1.isHit(hitbox)){
             isHit.set(true);
         }
         }));
         return isHit.get();
     }
 
-    public ArrayList<Hitbox<E>> getHitboxs(){
+    @Override
+    public ArrayList<Hitbox<E>> getHitboxes(){
         return this.arrayList;
     }
 }

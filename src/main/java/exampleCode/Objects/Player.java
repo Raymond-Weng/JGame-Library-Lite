@@ -4,8 +4,8 @@ import exampleCode.Environment;
 import exampleCode.SceneController;
 import jGame.core.*;
 import jGame.gameObject.GameObject;
-import jGame.gameObject.Hitbox;
-import jGame.gameObject.hitboxShape.Rectangle;
+import jGame.gameObject.hitbox.Hitbox;
+import jGame.gameObject.hitbox.hitboxShape.Rectangle;
 import jGame.loop.render.CameraImpl;
 import jGame.output.listener.KeyListenerImpl;
 

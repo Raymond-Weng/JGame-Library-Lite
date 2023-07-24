@@ -28,8 +28,6 @@ public class Main {
                 .setSize(new Size(1920 / 2, 1080 / 2))
                 .setFrameTitle("FlappyBird")
 
-                .setFullScreen(true)
-
                 .setKeyListener(keyListener)
 
                 .build();
@@ -67,8 +65,12 @@ public class Main {
         game.addObject(new Score(frame, scene, camera), 9);
         game.addObject(new PressSpaceToStart(frame, scene), 1);
         game.addObject(player, 8);
-        game.addObject(new Pipe(game, frame, scene, camera, player, new Position(960 + 75, 0)), 2);
-        game.addObject(new Pipe(game, frame, scene, camera, player, new Position(960 * 3 / 2 + 75, 0)), 2);
+        Pipe pipe1 = new Pipe(game, frame, scene, camera, player, new Position(960 + 75, 0));
+        game.addObject(pipe1, 2);
+        Pipe pipe2 = new Pipe(game, frame, scene, camera, player, new Position(960 * 3 / 2 + 75, 0));
+        game.addObject(pipe2, 2);
+
+        game.getHitboxTracker().track(player);
 
         game.run();
     }

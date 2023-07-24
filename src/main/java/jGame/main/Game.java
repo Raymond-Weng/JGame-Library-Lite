@@ -6,6 +6,7 @@ import jGame.exception.BuilderException;
 import jGame.exception.PriorityException;
 import jGame.exception.TimeOutException;
 import jGame.gameObject.GameObject;
+import jGame.gameObject.hitbox.HitboxTracker;
 import jGame.loop.render.Camera;
 import jGame.loop.render.NonCamera;
 import jGame.loop.render.Render;
@@ -268,6 +269,8 @@ public class Game {
      */
     public volatile SecondLoading secondLoading;
 
+    public volatile HitboxTracker hitboxTracker = null;
+
     public final Image LOADING_IMAGE;
 
     private final boolean debug;
@@ -311,6 +314,8 @@ public class Game {
         for (int i = 0; i < 10; i++) {
             objects.add(new ArrayList<>());
         }
+
+        this.hitboxTracker = new HitboxTracker();
     }
 
     /**
@@ -339,6 +344,9 @@ public class Game {
                     return String.valueOf(game.timerManagers[0].getUpdate().getUps());
                 }
             });
+
+            hitboxTracker = new HitboxTracker(this);
+            this.addObject(hitboxTracker, 9);
         }
 
         objectsToBeRemoved = new ArrayList<>();
@@ -526,5 +534,9 @@ public class Game {
                 System.gc();
             }
         }
+    }
+
+    public HitboxTracker getHitboxTracker(){
+        return this.hitboxTracker;
     }
 }

@@ -1,4 +1,4 @@
-package jGame.gameObject.hitboxShape;
+package jGame.gameObject.hitbox.hitboxShape;
 
 import jGame.core.Position;
 import jGame.core.Size;

@@ -3,11 +3,10 @@ package jGame.output;
 import jGame.core.Position;
 import jGame.core.Size;
 import jGame.gameObject.GameObject;
-import jGame.gameObject.Hitbox;
+import jGame.gameObject.hitbox.Hitbox;
 import jGame.main.Game;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class SecondLoading extends GameObject {
     private final Game game;

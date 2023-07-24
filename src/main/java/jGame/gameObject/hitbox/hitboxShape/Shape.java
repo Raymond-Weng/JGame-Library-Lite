@@ -1,4 +1,4 @@
-package jGame.gameObject.hitboxShape;
+package jGame.gameObject.hitbox.hitboxShape;
 
 /**
  * the shape of the hitbox, for computing if the two shape hit

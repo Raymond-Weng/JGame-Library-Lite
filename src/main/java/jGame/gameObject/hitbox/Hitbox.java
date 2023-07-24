@@ -1,4 +1,4 @@
-package jGame.gameObject;
+package jGame.gameObject.hitbox;
 
 import java.util.ArrayList;
 
@@ -6,20 +6,24 @@ import java.util.ArrayList;
  * the object to check if two things hit together.
  */
 
-public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
+public class Hitbox<E extends jGame.gameObject.hitbox.hitboxShape.Shape> {
     private volatile E shape;
 
     private final boolean isNull;
+
+    private final ArrayList<Hitbox<E>> arrayList;
 
     /**
      * create a hittable hitbox
      *
      * @param shape the shape of the hitbox
-     * @see jGame.gameObject.hitboxShape.Shape
+     * @see jGame.gameObject.hitbox.hitboxShape.Shape
      */
     public Hitbox(E shape) {
         this.shape = shape;
         this.isNull = false;
+        this.arrayList = new ArrayList<>();
+        this.arrayList.add(this);
     }
 
     /**
@@ -27,6 +31,8 @@ public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
      */
     public Hitbox() {
         isNull = true;
+        this.arrayList = new ArrayList<>();
+        this.arrayList.add(this);
     }
 
     /**
@@ -62,5 +68,9 @@ public class Hitbox<E extends jGame.gameObject.hitboxShape.Shape> {
      */
     public void setShape(E shape) {
         this.shape = shape;
+    }
+
+    public ArrayList<Hitbox<E>> getHitboxes() {
+        return this.arrayList;
     }
 }
