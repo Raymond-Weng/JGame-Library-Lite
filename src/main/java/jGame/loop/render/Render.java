@@ -44,8 +44,7 @@ public abstract class Render extends Timer {
             graphics.dispose();
             output.show();
             this.updateTime++;
-        }
-        if (!game.ONLY_RENDER_AFTER_UPDATE) {
+        }else if (!game.ONLY_RENDER_AFTER_UPDATE) {
             renderGame();
         }
         this.updateTime--;
