@@ -526,7 +526,7 @@ public class Game {
     }
 
     /**
-     * [auto call] remove objects which was made to be removed in {@code remove()}
+     * [auto call] remove objects which was made to be added in {@code addObject()}
      */
     public void cleanToBeAddedList() {
         for (int i = 0; i < objectsToBeRemoved.size(); i++) {
@@ -542,7 +542,7 @@ public class Game {
     }
 
     /**
-     * [auto call] remove object which was made to be removed in {@code remove()}
+     * [auto call] remove object which was made to be removed in {@code removeObject()}
      */
     public void cleanObjects() {
         for (int i = 0; i < objectsToBeRemoved.size(); i++) {
