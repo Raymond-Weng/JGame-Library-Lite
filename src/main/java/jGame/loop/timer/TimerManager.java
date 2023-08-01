@@ -36,6 +36,7 @@ public class TimerManager {
         this.render = render;
         this.update = update;
         timers = new ArrayList<>();
+        timersToBeAdded = new ArrayList<>();
         timersToBeRemoved = new ArrayList<>();
     }
 

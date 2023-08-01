@@ -322,6 +322,16 @@ public class Game {
      * build the game, like loading output, reading file, etc.
      */
     public void build() {
+        objectsToBeAdded = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            objectsToBeAdded.add(new ArrayList<>());
+        }
+
+        objectsToBeRemoved = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            objectsToBeRemoved.add(new ArrayList<>());
+        }
+
         for (int i = 0; i < gameThreads.length; i++) {
             if (i != 0) {
                 timerManagers[i] = new TimerManager();
@@ -347,16 +357,6 @@ public class Game {
 
             hitboxTracker = new HitboxTracker(this);
             this.addObject(hitboxTracker, 9);
-        }
-
-        objectsToBeAdded = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            objectsToBeAdded.add(new ArrayList<>());
-        }
-
-        objectsToBeRemoved = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            objectsToBeRemoved.add(new ArrayList<>());
         }
     }
 
