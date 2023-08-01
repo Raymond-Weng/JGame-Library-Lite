@@ -41,6 +41,7 @@ public abstract class Update extends Timer {
                 game.getMainThread().getTimerManager().getRender().renderGame();
             }
             synchronized (game.getObjects()) {
+                game.cleanToBeAddedList();
                 game.cleanObjects();
             }
         }

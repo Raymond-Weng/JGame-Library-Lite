@@ -17,7 +17,6 @@ import jGame.loop.update.Update;
 import jGame.loop.update.UpdateImpl;
 import jGame.output.Output;
 import jGame.output.SecondLoading;
-import org.omg.CORBA.PRIVATE_MEMBER;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -169,7 +168,8 @@ public class Game {
         }
 
         private int gameStartDelay = 3;
-        public Builder setGameStartDelay(int gameStartDelay){
+
+        public Builder setGameStartDelay(int gameStartDelay) {
             this.gameStartDelay = gameStartDelay;
             return this;
         }
@@ -191,8 +191,8 @@ public class Game {
                     output != null
                             && render != null
                             && update != null
-            ){
-                if(loadingImage == null){
+            ) {
+                if (loadingImage == null) {
                     Image image = new BufferedImage(output.getSize().getIntWidth(),
                             output.getSize().getIntHeight(),
                             BufferedImage.TYPE_INT_RGB);
@@ -227,8 +227,7 @@ public class Game {
                         gameStartDelay,
                         loadingImage
                 );
-            }
-            else {
+            } else {
                 throw new BuilderException("There is some missing args.");
             }
         }
@@ -269,7 +268,7 @@ public class Game {
      */
     public volatile SecondLoading secondLoading;
 
-    public volatile HitboxTracker hitboxTracker = null;
+    public volatile HitboxTracker hitboxTracker;
 
     public final Image LOADING_IMAGE;
 
@@ -281,6 +280,7 @@ public class Game {
     private final int loadingTimeOut;
     private volatile DebugPanel debugPanel;
     private volatile Camera camera;
+    private ArrayList<ArrayList<GameObject>> objectsToBeAdded;
     private ArrayList<ArrayList<GameObject>> objectsToBeRemoved;
 
     private Game(boolean debug,
@@ -349,8 +349,13 @@ public class Game {
             this.addObject(hitboxTracker, 9);
         }
 
+        objectsToBeAdded = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            objectsToBeAdded.add(new ArrayList<>());
+        }
+
         objectsToBeRemoved = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++) {
             objectsToBeRemoved.add(new ArrayList<>());
         }
     }
@@ -408,7 +413,7 @@ public class Game {
             case 7:
             case 8:
             case 9:
-                this.objects.get(priority).add(gameObject);
+                this.objectsToBeAdded.get(priority).add(gameObject);
                 break;
             default:
                 throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
@@ -521,11 +526,27 @@ public class Game {
     }
 
     /**
-     * [auto call] remove timers which was made to be removed in {@code remove()}
+     * [auto call] remove objects which was made to be removed in {@code remove()}
      */
-    public void cleanObjects(){
-        for(int i = 0; i < objectsToBeRemoved.size(); i++){
-            if(objectsToBeRemoved.get(i).size() != 0){
+    public void cleanToBeAddedList() {
+        for (int i = 0; i < objectsToBeRemoved.size(); i++) {
+            if (!objectsToBeAdded.get(i).isEmpty()) {
+                int finalI = i;
+                synchronized (objectsToBeRemoved.get(i)) {
+                    objectsToBeRemoved.get(i).forEach(gameObject -> objects.get(finalI).add(gameObject));
+                    objectsToBeRemoved.set(i, new ArrayList<>());
+                }
+                System.gc();
+            }
+        }
+    }
+
+    /**
+     * [auto call] remove object which was made to be removed in {@code remove()}
+     */
+    public void cleanObjects() {
+        for (int i = 0; i < objectsToBeRemoved.size(); i++) {
+            if (!objectsToBeRemoved.get(i).isEmpty()) {
                 int finalI = i;
                 synchronized (objectsToBeRemoved.get(i)) {
                     objectsToBeRemoved.get(i).forEach(gameObject -> objects.get(finalI).remove(gameObject));
@@ -536,7 +557,7 @@ public class Game {
         }
     }
 
-    public HitboxTracker getHitboxTracker(){
+    public HitboxTracker getHitboxTracker() {
         return this.hitboxTracker;
     }
 }
