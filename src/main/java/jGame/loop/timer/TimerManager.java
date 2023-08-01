@@ -16,7 +16,7 @@ public class TimerManager {
     private final Render render;
     private final Update update;
     private final ArrayList<Timer> timers;
-
+    private volatile ArrayList<Timer> timersToBeAdded;
     private volatile ArrayList<Timer> timersToBeRemoved;
 
     /**
@@ -96,10 +96,23 @@ public class TimerManager {
     }
 
     /**
-     * [auto call] remove timers which was made to be removed in {@code remove()}
+     * [auto call] add timers which was made to be added in {@code addTimer()}
+     */
+    public void cleanToBeAddedList(){
+        if(!timersToBeAdded.isEmpty()) {
+            synchronized (timersToBeAdded) {
+                timersToBeAdded.forEach(timers::add);
+                timersToBeAdded = new ArrayList<>();
+            }
+            System.gc();
+        }
+    }
+
+    /**
+     * [auto call] remove timers which was made to be removed in {@code removeTimer()}
      */
     public void cleanTimer(){
-        if(timersToBeRemoved.size() != 0) {
+        if(!timersToBeRemoved.isEmpty()) {
             synchronized (timersToBeRemoved) {
                 timersToBeRemoved.forEach(timers::remove);
                 timersToBeRemoved = new ArrayList<>();
