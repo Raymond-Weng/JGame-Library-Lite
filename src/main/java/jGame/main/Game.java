@@ -280,8 +280,8 @@ public class Game {
     private final int loadingTimeOut;
     private volatile DebugPanel debugPanel;
     private volatile Camera camera;
-    private ArrayList<ArrayList<GameObject>> objectsToBeAdded;
-    private ArrayList<ArrayList<GameObject>> objectsToBeRemoved;
+    private volatile ArrayList<ArrayList<GameObject>> objectsToBeAdded;
+    private volatile ArrayList<ArrayList<GameObject>> objectsToBeRemoved;
 
     private Game(boolean debug,
                  Output output,
