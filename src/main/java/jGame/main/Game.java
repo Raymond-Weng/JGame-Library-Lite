@@ -529,12 +529,12 @@ public class Game {
      * [auto call] remove objects which was made to be added in {@code addObject()}
      */
     public void cleanToBeAddedList() {
-        for (int i = 0; i < objectsToBeRemoved.size(); i++) {
+        for (int i = 0; i < objectsToBeAdded.size(); i++) {
             if (!objectsToBeAdded.get(i).isEmpty()) {
                 int finalI = i;
-                synchronized (objectsToBeRemoved.get(i)) {
-                    objectsToBeRemoved.get(i).forEach(gameObject -> objects.get(finalI).add(gameObject));
-                    objectsToBeRemoved.set(i, new ArrayList<>());
+                synchronized (objectsToBeAdded.get(i)) {
+                    objectsToBeAdded.get(i).forEach(gameObject -> objects.get(finalI).add(gameObject));
+                    objectsToBeAddedq.set(i, new ArrayList<>());
                 }
                 System.gc();
             }
