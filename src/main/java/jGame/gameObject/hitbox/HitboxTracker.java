@@ -77,6 +77,8 @@ public class HitboxTracker extends GameObject {
     }
 
     public void track(GameObject gameObject) {
-        this.gameObjects.add(gameObject);
+        if(this.work){
+            this.gameObjects.add(gameObject);
+        }
     }
 }

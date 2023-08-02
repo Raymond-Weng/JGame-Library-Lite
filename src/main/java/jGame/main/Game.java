@@ -534,7 +534,7 @@ public class Game {
                 int finalI = i;
                 synchronized (objectsToBeAdded.get(i)) {
                     objectsToBeAdded.get(i).forEach(gameObject -> objects.get(finalI).add(gameObject));
-                    objectsToBeAddedq.set(i, new ArrayList<>());
+                    objectsToBeAdded.set(i, new ArrayList<>());
                 }
                 System.gc();
             }
