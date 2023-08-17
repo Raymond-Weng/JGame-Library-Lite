@@ -94,7 +94,7 @@ public class Game {
         /**
          * set the thread count
          *
-         * @param threadCount how many thread you need, this will be set to 2 if you the arg is less than 2
+         * @param threadCount how many thread you need, this will be set to 2 if the arg is less than 2
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
         public Builder setThreadCount(int threadCount) {
