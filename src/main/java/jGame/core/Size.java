@@ -1,5 +1,7 @@
 package jGame.core;
 
+import java.awt.*;
+
 /**
  * For talk about size of object or frame etc.
  */
@@ -115,5 +117,9 @@ public class Size {
      */
     public static Size divide(Size size1, Size size2) {
         return new Size(size1.getWidth() / size2.getWidth(), size1.getWidth() / size2.getHeight());
+    }
+
+    public Dimension toDimension(){
+        return new Dimension((int) width, (int) height);
     }
 }

@@ -1,5 +1,7 @@
 package jGame.core;
 
+import java.awt.*;
+
 /**
  * this mark the position in a 2D world
  */
@@ -187,5 +189,10 @@ public class Position {
      * @return quotient.
      */
     public static Position subtract(Position pos, Size size) {
-        return new Position(pos.getX() - size.getWidth(), pos.getY() - size.getHeight());    }
+        return new Position(pos.getX() - size.getWidth(), pos.getY() - size.getHeight());
+    }
+
+    public Point toPoint(){
+        return new Point((int) X, (int) Y);
+    }
 }
