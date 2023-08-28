@@ -55,8 +55,8 @@ public class CameraImpl implements Camera {
     @Override
     public void update() {
         if (objectOnFocus != null) {
-            this.position = new Position(objectOnFocus.getPosition().getX() - (game.getOutput().getSize().getWidth() - objectOnFocus.getSize().getWidth()) / 2,
-                    objectOnFocus.getPosition().getY() - (game.getOutput().getSize().getHeight() - objectOnFocus.getSize().getHeight()) / 2);
+            this.position = new Position(objectOnFocus.getPosition().getX() - (game.getOutput().getSize().getWidth()) / 2,
+                    objectOnFocus.getPosition().getY() - (game.getOutput().getSize().getHeight()) / 2);
         }
     }
 
