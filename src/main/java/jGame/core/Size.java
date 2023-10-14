@@ -41,6 +41,15 @@ public class Size {
     }
 
     /**
+     * gets the width in int
+     *
+     * @return width of the object in int
+     */
+    public int getIntWidth() {
+        return (int) width;
+    }
+
+    /**
      * Get a new size object with new {@code height}.
      *
      * @param height the new height
@@ -57,15 +66,6 @@ public class Size {
      */
     public double getHeight() {
         return height;
-    }
-
-    /**
-     * gets the width in int
-     *
-     * @return width of the object in int
-     */
-    public int getIntWidth() {
-        return (int) width;
     }
 
     /**
