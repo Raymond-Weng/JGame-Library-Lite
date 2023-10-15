@@ -191,7 +191,7 @@ public class Frame implements Output {
         jFrame.setIconImage(icon);
 
         canvas.setFocusable(false);
-        canvas.setSize(new Dimension(size.getIntWidth(), size.getIntHeight()));
+        canvas.setSize(size.toDimension());
         jFrame.getContentPane().add(canvas);
         jFrame.pack();
         jFrame.setLocationRelativeTo(null);
