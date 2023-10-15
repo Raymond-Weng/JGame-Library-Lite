@@ -5,10 +5,13 @@ jGame.core
 jGame.debug
 jGame.exception
 jGame.gameObject
+jGame.gameObject.hitbox
 jGame.gameObject.hitbox.hitboxShape
+jGame.input
 jGame.loop.render
 jGame.loop.timer
 jGame.loop.update
 jGame.main
 jGame.output
-jGame.input
+jGame3D.core
+jGame3D.loop.render
