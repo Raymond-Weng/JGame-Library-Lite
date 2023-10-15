@@ -1,4 +1,4 @@
-package jGame.output.listener;
+package jGame.input;
 
 import jGame.core.Position;
 
@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 /**
- * the better mouse listener, including saving the event from frame
+ * the better mouse input, including saving the event from frame
  */
 public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMotionListener {
     @Override

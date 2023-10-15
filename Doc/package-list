@@ -11,4 +11,4 @@ jGame.loop.timer
 jGame.loop.update
 jGame.main
 jGame.output
-jGame.output.listener
+jGame.input

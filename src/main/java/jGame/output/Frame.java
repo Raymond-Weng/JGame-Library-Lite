@@ -86,11 +86,11 @@ public class Frame implements Output {
         private MouseListener mouseListener = null;
 
         /**
-         * set the mouse listener
+         * set the mouse input
          *
-         * @param mouseListener the mouse listener to be added to frame
+         * @param mouseListener the mouse input to be added to frame
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
-         * @see jGame.output.listener.MouseListenerImpl
+         * @see jGame.input.MouseListenerImpl
          */
         public Builder setMouseListener(MouseListener mouseListener) {
             this.mouseListener = mouseListener;
@@ -100,11 +100,11 @@ public class Frame implements Output {
         private KeyListener keyListener;
 
         /**
-         * set the key listener
+         * set the key input
          *
-         * @param keyListener the key listener to be added to frame
+         * @param keyListener the key input to be added to frame
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
-         * @see jGame.output.listener.KeyListenerImpl
+         * @see jGame.input.KeyListenerImpl
          */
         public Builder setKeyListener(KeyListener keyListener) {
             this.keyListener = keyListener;
@@ -114,9 +114,9 @@ public class Frame implements Output {
         private MouseMotionListener mouseMotionListener;
 
         /**
-         * set the mouse motion listener
+         * set the mouse motion input
          *
-         * @param mouseMotionListener the mouse motion listener to be added to the frame
+         * @param mouseMotionListener the mouse motion input to be added to the frame
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          */
         public Builder setMouseMotionListener(MouseMotionListener mouseMotionListener) {

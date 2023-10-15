@@ -7,7 +7,7 @@ import jGame.gameObject.GameObject;
 import jGame.gameObject.hitbox.Hitbox;
 import jGame.gameObject.hitbox.hitboxShape.Rectangle;
 import jGame.loop.render.CameraImpl;
-import jGame.output.listener.KeyListenerImpl;
+import jGame.input.KeyListenerImpl;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;

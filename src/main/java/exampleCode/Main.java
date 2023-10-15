@@ -14,7 +14,7 @@ import jGame.loop.update.Update;
 import jGame.loop.update.UpdateImpl;
 import jGame.main.Game;
 import jGame.output.Frame;
-import jGame.output.listener.KeyListenerImpl;
+import jGame.input.KeyListenerImpl;
 
 import javax.swing.*;
 import java.awt.*;

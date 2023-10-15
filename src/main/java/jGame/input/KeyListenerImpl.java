@@ -1,11 +1,11 @@
-package jGame.output.listener;
+package jGame.input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
- * the better key listener, including saving the event from frame
+ * the better key input, including saving the event from frame
  */
 public class KeyListenerImpl implements KeyListener {
     @Override
@@ -35,7 +35,7 @@ public class KeyListenerImpl implements KeyListener {
     private final ArrayList<Boolean> keyPressed;
 
     /**
-     * create a new key listener
+     * create a new key input
      */
     public KeyListenerImpl() {
         keyPressed = new ArrayList<>();
