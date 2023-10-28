@@ -9,9 +9,9 @@ import jGame.core.Size;
 
 import jGame.loop.render.cameras.CameraImpl;
 import jGame.loop.render.Render;
-import jGame.loop.render.RenderImpl;
+import jGame.loop.render.renders.RenderImpl;
 import jGame.loop.update.Update;
-import jGame.loop.update.UpdateImpl;
+import jGame.loop.update.updaters.UpdateImpl;
 import jGame.main.Game;
 import jGame.output.Frame;
 import jGame.input.KeyListenerImpl;

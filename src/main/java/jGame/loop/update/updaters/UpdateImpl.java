@@ -1,6 +1,7 @@
-package jGame.loop.update;
+package jGame.loop.update.updaters;
 
 import jGame.gameObject.GameObject;
+import jGame.loop.update.Update;
 
 public class UpdateImpl extends Update {
     /**

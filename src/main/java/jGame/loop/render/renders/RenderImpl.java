@@ -1,7 +1,8 @@
-package jGame.loop.render;
+package jGame.loop.render.renders;
 
 import jGame.core.Size;
 import jGame.core.Vector;
+import jGame.loop.render.Render;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,7 +1,8 @@
-package jGame.loop.update;
+package jGame.loop.update.updaters;
 
 import jGame.core.Position;
 import jGame.core.Size;
+import jGame.loop.update.Update;
 
 import java.awt.*;
 

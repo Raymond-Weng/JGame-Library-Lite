@@ -10,11 +10,12 @@ import jGame.gameObject.hitbox.HitboxTracker;
 import jGame.loop.render.cameras.Camera;
 import jGame.loop.render.cameras.NonCamera;
 import jGame.loop.render.Render;
+import jGame.loop.render.renders.RenderImpl;
 import jGame.loop.timer.GameThread;
 import jGame.loop.timer.Timer;
 import jGame.loop.timer.TimerManager;
 import jGame.loop.update.Update;
-import jGame.loop.update.UpdateImpl;
+import jGame.loop.update.updaters.UpdateImpl;
 import jGame.output.Output;
 import jGame.output.SecondLoading;
 
@@ -67,7 +68,7 @@ public class Game {
          * @param render extend the render to overwrite the things in render
          * @return this builder, then you can connect {@code .setXXX(XXX)} right after this method
          * @see Render
-         * @see jGame.loop.render.RenderImpl
+         * @see RenderImpl
          */
         public Builder setRender(Render render) {
             this.render = render;
