@@ -86,6 +86,14 @@ public class Position {
         return Math.sqrt(Math.pow(this.getX() - position.getX(), 2) + Math.pow(this.getY() + position.getY(), 2));
     }
 
+    public Position add(Position position){
+        return new Position(this.X + position.X, this.Y + position.Y);
+    }
+
+    public static Position add(Position position1, Position position2){
+        return position1.add(position2);
+    }
+
     /**
      * Adds a specified vector to this instance's elements.
      *
@@ -150,6 +158,14 @@ public class Position {
         return new Position(pos.getX() + size.getWidth(), pos.getY() + size.getHeight());
     }
 
+    public Position subtract(Position position){
+        return new Position(this.X - position.X, this.Y - position.Y);
+    }
+
+    public static Position subtract(Position position1, Position position2){
+        return position1.subtract(position2);
+    }
+
     /**
      * Subtracts this instance by a vector.
      *
@@ -194,5 +210,10 @@ public class Position {
 
     public Point toPoint(){
         return new Point((int) X, (int) Y);
+    }
+
+    @Override
+    public boolean equals(Object object){
+        return ((Position)object).X == this.X && ((Position)object).Y == this.Y;
     }
 }
