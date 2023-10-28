@@ -1,4 +1,4 @@
-package jGame.loop.render;
+package jGame.loop.render.cameras;
 
 import jGame.core.Position;
 import jGame.core.Size;

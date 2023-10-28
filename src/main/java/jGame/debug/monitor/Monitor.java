@@ -1,12 +1,10 @@
-package jGame.debug;
+package jGame.debug.monitor;
 
 import jGame.input.MouseListenerImpl;
 import jGame.main.Game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 public class Monitor implements Runnable {
     private Game game;
@@ -14,7 +12,7 @@ public class Monitor implements Runnable {
     private Canvas canvas;
     private MouseListenerImpl mouseListener;
 
-    public Monitor(Game game){
+    public Monitor(Game game) {
         this.game = game;
         this.jFrame = new JFrame();
         this.canvas = new Canvas();
@@ -41,7 +39,7 @@ public class Monitor implements Runnable {
 
     @Override
     public void run() {
-        while (game.getMainThread().isRunning()){
+        while (game.getMainThread().isRunning()) {
             //TODO
         }
     }

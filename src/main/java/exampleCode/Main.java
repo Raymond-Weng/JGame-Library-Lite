@@ -7,7 +7,7 @@ import exampleCode.Objects.Score;
 import jGame.core.Position;
 import jGame.core.Size;
 
-import jGame.loop.render.CameraImpl;
+import jGame.loop.render.cameras.CameraImpl;
 import jGame.loop.render.Render;
 import jGame.loop.render.RenderImpl;
 import jGame.loop.update.Update;

@@ -5,7 +5,7 @@ import jGame.core.Size;
 import jGame.core.Vector;
 import jGame.gameObject.GameObject;
 import jGame.gameObject.hitbox.Hitbox;
-import jGame.loop.render.CameraImpl;
+import jGame.loop.render.cameras.CameraImpl;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

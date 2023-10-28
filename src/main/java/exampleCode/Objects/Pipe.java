@@ -8,7 +8,7 @@ import jGame.gameObject.GameObject;
 import jGame.gameObject.hitbox.Hitbox;
 import jGame.gameObject.hitbox.MultiHitbox;
 import jGame.gameObject.hitbox.hitboxShape.Rectangle;
-import jGame.loop.render.CameraImpl;
+import jGame.loop.render.cameras.CameraImpl;
 import jGame.main.Game;
 
 import java.awt.*;
