@@ -3,7 +3,6 @@ package jGame.loop.timer;
 import jGame.loop.render.Render;
 import jGame.loop.update.Update;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -99,8 +98,8 @@ public class TimerManager {
     /**
      * [auto call] add timers which was made to be added in {@code addTimer()}
      */
-    public void cleanToBeAddedList(){
-        if(!timersToBeAdded.isEmpty()) {
+    public void cleanToBeAddedList() {
+        if (!timersToBeAdded.isEmpty()) {
             synchronized (timersToBeAdded) {
                 timersToBeAdded.forEach(timers::add);
                 timersToBeAdded = new ArrayList<>();
@@ -112,8 +111,8 @@ public class TimerManager {
     /**
      * [auto call] remove timers which was made to be removed in {@code removeTimer()}
      */
-    public void cleanTimer(){
-        if(!timersToBeRemoved.isEmpty()) {
+    public void cleanTimer() {
+        if (!timersToBeRemoved.isEmpty()) {
             synchronized (timersToBeRemoved) {
                 timersToBeRemoved.forEach(timers::remove);
                 timersToBeRemoved = new ArrayList<>();

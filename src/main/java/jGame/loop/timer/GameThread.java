@@ -10,6 +10,8 @@ public class GameThread extends Thread {
 
     private volatile boolean running = false;
 
+    double lastUpdate = -1;
+
     /**
      * create a new thread ({@code Game} class will handle this)
      *
@@ -21,17 +23,21 @@ public class GameThread extends Thread {
 
     @Override
     public void run() {
+        lastUpdate = System.currentTimeMillis();
         running = true;
         while (running) {
+            double currentTime = System.currentTimeMillis();
+            double timePassed = currentTime - lastUpdate;
+            lastUpdate = currentTime;
             if (timerManager.getUpdate() == null || timerManager.getRender() == null) {
                 synchronized (timerManager.getTimers()) {
-                    timerManager.getTimers().forEach(Timer::update);
+                    timerManager.getTimers().forEach(timer -> timer.update(timePassed));
                     timerManager.cleanToBeAddedList();
                     timerManager.cleanTimer();
                 }
             } else {
-                synchronized (timerManager) {
-                    timerManager.getFullList().forEach(Timer::update);
+                synchronized (timerManager.getTimers()) {
+                    timerManager.getFullList().forEach(timer -> timer.update(timePassed));
                     timerManager.cleanToBeAddedList();
                     timerManager.cleanTimer();
                 }
