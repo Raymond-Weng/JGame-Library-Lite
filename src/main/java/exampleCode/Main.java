@@ -37,7 +37,7 @@ public class Main {
         Update update = new UpdateImpl(60);
 
         Game game = new Game.Builder()
-                .setDebug(true)
+                .setDebug(false)
                 .setOutput(frame)
                 .setCamera(camera)
                 .setRender(render)
