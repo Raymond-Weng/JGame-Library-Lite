@@ -6,6 +6,7 @@ Aim to be PyGame of Java, here are features:
 - Java Doc for those
 - custom part of almost every part
 - able to replace simple shape with images
+- hitboxes
 
 See also [3D plugin](https://github.com/Raymond-Weng/3D-Game) (developing)
 
