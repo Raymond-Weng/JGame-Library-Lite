@@ -7,6 +7,8 @@ Aim to be PyGame of Java, here are features:
 - custom part of almost every part
 - able to replace simple shape with images
 
+See also [3D plugin](https://github.com/Raymond-Weng/3D-Game) (developing)
+
 
 ## Game Play
 Here is example game in the files
