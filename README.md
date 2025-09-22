@@ -7,7 +7,7 @@ Aim to be PyGame of Java, here are features:
 - almost every part customizable
 - able to replace simple shape with images
 - hitboxes
-- debug mode that can monitor value of varible
+- debug mode that can monitor value of variable
 
 See also [3D plugin](https://github.com/Raymond-Weng/3D-Game) (developing)
 
