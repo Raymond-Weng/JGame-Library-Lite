@@ -3,10 +3,11 @@
 Aim to be PyGame of Java, here are features:
 
 - JFrame implement, which is multi-platform
-- Java Doc for those
-- custom part of almost every part
+- Java Doc for classes
+- almost every part customizable
 - able to replace simple shape with images
 - hitboxes
+- debug mode that can monitor value of varible
 
 See also [3D plugin](https://github.com/Raymond-Weng/3D-Game) (developing)
 
