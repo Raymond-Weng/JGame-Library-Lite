@@ -3,7 +3,7 @@
 Aim to be PyGame of Java, here are features:
 
 - JFrame implement, which is multi-platform
-- Java Doc for classes
+- [Tutorial](https://github.com/Raymond-Weng/JGame-Library-Lite/blob/main/%25E6%2595%2599%25E5%25AD%25B8.md) and [Java Doc](https://raymond-weng.github.io/JGame-Library-Lite/Doc/index.html)
 - almost every part customizable
 - able to replace simple shape with images
 - hitboxes
