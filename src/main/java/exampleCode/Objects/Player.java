@@ -49,6 +49,9 @@ public class Player extends GameObject {
 
             position = position.add(velocity);
             position = position.setX(camera.getPosition().getX());
+            if(position.getY() < -1080d/4 - 35/2 || position.getY() > 1080d/4 + 35/2) {
+                scene.setScene("Menu");
+            }
         }
         else {
             position = new Position(0, -50);
@@ -56,7 +59,7 @@ public class Player extends GameObject {
     }
 
     @Override
-    public Image render() {
+    public Image render(){
         Image image = new BufferedImage(35, 35, BufferedImage.TYPE_INT_ARGB);
 
         Graphics g = image.getGraphics();

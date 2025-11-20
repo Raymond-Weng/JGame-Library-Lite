@@ -11,6 +11,8 @@ import jGame.output.Frame;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static java.lang.Math.max;
+
 public class Score extends GameObject {
 
     private final Frame frame;
@@ -18,6 +20,7 @@ public class Score extends GameObject {
     private final CameraImpl camera;
 
     private long score = 0;
+    private long bs = 0;
 
     public Score(Frame frame, SceneController scene, CameraImpl camera) {
         this.frame = frame;
@@ -31,6 +34,7 @@ public class Score extends GameObject {
             score += 1;
         }
         else if(scene.getScene().equals("Menu")){
+            bs = max(bs, score);
             score = 0;
         }
     }
@@ -45,6 +49,11 @@ public class Score extends GameObject {
         g.setFont(new Font("Arial", Font.BOLD, 48));
         FontMetrics fm = g.getFontMetrics();
         g.drawString(String.valueOf(score), frame.getSize().getIntWidth() / 2 - fm.stringWidth(String.valueOf(score)) / 2, 70);
+        if(bs != 0){
+            g.setFont(new Font("Arial", Font.BOLD, 32));
+            fm = g.getFontMetrics();
+            g.drawString("Best Score: "+ bs, frame.getSize().getIntWidth() / 2 - fm.stringWidth("Best Score: "+ bs) / 2, 120);
+        }
 
         g.dispose();
 

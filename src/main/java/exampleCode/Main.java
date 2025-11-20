@@ -6,18 +6,18 @@ import exampleCode.Objects.PressSpaceToStart;
 import exampleCode.Objects.Score;
 import jGame.core.Position;
 import jGame.core.Size;
-
-import jGame.loop.render.cameras.CameraImpl;
+import jGame.input.KeyListenerImpl;
 import jGame.loop.render.Render;
+import jGame.loop.render.cameras.CameraImpl;
 import jGame.loop.render.renders.RenderImpl;
 import jGame.loop.update.Update;
 import jGame.loop.update.updaters.UpdateImpl;
 import jGame.main.Game;
 import jGame.output.Frame;
-import jGame.input.KeyListenerImpl;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,11 +25,9 @@ public class Main {
 
         Frame frame = new Frame.Builder()
                 .setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
-                .setSize(new Size(1920 / 2, 1080 / 2))
+                .setSize(new Size(1920d / 2, 1080d / 2))
                 .setFrameTitle("FlappyBird")
-
                 .setKeyListener(keyListener)
-
                 .build();
 
         CameraImpl camera = new CameraImpl(new Position(0, 0), frame.getSize());
@@ -42,9 +40,7 @@ public class Main {
                 .setCamera(camera)
                 .setRender(render)
                 .setUpdate(update)
-
                 .setBackgroundColor(new Color(128, 203, 255))
-
                 .build();
 
         frame.setGame(game);
@@ -62,7 +58,7 @@ public class Main {
         game.addObject(scene, 0);
 
         Player player = new Player(scene, environment, camera, keyListener);
-        game.addObject(new Score(frame, scene, camera), 9);
+        game.addObject(new Score(frame, scene, camera), 7);
         game.addObject(new PressSpaceToStart(frame, scene), 1);
         game.addObject(player, 8);
         Pipe pipe1 = new Pipe(game, frame, scene, camera, player, new Position(960 + 75, 0));
@@ -71,6 +67,12 @@ public class Main {
         game.addObject(pipe2, 2);
 
         game.getHitboxTracker().track(player);
+
+        //........... add variable tracking here ...........//
+        if (game.isDebug()) {
+//            game.getDebugPanel().addVariable("Player Y", _ -> String.valueOf(player.getPosition().getIntY()));
+//            game.getDebugPanel().addVariable("Is space pressed", _ -> String.valueOf(keyListener.isKeyPressed(KeyEvent.VK_SPACE)));
+        }
 
         game.run();
     }
