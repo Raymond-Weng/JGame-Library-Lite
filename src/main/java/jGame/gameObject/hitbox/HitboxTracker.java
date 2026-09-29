@@ -35,9 +35,15 @@ public class HitboxTracker extends GameObject {
     @Override
     public Image render() {
         if (work) {
-            Image image = new BufferedImage(game.getOutput().getSize().getIntWidth(),
-                    game.getOutput().getSize().getIntHeight(),
+            // this image is drawn at the camera position in world space, so it must match the camera's display area,
+            // not the output size (the render scales the display area to the output afterwards)
+            Size displayArea = game.getCamera().getDisplayArea();
+            Position cameraPosition = game.getCamera().getPosition();
+            Image image = new BufferedImage(displayArea.getIntWidth(),
+                    displayArea.getIntHeight(),
                     BufferedImage.TYPE_INT_ARGB);
+            Graphics graphics = image.getGraphics();
+            graphics.setColor(new Color(255, 0, 0, 255));
             synchronized (gameObjects) {
                 gameObjects.forEach(gameObject -> {
                     Hitbox<?> objectHitbox = gameObject.getHitbox();
@@ -45,22 +51,20 @@ public class HitboxTracker extends GameObject {
                         return;
                     }
                     objectHitbox.getHitboxes().forEach(hitbox -> {
-                        if (hitbox.cannotHit() || !(hitbox.getShape() instanceof Rectangle)) {
+                        if (hitbox.cannotHit() || !(hitbox.getShape() instanceof Rectangle shape)) {
                             return;
                         }
-                        Graphics graphics = image.getGraphics();
-                        graphics.setColor(new Color(255, 0, 0, 255));
+                        java.awt.Rectangle rectangle = shape.getRectangle();
                         graphics.drawRect(
-                                ((Hitbox<Rectangle>) hitbox).getShape().getRectangle().x - game.getCamera().getPosition().getIntX() + (game.getOutput().getSize().getIntWidth() / 2) - 1,
-                                ((Hitbox<Rectangle>) hitbox).getShape().getRectangle().y - game.getCamera().getPosition().getIntY() + (game.getOutput().getSize().getIntHeight() / 2) - 1,
-                                ((Hitbox<Rectangle>) hitbox).getShape().getRectangle().width + 2,
-                                ((Hitbox<Rectangle>) hitbox).getShape().getRectangle().height + 2
+                                rectangle.x - cameraPosition.getIntX() + (displayArea.getIntWidth() / 2) - 1,
+                                rectangle.y - cameraPosition.getIntY() + (displayArea.getIntHeight() / 2) - 1,
+                                rectangle.width + 2,
+                                rectangle.height + 2
                         );
-                        graphics.dispose();
                     });
                 });
-
             }
+            graphics.dispose();
 
             return image;
         } else {

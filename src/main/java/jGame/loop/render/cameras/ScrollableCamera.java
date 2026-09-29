@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 public class ScrollableCamera implements Camera {
     private final MouseListenerImpl mouseListener;
     private final Size displaySize;
-    private Position position = new Position(0, 0);
+    private volatile Position position = new Position(0, 0);
     private Position lastPosition;
 
     public ScrollableCamera(MouseListenerImpl mouseListener, Size displaySize) {
@@ -52,7 +52,7 @@ public class ScrollableCamera implements Camera {
 
     @Override
     public void setPosition(Position position) {
-
+        this.position = position;
     }
 
     @Override
