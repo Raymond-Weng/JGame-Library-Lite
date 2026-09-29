@@ -13,23 +13,20 @@ public class KeyListenerImpl implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        if (keyPressed.size() <= e.getKeyCode()) {
-            while (keyPressed.size() <= e.getKeyCode()) {
-                keyPressed.add(false);
-            }
-        }
-        keyPressed.set(e.getKeyCode(), true);
+    public synchronized void keyPressed(KeyEvent e) {
+        setKey(e.getKeyCode(), true);
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        if (keyPressed.size() <= e.getKeyCode()) {
-            while (keyPressed.size() <= e.getKeyCode()) {
-                keyPressed.add(false);
-            }
+    public synchronized void keyReleased(KeyEvent e) {
+        setKey(e.getKeyCode(), false);
+    }
+
+    private void setKey(int keyCode, boolean pressed) {
+        while (keyPressed.size() <= keyCode) {
+            keyPressed.add(false);
         }
-        keyPressed.set(e.getKeyCode(), false);
+        keyPressed.set(keyCode, pressed);
     }
 
     private final ArrayList<Boolean> keyPressed;
@@ -48,11 +45,9 @@ public class KeyListenerImpl implements KeyListener {
      * @return is the key pressed
      * @see KeyEvent
      */
-    public boolean isKeyPressed(int keyCode) {
-        if (keyPressed.size() <= keyCode) {
-            while (keyPressed.size() <= keyCode) {
-                keyPressed.add(false);
-            }
+    public synchronized boolean isKeyPressed(int keyCode) {
+        if (keyCode < 0 || keyCode >= keyPressed.size()) {
+            return false;
         }
         return keyPressed.get(keyCode);
     }

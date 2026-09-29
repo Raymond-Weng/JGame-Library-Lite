@@ -37,6 +37,7 @@ public abstract class Update extends Timer {
             game.secondLoading.update();
         }else {
             updateGame();
+            game.getCamera().update();
             if (game.ONLY_RENDER_AFTER_UPDATE) {
                 game.getMainThread().getTimerManager().getRender().renderGame();
             }

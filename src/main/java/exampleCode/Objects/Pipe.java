@@ -77,7 +77,8 @@ public class Pipe extends GameObject {
 
         g.setColor(new Color(101, 255, 89));
         g.fillRect(0, 0, 75, pc.jGameToJFrame(new Position(0, gapY - gapSize / 2)).getIntY());
-        g.fillRect(0, pc.jGameToJFrame(new Position(0, gapY + gapSize / 2)).getIntY(), 75, (int) (frame.getSize().getHeight() / 2 - gapY + gapSize / 2));
+        g.fillRect(0, pc.jGameToJFrame(new Position(0, gapY + gapSize / 2)).getIntY(), 75, (int) (frame.getSize().getHeight() / 2 - gapY - gapSize / 2));
+        g.dispose();
 
         return image;
     }

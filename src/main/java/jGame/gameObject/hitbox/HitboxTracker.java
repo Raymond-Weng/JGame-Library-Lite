@@ -40,7 +40,14 @@ public class HitboxTracker extends GameObject {
                     BufferedImage.TYPE_INT_ARGB);
             synchronized (gameObjects) {
                 gameObjects.forEach(gameObject -> {
-                    gameObject.getHitbox().getHitboxes().forEach(hitbox -> {
+                    Hitbox<?> objectHitbox = gameObject.getHitbox();
+                    if (objectHitbox == null) {
+                        return;
+                    }
+                    objectHitbox.getHitboxes().forEach(hitbox -> {
+                        if (hitbox.cannotHit() || !(hitbox.getShape() instanceof Rectangle)) {
+                            return;
+                        }
                         Graphics graphics = image.getGraphics();
                         graphics.setColor(new Color(255, 0, 0, 255));
                         graphics.drawRect(
@@ -78,7 +85,9 @@ public class HitboxTracker extends GameObject {
 
     public void track(GameObject gameObject) {
         if(this.work){
-            this.gameObjects.add(gameObject);
+            synchronized (gameObjects) {
+                this.gameObjects.add(gameObject);
+            }
         }
     }
 }

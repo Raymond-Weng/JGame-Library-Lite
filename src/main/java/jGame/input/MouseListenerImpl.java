@@ -16,12 +16,16 @@ public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMot
 
     @Override
     public void mousePressed(MouseEvent e) {
-        mousePressed[e.getButton()] = true;
+        if (e.getButton() < mousePressed.length) {
+            mousePressed[e.getButton()] = true;
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        mousePressed[e.getButton()] = false;
+        if (e.getButton() < mousePressed.length) {
+            mousePressed[e.getButton()] = false;
+        }
     }
 
     @Override
@@ -64,7 +68,7 @@ public class MouseListenerImpl implements java.awt.event.MouseListener, MouseMot
      * @return is the mouse button pressed
      */
     public boolean isMousePressed(int button) {
-        return mousePressed[button];
+        return button >= 0 && button < mousePressed.length && mousePressed[button];
     }
 
     /**

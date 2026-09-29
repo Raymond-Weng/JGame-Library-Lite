@@ -83,7 +83,7 @@ public class Position {
      * @return the distance between this and the second position.
      */
     public double distance(Position position) {
-        return Math.sqrt(Math.pow(this.getX() - position.getX(), 2) + Math.pow(this.getY() + position.getY(), 2));
+        return Math.sqrt(Math.pow(this.getX() - position.getX(), 2) + Math.pow(this.getY() - position.getY(), 2));
     }
 
     public Position add(Position position){
@@ -214,6 +214,14 @@ public class Position {
 
     @Override
     public boolean equals(Object object){
-        return ((Position)object).X == this.X && ((Position)object).Y == this.Y;
+        if (!(object instanceof Position position)) {
+            return false;
+        }
+        return position.X == this.X && position.Y == this.Y;
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * Double.hashCode(X) + Double.hashCode(Y);
     }
 }

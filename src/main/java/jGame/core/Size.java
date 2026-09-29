@@ -116,7 +116,7 @@ public class Size {
      * @return quotient.
      */
     public static Size divide(Size size1, Size size2) {
-        return new Size(size1.getWidth() / size2.getWidth(), size1.getWidth() / size2.getHeight());
+        return new Size(size1.getWidth() / size2.getWidth(), size1.getHeight() / size2.getHeight());
     }
 
     public Dimension toDimension(){

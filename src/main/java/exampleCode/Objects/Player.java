@@ -55,6 +55,7 @@ public class Player extends GameObject {
         }
         else {
             position = new Position(0, -50);
+            velocity = new Vector(0);
         }
     }
 

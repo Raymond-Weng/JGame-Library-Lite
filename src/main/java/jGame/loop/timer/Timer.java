@@ -46,7 +46,7 @@ public abstract class Timer {
         accumulator += timePassed;
         accumulatorUps += timePassed;
         if (accumulator > UPDATE_RATE * 1000d) {
-            if (maxUps == -1 || maxUps > ups) {
+            if (maxUps == -1 || maxUps > updateTime) {
                 action();
                 updateTime += 1;
                 accumulator -= UPDATE_RATE * 1000d;

@@ -22,9 +22,14 @@ public class GameThread extends Thread {
     }
 
     @Override
+    public synchronized void start() {
+        running = true;
+        super.start();
+    }
+
+    @Override
     public void run() {
         lastUpdate = System.currentTimeMillis();
-        running = true;
         while (running) {
             double currentTime = System.currentTimeMillis();
             double timePassed = currentTime - lastUpdate;

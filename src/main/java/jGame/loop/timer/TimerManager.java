@@ -15,8 +15,8 @@ public class TimerManager {
     private final Render render;
     private final Update update;
     private final ArrayList<Timer> timers;
-    private volatile ArrayList<Timer> timersToBeAdded;
-    private volatile ArrayList<Timer> timersToBeRemoved;
+    private final ArrayList<Timer> timersToBeAdded;
+    private final ArrayList<Timer> timersToBeRemoved;
 
     /**
      * create a timerManager with no render and update
@@ -45,7 +45,9 @@ public class TimerManager {
      * @param timer the timer to be added to the thread
      */
     public void addTimer(Timer timer) {
-        timers.add(timer);
+        synchronized (timersToBeAdded) {
+            timersToBeAdded.add(timer);
+        }
     }
 
     /**
@@ -54,7 +56,9 @@ public class TimerManager {
      * @param timer the timer to be removed from the thread
      */
     public void removeTimer(Timer timer) {
-        timersToBeRemoved.add(timer);
+        synchronized (timersToBeRemoved) {
+            timersToBeRemoved.add(timer);
+        }
     }
 
     /**
@@ -101,10 +105,9 @@ public class TimerManager {
     public void cleanToBeAddedList() {
         if (!timersToBeAdded.isEmpty()) {
             synchronized (timersToBeAdded) {
-                timersToBeAdded.forEach(timers::add);
-                timersToBeAdded = new ArrayList<>();
+                timers.addAll(timersToBeAdded);
+                timersToBeAdded.clear();
             }
-            System.gc();
         }
     }
 
@@ -114,10 +117,9 @@ public class TimerManager {
     public void cleanTimer() {
         if (!timersToBeRemoved.isEmpty()) {
             synchronized (timersToBeRemoved) {
-                timersToBeRemoved.forEach(timers::remove);
-                timersToBeRemoved = new ArrayList<>();
+                timers.removeAll(timersToBeRemoved);
+                timersToBeRemoved.clear();
             }
-            System.gc();
         }
     }
 }

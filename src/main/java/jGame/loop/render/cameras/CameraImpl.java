@@ -54,9 +54,9 @@ public class CameraImpl implements Camera {
 
     @Override
     public void update() {
+        // the camera position is the center of the display area, so just follow the object's position
         if (objectOnFocus != null) {
-            this.position = new Position(objectOnFocus.getPosition().getX() - (game.getOutput().getSize().getWidth()) / 2,
-                    objectOnFocus.getPosition().getY() - (game.getOutput().getSize().getHeight()) / 2);
+            this.position = objectOnFocus.getPosition();
         }
     }
 

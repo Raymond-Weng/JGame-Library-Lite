@@ -42,7 +42,9 @@ public class Hitbox<E extends jGame.gameObject.hitbox.hitboxShape.Shape> {
      * @return if the two hitbox hit together
      */
     public boolean isHit(Hitbox<E> hitbox) {
-        if (hitbox.isNull || this.isNull)
+        if (hitbox instanceof MultiHitbox<E> multiHitbox)
+            return multiHitbox.isHit(this);
+        else if (hitbox.isNull || this.isNull)
             return false;
         else
             return shape.intersects(hitbox.getShape());

@@ -27,6 +27,8 @@ public class GameLaunching extends Thread {
 
     @Override
     public void run() {
+        lastUpdate = System.currentTimeMillis();
+        action();
         while (game.loading) {
             double currentTimeMillis = System.currentTimeMillis();
             accumulator += currentTimeMillis - lastUpdate;

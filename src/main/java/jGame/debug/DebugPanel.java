@@ -7,7 +7,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * this is made for debugging, set debug to true to enable this panel
@@ -31,8 +30,7 @@ public class DebugPanel extends Thread {
         debugStringHandlerMap = new HashMap<>();
 
         this.game = game;
-        this.UPDATE_RATE = 1d;
-        game.loading = true;
+        this.UPDATE_RATE = 0.1d;
         jFrame = new JFrame();
 
         jTextArea = new JTextArea();
@@ -56,11 +54,12 @@ public class DebugPanel extends Thread {
 
     @Override
     public void run() {
+        lastUpdate = System.currentTimeMillis();
         while (game.getMainThread().isRunning()) {
             double currentTimeMillis = System.currentTimeMillis();
             accumulator += currentTimeMillis - lastUpdate;
             lastUpdate = currentTimeMillis;
-            if (accumulator > UPDATE_RATE * 100d) {
+            if (accumulator > UPDATE_RATE * 1000d) {
                 action();
                 accumulator -= UPDATE_RATE * 1000d;
             }
@@ -68,11 +67,11 @@ public class DebugPanel extends Thread {
     }
 
     private void action() {
-        AtomicReference<String> text = new AtomicReference<>("");
+        StringBuilder text = new StringBuilder();
         synchronized (names) {
-            names.forEach(name -> text.set(text + name + " : " + debugStringHandlerMap.get(name).getText(game) + "\n"));
+            names.forEach(name -> text.append(name).append(" : ").append(debugStringHandlerMap.get(name).getText(game)).append("\n"));
         }
-        jTextArea.setText(text.get());
+        jTextArea.setText(text.toString());
         jFrame.pack();
     }
 
@@ -84,7 +83,11 @@ public class DebugPanel extends Thread {
      * @see DebugStringHandler
      */
     public void addVariable(String name, DebugStringHandler debugStringHandler) {
-        this.names.add(name);
-        this.debugStringHandlerMap.put(name, debugStringHandler);
+        synchronized (names) {
+            if (!this.debugStringHandlerMap.containsKey(name)) {
+                this.names.add(name);
+            }
+            this.debugStringHandlerMap.put(name, debugStringHandler);
+        }
     }
 }

@@ -25,21 +25,15 @@ public class ScopeUpdate extends Update {
 
     @Override
     public void updateGame() {
+        Rectangle area = new Rectangle(position.subtract(scope.divide(2d)).toPoint(), scope.toDimension());
         synchronized (this.game.getObjects()) {
-            synchronized (this.game.getObjects()) {
-                this.game.getObjects().forEach(arrayList -> {
-                    arrayList.forEach(gameObject -> {
-                        if (new Rectangle(position.getIntX(),
-                                position.getIntY(),
-                                scope.getIntWidth(),
-                                scope.getIntHeight())
-                                .contains(new Point(gameObject.getPosition().getIntX(),
-                                        gameObject.getPosition().getIntY()))) {
-                            gameObject.update();
-                        }
-                    });
+            this.game.getObjects().forEach(arrayList -> {
+                arrayList.forEach(gameObject -> {
+                    if (area.contains(gameObject.getPosition().toPoint())) {
+                        gameObject.update();
+                    }
                 });
-            }
+            });
         }
     }
 

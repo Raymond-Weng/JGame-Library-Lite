@@ -281,8 +281,8 @@ public class Game {
     private final int loadingTimeOut;
     private volatile DebugPanel debugPanel;
     private volatile Camera camera;
-    private volatile ArrayList<ArrayList<GameObject>> objectsToBeAdded;
-    private volatile ArrayList<ArrayList<GameObject>> objectsToBeRemoved;
+    private final ArrayList<ArrayList<GameObject>> objectsToBeAdded;
+    private final ArrayList<ArrayList<GameObject>> objectsToBeRemoved;
 
     private Game(boolean debug,
                  Output output,
@@ -312,8 +312,12 @@ public class Game {
         gameThreads = new GameThread[threadCount];
 
         objects = new ArrayList<>(10);
+        objectsToBeAdded = new ArrayList<>(10);
+        objectsToBeRemoved = new ArrayList<>(10);
         for (int i = 0; i < 10; i++) {
             objects.add(new ArrayList<>());
+            objectsToBeAdded.add(new ArrayList<>());
+            objectsToBeRemoved.add(new ArrayList<>());
         }
 
         this.hitboxTracker = new HitboxTracker();
@@ -323,16 +327,6 @@ public class Game {
      * build the game, like loading output, reading file, etc.
      */
     public void build() {
-        objectsToBeAdded = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            objectsToBeAdded.add(new ArrayList<>());
-        }
-
-        objectsToBeRemoved = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            objectsToBeRemoved.add(new ArrayList<>());
-        }
-
         for (int i = 0; i < gameThreads.length; i++) {
             if (i != 0) {
                 timerManagers[i] = new TimerManager();
@@ -381,6 +375,12 @@ public class Game {
             }
         }
 
+        this.secondLoading = new SecondLoading(this);
+        this.addObject(secondLoading, 0);
+        this.second_loading = true;
+        this.loading = false;
+        System.gc();
+
         for (GameThread thread : gameThreads) {
             thread.start();
         }
@@ -388,12 +388,6 @@ public class Game {
         if (debug) {
             this.debugPanel.start();
         }
-
-        this.secondLoading = new SecondLoading(this);
-        this.loading = false;
-        System.gc();
-        this.addObject(secondLoading, 0);
-        this.second_loading = true;
     }
 
     /**
@@ -414,10 +408,12 @@ public class Game {
             case 7:
             case 8:
             case 9:
-                this.objectsToBeAdded.get(priority).add(gameObject);
+                synchronized (objectsToBeAdded.get(priority)) {
+                    this.objectsToBeAdded.get(priority).add(gameObject);
+                }
                 break;
             default:
-                throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
+                throw new PriorityException("Priority should between 0 and 9, but it is " + priority + ".");
         }
     }
 
@@ -433,10 +429,12 @@ public class Game {
             case 7:
             case 8:
             case 9:
-                this.objectsToBeRemoved.get(priority).add(gameObject);
+                synchronized (objectsToBeRemoved.get(priority)) {
+                    this.objectsToBeRemoved.get(priority).add(gameObject);
+                }
                 break;
             default:
-                throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
+                throw new PriorityException("Priority should between 0 and 9, but it is " + priority + ".");
         }
     }
 
@@ -457,18 +455,18 @@ public class Game {
      * @throws PriorityException if the priority is not between 0 and 9, it will throw an exception.
      */
     public void addTimer(Timer timer, int priority) throws PriorityException {
-        if (priority < timerManagers.length) {
+        if (priority >= 0 && priority < timerManagers.length) {
             this.timerManagers[priority].addTimer(timer);
         } else {
-            throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
+            throw new PriorityException("Priority should between 0 and " + (timerManagers.length - 1) + ", but it is " + priority + ".");
         }
     }
 
     public void removeTimer(Timer timer, int priority) throws PriorityException {
-        if (priority < timerManagers.length) {
+        if (priority >= 0 && priority < timerManagers.length) {
             this.timerManagers[priority].removeTimer(timer);
         } else {
-            throw new PriorityException("Property should between 0 and 9, but it is " + priority + ".");
+            throw new PriorityException("Priority should between 0 and " + (timerManagers.length - 1) + ", but it is " + priority + ".");
         }
     }
 
@@ -531,13 +529,12 @@ public class Game {
      */
     public void cleanToBeAddedList() {
         for (int i = 0; i < objectsToBeAdded.size(); i++) {
-            if (!objectsToBeAdded.get(i).isEmpty()) {
-                int finalI = i;
-                synchronized (objectsToBeAdded.get(i)) {
-                    objectsToBeAdded.get(i).forEach(gameObject -> objects.get(finalI).add(gameObject));
-                    objectsToBeAdded.set(i, new ArrayList<>());
+            ArrayList<GameObject> toBeAdded = objectsToBeAdded.get(i);
+            synchronized (toBeAdded) {
+                if (!toBeAdded.isEmpty()) {
+                    objects.get(i).addAll(toBeAdded);
+                    toBeAdded.clear();
                 }
-                System.gc();
             }
         }
     }
@@ -547,13 +544,12 @@ public class Game {
      */
     public void cleanObjects() {
         for (int i = 0; i < objectsToBeRemoved.size(); i++) {
-            if (!objectsToBeRemoved.get(i).isEmpty()) {
-                int finalI = i;
-                synchronized (objectsToBeRemoved.get(i)) {
-                    objectsToBeRemoved.get(i).forEach(gameObject -> objects.get(finalI).remove(gameObject));
-                    objectsToBeRemoved.set(i, new ArrayList<>());
+            ArrayList<GameObject> toBeRemoved = objectsToBeRemoved.get(i);
+            synchronized (toBeRemoved) {
+                if (!toBeRemoved.isEmpty()) {
+                    objects.get(i).removeAll(toBeRemoved);
+                    toBeRemoved.clear();
                 }
-                System.gc();
             }
         }
     }

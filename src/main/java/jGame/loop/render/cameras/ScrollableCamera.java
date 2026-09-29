@@ -4,6 +4,7 @@ import jGame.core.Position;
 import jGame.core.Size;
 import jGame.gameObject.GameObject;
 import jGame.input.MouseListenerImpl;
+import jGame.main.ReadyChecker;
 
 import java.awt.event.MouseEvent;
 
@@ -17,14 +18,16 @@ public class ScrollableCamera implements Camera {
         this.mouseListener = mouseListener;
         lastPosition = mouseListener.getMousePos();
         this.displaySize = displaySize;
+        ReadyChecker.setStatBoolean(ReadyChecker.CAMERA_READY, true);
     }
 
     @Override
     public void update() {
         Position nowPosition = mouseListener.getMousePos();
-        if (mouseListener.isMousePressed(MouseEvent.BUTTON1) && nowPosition.equals(lastPosition)) {
+        if (mouseListener.isMousePressed(MouseEvent.BUTTON1) && !nowPosition.equals(lastPosition)) {
             position = position.add(lastPosition.subtract(nowPosition));
         }
+        lastPosition = nowPosition;
     }
 
     @Override

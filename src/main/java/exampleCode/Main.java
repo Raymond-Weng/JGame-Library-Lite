@@ -35,7 +35,7 @@ public class Main {
         Update update = new UpdateImpl(60);
 
         Game game = new Game.Builder()
-                .setDebug(false)
+                .setDebug(true) // try setting this to true to see debug info
                 .setOutput(frame)
                 .setCamera(camera)
                 .setRender(render)
@@ -68,10 +68,9 @@ public class Main {
 
         game.getHitboxTracker().track(player);
 
-        //........... add variable tracking here ...........//
-        if (game.isDebug()) {
-//            game.getDebugPanel().addVariable("Player Y", _ -> String.valueOf(player.getPosition().getIntY()));
-//            game.getDebugPanel().addVariable("Is space pressed", _ -> String.valueOf(keyListener.isKeyPressed(KeyEvent.VK_SPACE)));
+        if (game.isDebug()) { // add some debug variables if in debug mode
+            game.getDebugPanel().addVariable("Player Y", _ -> String.valueOf(player.getPosition().getIntY()));
+            game.getDebugPanel().addVariable("Is space pressed", _ -> String.valueOf(keyListener.isKeyPressed(KeyEvent.VK_SPACE)));
         }
 
         game.run();
