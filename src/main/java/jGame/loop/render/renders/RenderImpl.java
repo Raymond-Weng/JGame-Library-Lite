@@ -11,6 +11,11 @@ import java.awt.image.BufferedImage;
  */
 public class RenderImpl extends Render {
     /**
+     * reused every frame instead of creating a new one, recreated only when the display area changes size
+     */
+    private BufferedImage image;
+
+    /**
      * create the object
      *
      * @param maxFps the maximum fps, the maximum frame per second, is different from update rate
@@ -21,10 +26,16 @@ public class RenderImpl extends Render {
 
     @Override
     public void renderGame() {
-        Image image = new BufferedImage(game.getCamera().getDisplayArea().getIntWidth(),
-                game.getCamera().getDisplayArea().getIntHeight(),
-                BufferedImage.TYPE_INT_ARGB);
-        Graphics imageGraphics = image.getGraphics();
+        int width = game.getCamera().getDisplayArea().getIntWidth();
+        int height = game.getCamera().getDisplayArea().getIntHeight();
+        if (image == null || image.getWidth() != width || image.getHeight() != height) {
+            image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        }
+        Graphics2D imageGraphics = image.createGraphics();
+        // clear last frame to transparent, the background color is filled in when drawing to the output
+        imageGraphics.setComposite(AlphaComposite.Clear);
+        imageGraphics.fillRect(0, 0, width, height);
+        imageGraphics.setComposite(AlphaComposite.SrcOver);
 
         Rectangle displayArea = new Rectangle(game.getCamera().getPosition().subtract(game.getCamera().getDisplayArea().divide(2d)).toPoint(), game.getCamera().getDisplayArea().toDimension());
 

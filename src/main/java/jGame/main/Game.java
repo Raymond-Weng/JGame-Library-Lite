@@ -22,6 +22,7 @@ import jGame.output.SecondLoading;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * The main object to control whole game.
@@ -373,6 +374,7 @@ public class Game {
             if ((System.currentTimeMillis() - startTime) > (loadingTimeOut * 1000)) {
                 throw new TimeOutException("Time out, loading should finish in " + loadingTimeOut + " second.");
             }
+            LockSupport.parkNanos(1_000_000L);
         }
 
         this.secondLoading = new SecondLoading(this);

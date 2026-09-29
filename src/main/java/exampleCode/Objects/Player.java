@@ -59,8 +59,9 @@ public class Player extends GameObject {
         }
     }
 
-    @Override
-    public Image render(){
+    private static final Image IMAGE = createImage();
+
+    private static Image createImage() {
         Image image = new BufferedImage(35, 35, BufferedImage.TYPE_INT_ARGB);
 
         Graphics g = image.getGraphics();
@@ -71,6 +72,11 @@ public class Player extends GameObject {
         g.dispose();
 
         return image;
+    }
+
+    @Override
+    public Image render(){
+        return IMAGE;
     }
 
     @Override

@@ -14,6 +14,7 @@ public class HitboxTracker extends GameObject {
     private final Game game;
     private final ArrayList<GameObject> gameObjects;
     private final boolean work;
+    private BufferedImage image;
 
     public HitboxTracker(Game game) {
         this.game = game;
@@ -39,10 +40,15 @@ public class HitboxTracker extends GameObject {
             // not the output size (the render scales the display area to the output afterwards)
             Size displayArea = game.getCamera().getDisplayArea();
             Position cameraPosition = game.getCamera().getPosition();
-            Image image = new BufferedImage(displayArea.getIntWidth(),
-                    displayArea.getIntHeight(),
-                    BufferedImage.TYPE_INT_ARGB);
-            Graphics graphics = image.getGraphics();
+            if (image == null || image.getWidth() != displayArea.getIntWidth() || image.getHeight() != displayArea.getIntHeight()) {
+                image = new BufferedImage(displayArea.getIntWidth(),
+                        displayArea.getIntHeight(),
+                        BufferedImage.TYPE_INT_ARGB);
+            }
+            Graphics2D graphics = image.createGraphics();
+            graphics.setComposite(AlphaComposite.Clear);
+            graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+            graphics.setComposite(AlphaComposite.SrcOver);
             graphics.setColor(new Color(255, 0, 0, 255));
             synchronized (gameObjects) {
                 gameObjects.forEach(gameObject -> {

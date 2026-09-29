@@ -60,6 +60,20 @@ public abstract class Timer {
     }
 
     /**
+     * get how long until this timer wants to update again, the thread uses this to decide how long it can sleep
+     *
+     * @return the time in millisecond, 0 or less means it should update now
+     */
+    public double getTimeUntilNextUpdate() {
+        double timeUntilNextUpdate = UPDATE_RATE * 1000d - accumulator;
+        if (maxUps != -1 && updateTime >= maxUps) {
+            // reached the max ups, nothing will happen until the ups counter resets
+            timeUntilNextUpdate = Math.max(timeUntilNextUpdate, 1000d - accumulatorUps);
+        }
+        return timeUntilNextUpdate;
+    }
+
+    /**
      * get the update per second of this timer
      *
      * @return update per second of this timer

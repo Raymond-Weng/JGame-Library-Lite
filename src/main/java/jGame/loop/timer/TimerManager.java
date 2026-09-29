@@ -5,6 +5,7 @@ import jGame.loop.update.Update;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * the manager of timers in a game thread
@@ -17,6 +18,8 @@ public class TimerManager {
     private final ArrayList<Timer> timers;
     private final ArrayList<Timer> timersToBeAdded;
     private final ArrayList<Timer> timersToBeRemoved;
+    private volatile boolean pendingChanges = false;
+    private volatile Thread thread = null;
 
     /**
      * create a timerManager with no render and update
@@ -47,7 +50,9 @@ public class TimerManager {
     public void addTimer(Timer timer) {
         synchronized (timersToBeAdded) {
             timersToBeAdded.add(timer);
+            pendingChanges = true;
         }
+        wakeUpThread();
     }
 
     /**
@@ -58,6 +63,33 @@ public class TimerManager {
     public void removeTimer(Timer timer) {
         synchronized (timersToBeRemoved) {
             timersToBeRemoved.add(timer);
+            pendingChanges = true;
+        }
+        wakeUpThread();
+    }
+
+    /**
+     * [auto call] set the thread running the timers, so it can be woken up when the timers are changed
+     *
+     * @param thread the thread running the timers
+     */
+    public void setThread(Thread thread) {
+        this.thread = thread;
+    }
+
+    /**
+     * check if there are timers waiting to be added or removed
+     *
+     * @return if there are timers waiting to be added or removed
+     */
+    public boolean hasPendingChanges() {
+        return pendingChanges;
+    }
+
+    private void wakeUpThread() {
+        Thread thread = this.thread;
+        if (thread != null) {
+            LockSupport.unpark(thread);
         }
     }
 
@@ -103,11 +135,12 @@ public class TimerManager {
      * [auto call] add timers which was made to be added in {@code addTimer()}
      */
     public void cleanToBeAddedList() {
-        if (!timersToBeAdded.isEmpty()) {
-            synchronized (timersToBeAdded) {
-                timers.addAll(timersToBeAdded);
-                timersToBeAdded.clear();
+        synchronized (timersToBeAdded) {
+            synchronized (timersToBeRemoved) {
+                pendingChanges = false;
             }
+            timers.addAll(timersToBeAdded);
+            timersToBeAdded.clear();
         }
     }
 
@@ -115,11 +148,9 @@ public class TimerManager {
      * [auto call] remove timers which was made to be removed in {@code removeTimer()}
      */
     public void cleanTimer() {
-        if (!timersToBeRemoved.isEmpty()) {
-            synchronized (timersToBeRemoved) {
-                timers.removeAll(timersToBeRemoved);
-                timersToBeRemoved.clear();
-            }
+        synchronized (timersToBeRemoved) {
+            timers.removeAll(timersToBeRemoved);
+            timersToBeRemoved.clear();
         }
     }
 }

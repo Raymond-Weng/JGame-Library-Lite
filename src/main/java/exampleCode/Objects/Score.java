@@ -39,18 +39,36 @@ public class Score extends GameObject {
         }
     }
 
+    private static final Font SCORE_FONT = new Font("Arial", Font.BOLD, 48);
+    private static final Font BEST_SCORE_FONT = new Font("Arial", Font.BOLD, 32);
+
+    private BufferedImage image;
+    // what the image currently shows, -1 means it hasn't been drawn yet
+    private long drawnScore = -1;
+    private long drawnBs = -1;
+
     @Override
     public Image render() {
-        Image image = new BufferedImage(frame.getSize().getIntWidth(), frame.getSize().getIntHeight(), BufferedImage.TYPE_INT_ARGB);
+        if (image == null) {
+            image = new BufferedImage(frame.getSize().getIntWidth(), frame.getSize().getIntHeight(), BufferedImage.TYPE_INT_ARGB);
+        }
+        if (score == drawnScore && bs == drawnBs) {
+            return image;
+        }
+        drawnScore = score;
+        drawnBs = bs;
 
-        Graphics g = image.getGraphics();
+        Graphics2D g = image.createGraphics();
+        g.setComposite(AlphaComposite.Clear);
+        g.fillRect(0, 0, image.getWidth(), image.getHeight());
+        g.setComposite(AlphaComposite.SrcOver);
 
         g.setColor(new Color(255, 255, 255));
-        g.setFont(new Font("Arial", Font.BOLD, 48));
+        g.setFont(SCORE_FONT);
         FontMetrics fm = g.getFontMetrics();
         g.drawString(String.valueOf(score), frame.getSize().getIntWidth() / 2 - fm.stringWidth(String.valueOf(score)) / 2, 70);
         if(bs != 0){
-            g.setFont(new Font("Arial", Font.BOLD, 32));
+            g.setFont(BEST_SCORE_FONT);
             fm = g.getFontMetrics();
             g.drawString("Best Score: "+ bs, frame.getSize().getIntWidth() / 2 - fm.stringWidth("Best Score: "+ bs) / 2, 120);
         }

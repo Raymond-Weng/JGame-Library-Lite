@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * this is made for debugging, set debug to true to enable this panel
@@ -49,20 +50,13 @@ public class DebugPanel extends Thread {
     }
 
     private final double UPDATE_RATE;
-    private double lastUpdate;
-    private double accumulator = 0;
 
     @Override
     public void run() {
-        lastUpdate = System.currentTimeMillis();
+        long updateRateNanos = (long) (UPDATE_RATE * 1_000_000_000d);
         while (game.getMainThread().isRunning()) {
-            double currentTimeMillis = System.currentTimeMillis();
-            accumulator += currentTimeMillis - lastUpdate;
-            lastUpdate = currentTimeMillis;
-            if (accumulator > UPDATE_RATE * 1000d) {
-                action();
-                accumulator -= UPDATE_RATE * 1000d;
-            }
+            action();
+            LockSupport.parkNanos(updateRateNanos);
         }
     }
 

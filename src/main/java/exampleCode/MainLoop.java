@@ -30,9 +30,11 @@ public class MainLoop extends GameObject {
         }
     }
 
+    private static final Image EMPTY_IMAGE = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+
     @Override
     public Image render() {
-        return new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
+        return EMPTY_IMAGE;
     }
 
     @Override

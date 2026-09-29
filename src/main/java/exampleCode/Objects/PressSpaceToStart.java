@@ -24,8 +24,18 @@ public class PressSpaceToStart extends GameObject {
 
     }
 
+    private Image image;
+
     @Override
     public Image render() {
+        // the text never changes, so draw it once
+        if (image == null) {
+            image = createImage();
+        }
+        return image;
+    }
+
+    private Image createImage() {
         Image image = new BufferedImage(frame.getSize().getIntWidth(), frame.getSize().getIntHeight(), BufferedImage.TYPE_INT_ARGB);
 
         Graphics g = image.getGraphics();

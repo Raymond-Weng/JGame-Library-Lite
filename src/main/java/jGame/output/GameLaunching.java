@@ -3,6 +3,7 @@ package jGame.output;
 import jGame.main.Game;
 
 import java.awt.*;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * the loading page for waiting everything ready
@@ -10,8 +11,11 @@ import java.awt.*;
 public class GameLaunching extends Thread {
     private final Game game;
     private final double UPDATE_RATE;
-    private double lastUpdate;
-    private double accumulator = 0;
+
+    /**
+     * how often to check if the loading is finished
+     */
+    private static final long CHECK_RATE_NANOS = 10_000_000L;
 
     /**
      * create a loading page
@@ -27,16 +31,14 @@ public class GameLaunching extends Thread {
 
     @Override
     public void run() {
-        lastUpdate = System.currentTimeMillis();
-        action();
+        long updateRateNanos = (long) (UPDATE_RATE * 1_000_000_000d);
+        long nextUpdate = System.nanoTime();
         while (game.loading) {
-            double currentTimeMillis = System.currentTimeMillis();
-            accumulator += currentTimeMillis - lastUpdate;
-            lastUpdate = currentTimeMillis;
-            if (accumulator > UPDATE_RATE * 1000d) {
+            if (System.nanoTime() - nextUpdate >= 0) {
                 action();
-                accumulator -= UPDATE_RATE * 1000d;
+                nextUpdate += updateRateNanos;
             }
+            LockSupport.parkNanos(Math.min(CHECK_RATE_NANOS, nextUpdate - System.nanoTime()));
         }
     }
 

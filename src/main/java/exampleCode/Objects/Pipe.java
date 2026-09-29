@@ -28,6 +28,10 @@ public class Pipe extends GameObject {
     private double gapSize;
     private double gapY;
 
+    // the pipe doesn't move (the camera does), so the hitbox and image only change when the pipe is moved or the gap is changed
+    private MultiHitbox<Rectangle> multiHitbox;
+    private final BufferedImage image = new BufferedImage(75, 540, BufferedImage.TYPE_INT_ARGB);
+
     public Pipe(Game game, jGame.output.Frame frame, SceneController scene, CameraImpl camera, Player player, Position position) {
         this.game = game;
         this.frame = frame;
@@ -40,6 +44,8 @@ public class Pipe extends GameObject {
 
         gapSize = Math.random() * 50 + 150;  // Range(150, 200);
         gapY = (Math.random() - 0.5) * (frame.getSize().getHeight() - gapSize * 2);
+        rebuildHitbox();
+        redrawImage();
     }
 
     @Override
@@ -50,28 +56,33 @@ public class Pipe extends GameObject {
 
                 gapSize = Math.random() * 50 + 150;  // Range(150, 200);
                 gapY = (Math.random() - 0.5) * (frame.getSize().getHeight() - gapSize * 2);
+                rebuildHitbox();
+                redrawImage();
             }
         }
-        else if(scene.getScene().equals("Menu")) {
+        else if(scene.getScene().equals("Menu") && position != initialPosition) {
             position = initialPosition;
+            rebuildHitbox();
         }
-
-        MultiHitbox<Rectangle> multiHitbox = new MultiHitbox<>();
-        multiHitbox.addHitbox(new Hitbox<>(new Rectangle(new Position(position.getX() - 75 / 2, -frame.getSize().getHeight() / 2),
-                                                         new Position(position.getX() + 75 / 2, gapY - gapSize / 2))));
-        multiHitbox.addHitbox(new Hitbox<>(new Rectangle(new Position(position.getX() - 75 / 2, gapY + gapSize / 2),
-                                                         new Position(position.getX() + 75 / 2, frame.getSize().getHeight() / 2))));
 
         if(multiHitbox.isHit(player.getHitbox())) {
             scene.setScene("Menu");
         }
     }
 
-    @Override
-    public Image render() {
-        Image image =  new BufferedImage(75, 540, BufferedImage.TYPE_INT_ARGB);
+    private void rebuildHitbox() {
+        multiHitbox = new MultiHitbox<>();
+        multiHitbox.addHitbox(new Hitbox<>(new Rectangle(new Position(position.getX() - 75 / 2, -frame.getSize().getHeight() / 2),
+                                                         new Position(position.getX() + 75 / 2, gapY - gapSize / 2))));
+        multiHitbox.addHitbox(new Hitbox<>(new Rectangle(new Position(position.getX() - 75 / 2, gapY + gapSize / 2),
+                                                         new Position(position.getX() + 75 / 2, frame.getSize().getHeight() / 2))));
+    }
 
-        Graphics g = image.getGraphics();
+    private void redrawImage() {
+        Graphics2D g = image.createGraphics();
+        g.setComposite(AlphaComposite.Clear);
+        g.fillRect(0, 0, image.getWidth(), image.getHeight());
+        g.setComposite(AlphaComposite.SrcOver);
 
         PositionConverter pc = new PositionConverter(frame);
 
@@ -79,7 +90,10 @@ public class Pipe extends GameObject {
         g.fillRect(0, 0, 75, pc.jGameToJFrame(new Position(0, gapY - gapSize / 2)).getIntY());
         g.fillRect(0, pc.jGameToJFrame(new Position(0, gapY + gapSize / 2)).getIntY(), 75, (int) (frame.getSize().getHeight() / 2 - gapY - gapSize / 2));
         g.dispose();
+    }
 
+    @Override
+    public Image render() {
         return image;
     }
 
