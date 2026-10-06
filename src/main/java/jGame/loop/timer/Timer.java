@@ -16,6 +16,7 @@ public abstract class Timer {
     protected volatile int updateTime = 0;
     private volatile int ups = 0;
     private final int maxUps;
+    private volatile int maxBacklog = 3;
 
     /**
      * create a timer
@@ -45,6 +46,9 @@ public abstract class Timer {
     public void update(double timePassed) {
         accumulator += timePassed;
         accumulatorUps += timePassed;
+        // after a stall (the machine was busy, the process was suspended) only a few updates are caught up on;
+        // the rest of the time is dropped instead of being replayed as fast as the loop can go
+        if (maxBacklog >= 0 && accumulator > UPDATE_RATE * 1000d * (maxBacklog + 1)) accumulator = UPDATE_RATE * 1000d * (maxBacklog + 1);
         if (accumulator > UPDATE_RATE * 1000d) {
             if (maxUps == -1 || maxUps > updateTime) {
                 action();
@@ -57,6 +61,24 @@ public abstract class Timer {
             updateTime = 0;
             accumulatorUps -= 1000d;
         }
+    }
+
+    /**
+     * set how many missed updates this timer catches up on after the loop stalled; time beyond that is dropped
+     *
+     * @param updates the number of updates (default 3), or {@code -1} to catch up on everything (the old behaviour: after a long stall the timer runs as fast as it can until it is back on the clock)
+     */
+    public void setMaxBacklog(int updates) {
+        this.maxBacklog = updates;
+    }
+
+    /**
+     * get how many missed updates this timer catches up on after a stall
+     *
+     * @return the number of updates, {@code -1} for no limit
+     */
+    public int getMaxBacklog() {
+        return maxBacklog;
     }
 
     /**
